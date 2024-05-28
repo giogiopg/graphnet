@@ -1,0 +1,4 @@
+mcv7.1_nn_training.gsg_tau-CC_3-100GeV.km3sim.jterbr00010874.jorcarec.aanet.2422
+mcv7.1_nn_training.gsg_tau-CC_3-100GeV.km3sim.jterbr00010873.jorcarec.aanet.2421
+mcv7.1_nn_training.gsg_elec-CC_100-500GeV.sirene.jterbr00010873.jorcarec.aanet.2421
+mcv7.1_nn_training.gsg_elec-CC_100-500GeV.sirene.jterbr00010874.jorcarec.aanet.2422

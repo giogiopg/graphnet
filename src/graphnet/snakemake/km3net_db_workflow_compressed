@@ -1,0 +1,101 @@
+# Import snakemake functions and modules
+from modules.onstart import onstart_wrapper
+from snakemake.logging import logger
+from snakemake.io import temp
+
+# Run the onstart wrapper
+onstart: onstart_wrapper(workflow, config)
+
+# Read the list of filenames from a text file
+filenames = [line.strip() for line in open(config["files_txt"])]
+
+# Define the target rule to generate the desired final output
+rule all:
+    input:
+        expand("SQLite/{filename}.DONE", filename = filenames)
+
+# input function for the rule aggregate
+def aggregate_input(wildcards):
+    import os
+    source_directory = checkpoints.extract_set_of_files.get(filename=wildcards.filename).output[0]
+    content = os.listdir(source_directory)
+    content = [f for f in content if f.endswith(".root")]
+    targets = [f"SQLite/{f.replace('.root','.db')}" for f in content]
+    return targets
+
+rule do_set_of_file:
+    input:
+        aggregate_input
+    output:
+        "SQLite/{filename}.DONE"
+    shell:
+        "touch {output}"
+
+# Rule to download the data
+rule download:
+    output:
+    	temp("iRods/{filename}.tar.gz") if config["irods_settings"]["remove_data"]\
+        else "iRods/{filename}.tar.gz"
+    params:
+        path=config["irods_settings"]["path"]
+    resources:
+        irods_socket=config["irods_settings"]["irods_sockets"]
+    container: config['irods_settings']['container']
+    log: "logs/downloads/{filename}.log"
+    benchmark: "benchmark/downloads/{filename}.tsv"    
+    shell:
+        """
+        touch {log}
+        iget -Pv {params.path}/{wildcards.filename}.tar.gz $(dirname {output}) &>> {log}
+        """
+
+# To decompress tar.gz files into .root files
+checkpoint extract_set_of_files:
+    input:
+       "iRods/{filename}.tar.gz"
+    output:
+        temp(directory("iRods/{filename}")) if config["root_settings"]["remove_data"]\
+        else directory("iRods/{filename}")
+    wildcard_constraints:
+        filename = "(?!.*[.]gz$).*$"
+    params:
+        data_info_ext = config["root_settings"]["extension"],
+	remove_irods = config["irods_settings"]["remove_data"]
+
+    log: "logs/extractions/{filename}.log"
+    benchmark: "benchmark/extractions/{filename}.tsv"
+    shell:
+        """
+        mkdir -p {output}
+
+        touch {log}
+
+        if ! tar -C {output} -xzvf {input} --transform='s/.*\///' --wildcards {params.data_info_ext} &>> {log}; then
+
+                timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+                log_message="Error in extraction for file: $(basename {input})"
+                echo "$timestamp - ERROR - $log_message" >> {log}
+	fi
+
+	if [ '{params.remove_irods}' = True ]; then
+          rm -rf {input}
+        fi
+       """
+
+def complete_filename(wildcards):
+    wds = glob_wildcards(f"iRods/{{setname}}/{wildcards.filename}.root")
+    return f"iRods/{wds.setname[0]}/{wildcards.filename}.root"
+
+rule data_converter:
+    input:
+        complete_filename
+    output:
+        "SQLite/{filename}.db"
+    params:
+        script = config['data_converter']['script'],
+    log: "logs/SQLite/{filename}.log"
+    benchmark: "benchmark/SQLite/{filename}.tsv"
+    shell:
+        """
+        python3 {params.script} {input} {output} > {log} 2>&1 
+        """

@@ -1,0 +1,46 @@
+# Import snakemake functions and modules
+from modules.onstart import onstart_wrapper
+from snakemake.logging import logger
+from snakemake.io import temp
+
+# Run the onstart wrapper
+onstart: onstart_wrapper(workflow, config)
+
+# Read the list of filenames from a text file
+filenames = [line.strip() for line in open(config["files_txt"])]
+
+# Define the target rule to generate the desired final output
+rule all:
+    input:
+        expand("SQLite/{filename}.db", filename = filenames)
+
+# Rule to download the data
+rule download:
+    output:
+        temp("iRods/{filename}.root") if config["irods_settings"]["remove_data"] else "iRods/{filename}.root"
+    params:
+        path=config["irods_settings"]["path"]
+    resources:
+        irods_socket=config["irods_settings"]["irods_sockets"]
+    container: config['irods_settings']['container']
+    log: "logs/downloads/{filename}.log"
+    benchmark: "benchmark/downloads/{filename}.tsv"    
+    shell:
+        """
+        touch {log}
+        iget -Pv {params.path}/{wildcards.filename}.root $(dirname {output}) &>> {log}
+        """
+
+rule data_converter:
+    input:
+        "iRods/{filename}.root"
+    output:
+        "SQLite/{filename}.db"
+    params:
+        script = config['data_converter']['script']
+    log: "logs/SQLite/{filename}.log"
+    benchmark: "benchmark/SQLite/{filename}.tsv"
+    shell:
+        """
+        python3 {params.script} {input} {output}  > {log} 2>&1
+        """

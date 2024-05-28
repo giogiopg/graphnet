@@ -1,0 +1,10 @@
+files_txt: "/data_hgx/KM3NeT/mozun/graphnet_hackaton_2024/graphnet_review/src/graphnet/snakemake/example.txt"
+
+irods_settings:
+  container: "/data_hgx/KM3NeT/containers/singularity/irods_v4.3.0-1/" #sif/irods_v4.3.0-1.sif"
+  irods_sockets: 5 
+  path: "/in2p3/km3net/mc/atm_neutrino/KM3NeT_00000049/v7.1_nn_training/reco/" #Example: /in2p3/km3net/mc/atm_neutrino/KM3NeT_ORCA_115/v8.1/reco
+  remove_data: false # to remove compressed files after the workflow is done
+
+data_converter:
+  script: "/data_hgx/KM3NeT/mozun/graphnet_hackaton_2024/graphnet_review/src/graphnet/snakemake/scripts/data_converter_ind_files.py"
