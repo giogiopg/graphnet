@@ -166,6 +166,11 @@ class SQLiteWriter(GraphNeTWriter):
 
         # Merge temporary databases into newly created one
         for file_count, input_file in tqdm(enumerate(files), colour="green"):
+            self.info(f"Processing {input_file}")
+            if file_count % (len(files) // 2) == 0:
+                self.info(f"Processed {file_count} of {len(files)} files")
+            
+
             # Extract table names and index column name in database
             try:
                 tables, primary_key = get_primary_keys(database=input_file)
@@ -189,20 +194,25 @@ class SQLiteWriter(GraphNeTWriter):
                 integer_primary_key = (
                     True if tables[table_name] is not None else False
                 )
+                try:
+                    # Submit to new database
+                    create_table_and_save_to_sql(
+                        df=df,
+                        table_name=table_name,
+                        database_path=database_path,
+                        index_column=primary_key,
+                        integer_primary_key=integer_primary_key,
+                        default_type="FLOAT",
+                    )
 
-                # Submit to new database
-                create_table_and_save_to_sql(
-                    df=df,
-                    table_name=table_name,
-                    database_path=database_path,
-                    index_column=primary_key,
-                    integer_primary_key=integer_primary_key,
-                    default_type="FLOAT",
-                )
-
-                # Update row counts if needed
-                if self._max_table_size is not None:
-                    self._update_row_counts(df=df, table_name=table_name)
+                    # Update row counts if needed
+                    if self._max_table_size is not None:
+                        self._update_row_counts(df=df, table_name=table_name)
+                except Exception as e:
+                    self.warning(
+                        f"Failed to merge table {table_name} from {input_file}"
+                    )
+                    self.warning(f"Error: {e}")
 
             if (self._max_table_size is not None) & (file_count < len(files)):
                 assert self._max_table_size is not None  # mypy...

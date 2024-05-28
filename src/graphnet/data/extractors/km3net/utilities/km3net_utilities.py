@@ -24,6 +24,21 @@ def create_unique_id(
 
     return unique_id
 
+def create_unique_id_dbang(
+    energy: List[float],
+    pos_x: List[float],
+    ids: List[int],
+) -> List[str]:
+    """Create unique ID for double bang events."""
+    unique_id = []
+    for i in range(len(energy)):
+        unique_id.append(
+            str(ids[i])
+            + str(int(1000*energy[i]))
+            + str(int(abs(1000*pos_x[i])))
+        )
+    return unique_id
+
 
 def xyz_dir_to_zen_az(
     dir_x: List[float],

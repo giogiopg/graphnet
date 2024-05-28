@@ -4,3 +4,5 @@ from .km3netrootextractor import KM3NeTROOTExtractor
 from .km3netrootpulseextractor import KM3NeTROOTPulseExtractor
 from .km3netroottruthextractor import KM3NeTROOTTruthExtractor
 from .km3netroottriggpulseextractor import KM3NeTROOTTriggPulseExtractor
+from .km3netroottruthdbangextractor import KM3NeTROOTTruthDBangExtractor
+from .km3netrootpulsedbangextractor import KM3NeTROOTPulseDBangExtractor
