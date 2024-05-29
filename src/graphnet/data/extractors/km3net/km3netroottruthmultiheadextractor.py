@@ -15,7 +15,7 @@ from graphnet.data.extractors.km3net.utilities.km3net_utilities import (
 )
 
 
-class KM3NeTROOTTruthExtractor(KM3NeTROOTExtractor):
+class KM3NeTROOTTruthMultiHeadExtractor(KM3NeTROOTExtractor):
     """Class for extracting the truth information from a file."""
 
     def __init__(self, name: str = "truth"):
@@ -123,10 +123,10 @@ class KM3NeTROOTTruthExtractor(KM3NeTROOTExtractor):
                 np.array(file.frame_index),
                 np.array(file.trigger_counter),
             )
+
             try:
-                livetime, n_gen = float(file.header.DAQ.livetime), int(
-                    file.header.genvol.numberOfEvents
-                )
+                n_gen = 1./ file.w[:,ki.definitions.weightlist['WEIGHTLIST_NORMALISATION']]
+                livetime= float(file.header.DAQ.livetime)
             except (ValueError, AttributeError):
                 livetime, n_gen = padding_value, padding_value
 
@@ -186,9 +186,8 @@ class KM3NeTROOTTruthExtractor(KM3NeTROOTExtractor):
                 np.array(file.trigger_counter),
             )
             try:
-                livetime, n_gen = float(file.header.DAQ.livetime), int(
-                    file.header.genvol.numberOfEvents
-                )
+                n_gen = 1./ file.w[:,ki.definitions.weightlist['WEIGHTLIST_NORMALISATION']]
+                livetime= float(file.header.DAQ.livetime)
             except (ValueError, AttributeError):
                 livetime, n_gen = padding_value, padding_value
             

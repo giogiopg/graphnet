@@ -166,10 +166,7 @@ class SQLiteWriter(GraphNeTWriter):
 
         # Merge temporary databases into newly created one
         for file_count, input_file in tqdm(enumerate(files), colour="green"):
-            self.info(f"Processing {input_file}")
-            if file_count % (len(files) // 2) == 0:
-                self.info(f"Processed {file_count} of {len(files)} files")
-            
+            self.info(f"Processing {input_file}")            
 
             # Extract table names and index column name in database
             try:

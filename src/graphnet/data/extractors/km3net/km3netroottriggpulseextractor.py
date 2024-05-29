@@ -7,7 +7,7 @@ import pandas as pd
 from graphnet.data.extractors import Extractor
 from .km3netrootextractor import KM3NeTROOTExtractor
 from graphnet.data.extractors.km3net.utilities.km3net_utilities import (
-    create_unique_id,
+    create_unique_id_filetype,
     assert_no_uint_values,
     creating_time_zero,
 )
@@ -46,12 +46,25 @@ class KM3NeTROOTTriggPulseExtractor(KM3NeTROOTExtractor):
         Analogous to the KM3NeTROOTPulseExtractor but doing cuts on trig.
         """
         primaries = file.mc_trks[:, 0]
-        unique_id = create_unique_id(
-            np.array(primaries.pdgid),
-            np.array(file.run_id),
-            np.array(file.frame_index),
-            np.array(file.trigger_counter),
-        )  # extract the unique_id
+        if abs(np.array(primaries.pdgid)[0]) not in [12,14,16]:
+            unique_id = create_unique_id_filetype(
+                    np.array(primaries.pdgid),
+                    np.array(primaries.E),
+                    np.ones(len(primaries.pdgid)),
+                    np.array(file.run_id),
+                    np.array(file.frame_index),
+                    np.array(file.id),
+            )  # extract the unique_id
+        else:
+            unique_id = create_unique_id_filetype(
+                    np.array(primaries.pdgid),
+                    np.array(primaries.E),
+                    np.ones(len(primaries.pdgid)),
+                    np.array(file.run_id),
+                    np.array(file.frame_index),
+                    np.array(file.id),
+            )  # extract the unique_id
+
 
         hits = file.hits
         keys_to_extract = [
