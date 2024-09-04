@@ -1,0 +1,89 @@
+# Import snakemake functions and modules
+from modules.onstart import onstart_wrapper
+from snakemake.logging import logger
+from snakemake.io import temp
+
+# Run the onstart wrapper
+onstart: onstart_wrapper(workflow, config)
+
+# Read the list of filenames from a text file
+filenames = [line.strip() for line in open(config["files_txt"])]
+
+#define variables
+irods_dir = "iRods"
+sqlite_unweighted_dir = "SQLite_unweighted"
+sqlite_dir = "SQLite"
+
+# Define the target rule to generate the desired final output
+rule all:
+    input:
+        expand(f"{sqlite_dir}/{{filename}}.db", filename = filenames)
+
+# Rule to download the data
+rule download:
+    output:
+        temp(f"{irods_dir}/{{filename}}.root") if config["irods_settings"]["remove_data"] else f"{irods_dir}/{{filename}}.root"
+    params:
+        path=config["irods_settings"]["path"]
+    resources:
+        irods_socket=config["irods_settings"]["irods_sockets"]
+    container: config['irods_settings']['container']
+    log: "logs/downloads/{filename}.log"
+    benchmark: "benchmark/downloads/{filename}.tsv"    
+    shell:
+        """
+        touch {log}
+        iget -Pv {params.path}/{wildcards.filename}.root $(dirname {output}) &>> {log}
+        """
+
+rule data_converter:
+    input:
+        f"{irods_dir}/{{filename}}.root"
+    output:
+        f"{sqlite_unweighted_dir}/{{filename}}_unweighted.db"
+    params:
+        script = config['data_converter']['script']
+    log: f"logs/{sqlite_unweighted_dir}/{{filename}}.log"
+    benchmark: f"benchmark/{sqlite_unweighted_dir}/{{filename}}.tsv"
+    shell:
+        """
+        python3 {params.script} {input} {sqlite_unweighted_dir}/{wildcards.filename}.db > {log} 2>&1
+        mv {sqlite_unweighted_dir}/{wildcards.filename}.db {output}
+        """
+
+rule data_weighter:
+    input:
+        f"{sqlite_unweighted_dir}/{{filename}}_unweighted.db"
+    output:
+        f"{sqlite_dir}/{{filename}}.db"
+    params:
+        script = config['data_weighter']['script']
+    container: config['data_weighter_settings']['container']
+    #log: f"logs/{sqlite_dir}/{{filename}}_weighter.log"
+    #benchmark: f"benchmark/{sqlite_dir}/{{filename}}_weighter.tsv"
+    #shell:
+        #"""
+        #input_abs=$(realpath {input})
+        #output_abs=$(realpath {output})
+
+        #if [[ {input} == *neutrino* ]]; then
+        #    cd /sps/km3net/users/spenamar/GraphNeT/graphnet/src/graphnet/snakemake/scripts
+        #    ( python3 {params.script} $input_abs && mv $input_abs $output_abs ) > {log} 2>&1
+        #    cd -
+        #else
+        #    mv $input_abs $output_abs > {log} 2>&1
+        #fi
+        #"""
+    shell:
+        """
+        input_abs=$(realpath {input})
+        output_abs=$(realpath {output})
+
+        if [[ {input} == *neutrino* ]]; then
+            cd /sps/km3net/users/spenamar/GraphNeT/graphnet/src/graphnet/snakemake/scripts
+            ( python3 {params.script} $input_abs && mv $input_abs $output_abs ) 
+            cd -
+        else
+            mv $input_abs $output_abs
+        fi
+        """

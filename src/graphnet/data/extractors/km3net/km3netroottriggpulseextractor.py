@@ -3,6 +3,7 @@
 from typing import Any, Dict
 import numpy as np
 import pandas as pd
+import awkward as ak
 
 from graphnet.data.extractors import Extractor
 from .km3netrootextractor import KM3NeTROOTExtractor
@@ -45,9 +46,7 @@ class KM3NeTROOTTriggPulseExtractor(KM3NeTROOTExtractor):
 
         Analogous to the KM3NeTROOTPulseExtractor but doing cuts on trig.
         """
-        primaries = file.mc_trks[:, 0]
         unique_id = create_unique_id(
-            np.array(primaries.pdgid),
             np.array(file.run_id),
             np.array(file.frame_index),
             np.array(file.trigger_counter),
@@ -66,7 +65,7 @@ class KM3NeTROOTTriggPulseExtractor(KM3NeTROOTExtractor):
             "trig",
         ]
 
-        pandas_df = hits.arrays(keys_to_extract, library="pd")
+        pandas_df = ak.to_dataframe(hits.arrays(keys_to_extract, library="ak"))
         df = pandas_df.reset_index()
         unique_extended = []
         for index in df["entry"].values:

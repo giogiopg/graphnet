@@ -174,3 +174,29 @@ class ORCA10_2_ORCA115(Detector):
         ORCA10_z_center = 108.53536254
         ORCA115_10_z_center = 117.19991209167169
         return x - (ORCA10_z_center - ORCA115_10_z_center)
+
+
+class ORCA6_v9(Detector):
+    """`Detector` class for ORCA-6_v9."""
+
+    geometry_table_path = os.path.join(
+        ICECUBE_GEOMETRY_TABLE_DIR, "icecube86.parquet"
+    )
+    xyz = ["pos_x", "pos_y", "pos_z"]
+    string_id_column = "string_id"
+    sensor_id_column = "sensor_id"
+
+    def feature_map(self) -> Dict[str, Callable]:
+        """Map standardization functions to each dimension of input data."""
+        feature_map = {
+            "t": self._identity, #self._dom_time,
+            "pos_x": self._identity, #self._dom_xy,
+            "pos_y": self._identity, #self._dom_xy,
+            "pos_z": self._identity, #self._dom_z,
+            "dir_x": self._identity, #self._dir_xy,
+            "dir_y": self._identity, #self._dir_xy,
+            "dir_z": self._identity, #self._dir_z,
+            "tot": self._identity, #self._tot,
+        }
+        return feature_map
+

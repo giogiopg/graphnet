@@ -1,7 +1,8 @@
 from graphnet.data.readers import KM3NeTROOTReader
 from graphnet.data.writers import SQLiteWriter
 from graphnet.data import DataConverter
-from graphnet.data.extractors.km3net import KM3NeTROOTTruthExtractor, KM3NeTROOTTriggPulseExtractor
+#from graphnet.data.extractors.km3net import KM3NeTROOTTruthExtractor, KM3NeTROOTTriggPulseExtractor
+from graphnet.data.extractors.km3net import KM3NeTROOTTruthExtractor, KM3NeTROOTPulseExtractor
 import warnings
 import os
 import sys
@@ -19,7 +20,8 @@ if __name__ == '__main__':
                                 save_method = SQLiteWriter(), 
                                 extractors = [
                                                 KM3NeTROOTTruthExtractor(name = "truth"),
-                                                KM3NeTROOTTriggPulseExtractor(name = "trigg_pulse_map")
+                                                #KM3NeTROOTTriggPulseExtractor(name = "trigg_pulse_map")
+                                                KM3NeTROOTPulseExtractor(name = "pulse_map")
                                 ],
                                 outdir = os.path.dirname(output_dir)
     )

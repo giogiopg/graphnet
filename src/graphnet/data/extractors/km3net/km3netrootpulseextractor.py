@@ -3,11 +3,13 @@
 from typing import Any, Dict
 import numpy as np
 import pandas as pd
+import awkward as ak
 
 from graphnet.data.extractors import Extractor
 from .km3netrootextractor import KM3NeTROOTExtractor
 from graphnet.data.extractors.km3net.utilities.km3net_utilities import (
     create_unique_id,
+    mask_saturated_pmts,
     assert_no_uint_values,
     creating_time_zero,
 )
@@ -43,9 +45,7 @@ class KM3NeTROOTPulseExtractor(KM3NeTROOTExtractor):
         Returns:
             pd.DataFrame: A dataframe containing pulse information.
         """
-        primaries = file.mc_trks[:, 0]
         unique_id = create_unique_id(
-            np.array(primaries.pdgid),
             np.array(file.run_id),
             np.array(file.frame_index),
             np.array(file.trigger_counter),
@@ -63,14 +63,25 @@ class KM3NeTROOTPulseExtractor(KM3NeTROOTExtractor):
             "tot",
             "trig",
         ]
+        mask_saturated_pmts = False
+        if mask_saturated_pmts:
+            keys_to_extract.append("channel_id")
+            keys_to_extract.append("dom_id")
 
-        pandas_df = hits.arrays(keys_to_extract, library="pd")
+        pandas_df = ak.to_dataframe(hits.arrays(keys_to_extract, library="ak"))
         df = pandas_df.reset_index()
         unique_extended = []
         for index in df["entry"].values:
+        #for index in df["index"].values:
             unique_extended.append(int(unique_id[index]))
         df["event_no"] = unique_extended
+        # keep only non saturated pmts or DOMs
+        if mask_saturated_pmts:
+            df = mask_saturated_pmts(df)
+            df = df.drop(["channel_id", "dom_id"], axis=1)
+
         df = df.drop(["entry", "subentry"], axis=1)
         df = creating_time_zero(df)
+        print(df)
 
         return df
