@@ -3,6 +3,7 @@ from typing import List, Tuple, Any
 
 import numpy as np
 import pandas as pd
+import km3pipe as kp
 
 
 
@@ -15,7 +16,7 @@ def create_unique_id_filetype(
     evt_id: List[int],
 ) -> List[str]:
     """Creating a code for each type of flavor and energy range."""
-    code_dict = {'elec_1_100': 0,
+    code_dict = {'elec_1_100': 0, #TODO check if the enery ranges are suitable for ARCA
                     'elec_100_500': 1,
                     'elec_500_10000': 2,
                     'muon_1_100': 3,
@@ -39,7 +40,10 @@ def create_unique_id_filetype(
                     'anti_NC_1_100': 21,
                     'anti_NC_100_500': 22,
                     'anti_NC_500_10000': 23,
-                    'atm_muon': 24}
+                    'atm_muon': 24,
+                    'noise': 25,
+                    'data': 26
+                    }
     
     unique_id = []
     for i in range(len(pdg_id)):
@@ -111,8 +115,14 @@ def create_unique_id_filetype(
             else:
                 file_id = code_dict['anti_tau_500_10000']
         #for atmospheric muons
-        if pdg_id[i] not in [12, 14, 16, -12, -14, -16]:
+        if pdg_id[i] not in [12, 14, 16, -12, -14, -16, 0, 99]:
             file_id = code_dict['atm_muon']
+        #for noise
+        if pdg_id[i] == 0:
+            file_id = code_dict['noise']
+        #for data
+        if pdg_id[i] == 99:
+            file_id = code_dict['data']
 
         #compute the unique_id as evt_id + run_id + file_id + frame_index
         unique_id.append(str(evt_id[i]) + '000' + str(run_id[i]) + '0' + str(file_id))
@@ -162,6 +172,7 @@ def xyz_dir_to_zen_az(
     dir_x: List[float],
     dir_y: List[float],
     dir_z: List[float],
+    padding_value: float,
 ) -> Tuple[List[float], List[float]]:
     """Convert direction vector to zenith and azimuth angles."""
     # Compute zenith angle (elevation angle)
@@ -172,6 +183,10 @@ def xyz_dir_to_zen_az(
     az_centered = azimuth + np.pi * np.ones(
         len(azimuth)
     )  # Center the azimuth angle around zero
+    #check for NaN in the zenith and replace with padding_value
+    zenith[np.isnan(zenith)] = padding_value
+    #change the azimuth values to padding value if the zenith is padding value
+    az_centered[zenith == padding_value] = padding_value
 
     return zenith, az_centered
 
@@ -179,18 +194,37 @@ def xyz_dir_to_zen_az(
 def classifier_column_creator(
     pdgid: np.ndarray,
     is_cc_flag: List[int],
-    tau_topology: List[int],
 ) -> Tuple[List[int], List[int]]:
     """Create helpful columns for the classifier."""
     is_muon = np.zeros(len(pdgid), dtype=int)
     is_track = np.zeros(len(pdgid), dtype=int)
+    is_noise = np.zeros(len(pdgid), dtype=int)
+    is_data = np.zeros(len(pdgid), dtype=int)
+    
+    #TODO add tau topology
+    """
+    primaries = f.mc_trks[:,0]
+    secondaries = f.mc_trks
+    
+    print("%"*20)
+    tau=abs(primaries.pdgid)==16
+    tau_track=np.any(np.abs(secondaries.pdgid)==13,axis=1)
+    result=np.logical_and(tau,tau_track)
+    print(secondaries.pdgid[result])
+    for i in secondaries.pdgid[result]: # this will get all track like taus, we could add a new column as 'tau_topology'
+        print(i)
 
-    is_muon[pdgid == 13] = 1
-    is_track[pdgid == 13] = 1
+    """
+
+    is_muon[abs(pdgid) == 13] = 1
+    is_muon[pdgid == 81] = 1
+    is_track[abs(pdgid) == 13] = 1
+    is_track[pdgid == 81] = 1
     is_track[(abs(pdgid) == 14) & (is_cc_flag == 1)] = 1
-    is_track[(abs(pdgid) == 16) & (tau_topology == 2)] = 1
+    is_noise[pdgid == 0] = 1
+    is_data[pdgid == 99] = 1
 
-    return is_muon, is_track
+    return is_muon, is_track, is_noise, is_data
 
 
 def creating_time_zero(df: pd.DataFrame) -> pd.DataFrame:
@@ -210,4 +244,30 @@ def assert_no_uint_values(df: pd.DataFrame) -> pd.DataFrame:
             df[column] = df[column].astype("int32")
         elif df[column].dtype == "uint64":
             df[column] = df[column].astype("int64")
+    return df
+
+
+def pmt_id_to_pos_dir(
+        df: pd.DataFrame,
+        det_file: str) -> pd.DataFrame:
+    """Extract the position and direction of the hit from the pmt_id."""
+    # Extract the position and direction of the hit from the pmt_id
+
+    det = kp.hardware.Detector(det_file)
+
+
+    pos_x = np.array([det.pmt_with_id(pmt_id).pos_x for pmt_id in df["pmt_id"]])
+    pos_y = np.array([det.pmt_with_id(pmt_id).pos_y for pmt_id in df["pmt_id"]])
+    pos_z = np.array([det.pmt_with_id(pmt_id).pos_z for pmt_id in df["pmt_id"]])
+    dir_x = np.array([det.pmt_with_id(pmt_id).dir_x for pmt_id in df["pmt_id"]])
+    dir_y = np.array([det.pmt_with_id(pmt_id).dir_y for pmt_id in df["pmt_id"]])
+    dir_z = np.array([det.pmt_with_id(pmt_id).dir_z for pmt_id in df["pmt_id"]])
+
+    df["pos_x"] = pos_x
+    df["pos_y"] = pos_y
+    df["pos_z"] = pos_z
+    df["dir_x"] = dir_x
+    df["dir_y"] = dir_y
+    df["dir_z"] = dir_z
+
     return df

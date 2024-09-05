@@ -62,6 +62,7 @@ class KM3NeTROOTTruthExtractor(KM3NeTROOTExtractor):
                     primaries_jshower_dir_x,
                     primaries_jshower_dir_y,
                     primaries_jshower_dir_z,
+                    padding_value,
                 )
             else:
                 primaries_jshower_E = padding_value * np.ones(len(primaries.pos_x))
@@ -86,6 +87,7 @@ class KM3NeTROOTTruthExtractor(KM3NeTROOTExtractor):
                     primaries_jmuon_dir_x,
                     primaries_jmuon_dir_y,
                     primaries_jmuon_dir_z,
+                    padding_value,
                 )
             else:
                 primaries_jmuon_E = padding_value * np.ones(len(primaries.pos_x))
@@ -104,6 +106,7 @@ class KM3NeTROOTTruthExtractor(KM3NeTROOTExtractor):
                 np.array(primaries.dir_x),
                 np.array(primaries.dir_y),
                 np.array(primaries.dir_z),
+                padding_value,
             )
             part_dir_x, part_dir_y, part_dir_z = (
                 np.array(primaries.dir_x),
@@ -174,6 +177,7 @@ class KM3NeTROOTTruthExtractor(KM3NeTROOTExtractor):
                 np.array(primaries.dir_x),
                 np.array(primaries.dir_y),
                 np.array(primaries.dir_z),
+                padding_value,
             )
             part_dir_x, part_dir_y, part_dir_z = (
                 np.array(primaries.dir_x),
@@ -211,6 +215,7 @@ class KM3NeTROOTTruthExtractor(KM3NeTROOTExtractor):
                     primaries_jshower_dir_x,
                     primaries_jshower_dir_y,
                     primaries_jshower_dir_z,
+                    padding_value,
                 )
             
             else:
@@ -232,10 +237,11 @@ class KM3NeTROOTTruthExtractor(KM3NeTROOTExtractor):
                 primaries_jmuon_dir_x = np.array([padding_value if element is None else element for element in primaries_jmuon.dir_x])#primaries_jmuon.dir_x
                 primaries_jmuon_dir_y = np.array([padding_value if element is None else element for element in primaries_jmuon.dir_y])#primaries_jmuon.dir_y
                 primaries_jmuon_dir_z = np.array([padding_value if element is None else element for element in primaries_jmuon.dir_z])#primaries_jmuon.dir_z
-                zen_jmuon, az_jmuon = xyz_dir_to_zen_az(
+                zen_jmuon, az_jmuon = xyz_dir_to_zen_az( #TODO: Check that this two lists have dont have null values
                     primaries_jmuon_dir_x,
                     primaries_jmuon_dir_y,
                     primaries_jmuon_dir_z,
+                    padding_value,
                 )
             else:
                 primaries_jmuon_E = padding_value * np.ones(len(primaries.pos_x))

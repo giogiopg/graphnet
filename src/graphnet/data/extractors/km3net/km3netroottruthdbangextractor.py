@@ -38,6 +38,7 @@ class KM3NeTROOTTruthDBangExtractor(KM3NeTROOTExtractor):
             pd.DataFrame: A dataframe containing truth information.
         """
         #check if the pos_x 0 entry has two values or just one
+        padding_value = 999.0
         if (len(file.mc_trks.pdgid[0]) == 2) and (file.mc_trks.pdgid[0][0] == file.mc_trks.pdgid[0][1]) and (file.mc_trks.pdgid[0][0] in [11, 111, 211]):
             #double cascade
             is_double_cascade = np.ones(len(file.mc_trks.pos_x), dtype=int)
@@ -60,6 +61,7 @@ class KM3NeTROOTTruthDBangExtractor(KM3NeTROOTExtractor):
             np.array(primaries.dir_x),
             np.array(primaries.dir_y),
             np.array(primaries.dir_z),
+            padding_value,
         )
         part_dir_x, part_dir_y, part_dir_z = (
             np.array(primaries.dir_x),

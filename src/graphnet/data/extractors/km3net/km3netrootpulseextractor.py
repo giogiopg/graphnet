@@ -43,8 +43,11 @@ class KM3NeTROOTPulseExtractor(KM3NeTROOTExtractor):
         Returns:
             pd.DataFrame: A dataframe containing pulse information.
         """
-        primaries = file.mc_trks[:, 0]
-        if abs(np.array(primaries.pdgid)[0]) not in [12,14,16]:
+        #if data
+
+        if len(file.mc_trks.E[0]>0):
+            #evts are neutrinos or muons
+            primaries = file.mc_trks[:, 0]
             unique_id = create_unique_id_filetype(
                     np.array(primaries.pdgid),
                     np.array(primaries.E),
@@ -53,15 +56,32 @@ class KM3NeTROOTPulseExtractor(KM3NeTROOTExtractor):
                     np.array(file.frame_index),
                     np.array(file.id),
             )  # extract the unique_id
+
         else:
-            unique_id = create_unique_id_filetype(
-                    np.array(primaries.pdgid),
-                    np.array(primaries.E),
-                    np.ones(len(primaries.pdgid)),
+            #evts are noise or data
+            if file.header['calibration']=="dynamical":
+                #this is data
+                unique_id = create_unique_id_filetype(
+                    26 * np.ones(len(file.run_id)),
+                    np.ones(len(file.run_id)),
+                    np.ones(len(file.run_id)),
                     np.array(file.run_id),
                     np.array(file.frame_index),
                     np.array(file.id),
             )  # extract the unique_id
+            
+            else:
+                #this is noise
+                unique_id = create_unique_id_filetype(
+                    np.zeros(len(file.run_id)),
+                    np.ones(len(file.run_id)),
+                    np.ones(len(file.run_id)),
+                    np.array(file.run_id),
+                    np.array(file.frame_index),
+                    np.array(file.id),
+            )
+
+       
 
         hits = file.hits
         keys_to_extract = [
