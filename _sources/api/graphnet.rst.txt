@@ -1,0 +1,29 @@
+graphnet package
+API
+
+.. automodule:: graphnet
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 2
+
+   graphnet.data
+   graphnet.datasets
+   graphnet.deployment
+   graphnet.exceptions
+   graphnet.models
+   graphnet.training
+   graphnet.utilities
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 2
+
+   graphnet.constants

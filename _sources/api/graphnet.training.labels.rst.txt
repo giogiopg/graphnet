@@ -1,0 +1,7 @@
+graphnet.training.labels module
+===============================
+
+.. automodule:: graphnet.training.labels
+   :members:
+   :undoc-members:
+   :show-inheritance:

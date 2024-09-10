@@ -1,0 +1,7 @@
+graphnet.models.task.task module
+================================
+
+.. automodule:: graphnet.models.task.task
+   :members:
+   :undoc-members:
+   :show-inheritance:

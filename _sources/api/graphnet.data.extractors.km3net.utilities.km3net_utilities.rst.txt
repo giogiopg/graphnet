@@ -1,0 +1,7 @@
+graphnet.data.extractors.km3net.utilities.km3net\_utilities module
+==================================================================
+
+.. automodule:: graphnet.data.extractors.km3net.utilities.km3net_utilities
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+graphnet.models.gnn.convnet module
+==================================
+
+.. automodule:: graphnet.models.gnn.convnet
+   :members:
+   :undoc-members:
+   :show-inheritance:

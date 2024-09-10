@@ -1,0 +1,20 @@
+graphnet.utilities.config package
+=================================
+
+.. automodule:: graphnet.utilities.config
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 2
+
+   graphnet.utilities.config.base_config
+   graphnet.utilities.config.configurable
+   graphnet.utilities.config.dataset_config
+   graphnet.utilities.config.model_config
+   graphnet.utilities.config.parsing
+   graphnet.utilities.config.training_config

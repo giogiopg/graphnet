@@ -1,0 +1,7 @@
+graphnet.models.detector.orca module
+====================================
+
+.. automodule:: graphnet.models.detector.orca
+   :members:
+   :undoc-members:
+   :show-inheritance:

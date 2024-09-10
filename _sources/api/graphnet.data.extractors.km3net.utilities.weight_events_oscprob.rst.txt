@@ -1,0 +1,7 @@
+graphnet.data.extractors.km3net.utilities.weight\_events\_oscprob module
+========================================================================
+
+.. automodule:: graphnet.data.extractors.km3net.utilities.weight_events_oscprob
+   :members:
+   :undoc-members:
+   :show-inheritance:

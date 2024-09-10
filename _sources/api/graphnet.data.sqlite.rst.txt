@@ -1,0 +1,15 @@
+graphnet.data.sqlite package
+============================
+
+.. automodule:: graphnet.data.sqlite
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 2
+
+   graphnet.data.sqlite.deprecated_methods

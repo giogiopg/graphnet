@@ -1,0 +1,28 @@
+graphnet.data.extractors package
+================================
+
+.. automodule:: graphnet.data.extractors
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 2
+
+   graphnet.data.extractors.icecube
+   graphnet.data.extractors.internal
+   graphnet.data.extractors.km3net
+   graphnet.data.extractors.liquido
+   graphnet.data.extractors.prometheus
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 2
+
+   graphnet.data.extractors.combine_extractors
+   graphnet.data.extractors.extractor

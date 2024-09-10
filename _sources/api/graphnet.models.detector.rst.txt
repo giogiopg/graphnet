@@ -1,0 +1,19 @@
+graphnet.models.detector package
+================================
+
+.. automodule:: graphnet.models.detector
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 2
+
+   graphnet.models.detector.detector
+   graphnet.models.detector.icecube
+   graphnet.models.detector.liquido
+   graphnet.models.detector.orca
+   graphnet.models.detector.prometheus

@@ -1,0 +1,19 @@
+graphnet.training package
+=========================
+
+.. automodule:: graphnet.training
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 2
+
+   graphnet.training.callbacks
+   graphnet.training.labels
+   graphnet.training.loss_functions
+   graphnet.training.utils
+   graphnet.training.weight_fitting

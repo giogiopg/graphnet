@@ -1,0 +1,7 @@
+graphnet.utilities.filesys module
+=================================
+
+.. automodule:: graphnet.utilities.filesys
+   :members:
+   :undoc-members:
+   :show-inheritance:

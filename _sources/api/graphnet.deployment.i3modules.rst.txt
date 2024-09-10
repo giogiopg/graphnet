@@ -1,0 +1,15 @@
+graphnet.deployment.i3modules package
+=====================================
+
+.. automodule:: graphnet.deployment.i3modules
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 2
+
+   graphnet.deployment.i3modules.deprecated_methods

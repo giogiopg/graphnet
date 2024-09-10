@@ -1,0 +1,34 @@
+graphnet.models package
+=======================
+
+.. automodule:: graphnet.models
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 2
+
+   graphnet.models.components
+   graphnet.models.detector
+   graphnet.models.gnn
+   graphnet.models.graphs
+   graphnet.models.rnn
+   graphnet.models.task
+   graphnet.models.transformer
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 2
+
+   graphnet.models.coarsening
+   graphnet.models.easy_model
+   graphnet.models.model
+   graphnet.models.standard_averaged_model
+   graphnet.models.standard_model
+   graphnet.models.utils

@@ -1,0 +1,7 @@
+graphnet.data.extractors.km3net.km3netroottriggpulseextractor module
+====================================================================
+
+.. automodule:: graphnet.data.extractors.km3net.km3netroottriggpulseextractor
+   :members:
+   :undoc-members:
+   :show-inheritance:

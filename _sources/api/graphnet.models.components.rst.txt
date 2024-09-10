@@ -1,0 +1,17 @@
+graphnet.models.components package
+==================================
+
+.. automodule:: graphnet.models.components
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 2
+
+   graphnet.models.components.embedding
+   graphnet.models.components.layers
+   graphnet.models.components.pool
