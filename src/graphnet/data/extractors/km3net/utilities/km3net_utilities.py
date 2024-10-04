@@ -213,3 +213,12 @@ def assert_no_uint_values(df: pd.DataFrame) -> pd.DataFrame:
         elif df[column].dtype == "uint64":
             df[column] = df[column].astype("int64")
     return df
+
+def remove_duplicated_event_no(
+    df: pd.DataFrame, 
+    col: Union[str, List[str]] = 'event_no', 
+    keep: str = 'first'
+) -> pd.DataFrame:
+    """When the event_no is repeated, keep only one of them."""
+    return df.drop_duplicates(subset = col, keep = keep)
+
