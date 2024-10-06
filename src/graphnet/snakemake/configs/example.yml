@@ -8,3 +8,4 @@ irods_settings:
 
 data_converter:
   script: "/data_hgx/KM3NeT/mozun/graphnet_hackaton_2024/graphnet_review/src/graphnet/snakemake/scripts/data_converter_ind_files.py"
+  DOMs_dict: "/data_hgx/KM3NeT/mozun/graphnet/src/graphnet/snakemake/detectors/KM3NeT_00000049.DOMs_dict.json"
