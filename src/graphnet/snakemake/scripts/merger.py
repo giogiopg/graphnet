@@ -10,8 +10,8 @@ import sys
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 if __name__ == '__main__':
-    input_dir = sys.argv[1]
-    output_dir = sys.argv[2]
+    input_dir = sys.argv[1]          # The directory with the files to merge
+    output_dir = sys.argv[2]         # The output directory 
 
     os.makedirs(output_dir, exist_ok = True)
 

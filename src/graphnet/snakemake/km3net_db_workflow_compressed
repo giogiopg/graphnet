@@ -93,9 +93,10 @@ rule data_converter:
         "SQLite/{filename}.db"
     params:
         script = config['data_converter']['script'],
+        DOMs_dict = config['data_converter']['DOMs_dict']
     log: "logs/SQLite/{filename}.log"
     benchmark: "benchmark/SQLite/{filename}.tsv"
     shell:
         """
-        python3 {params.script} {input} {output} > {log} 2>&1 
+        python3 {params.script} {input} {params.DOMs_dict} {output}  > {log} 2>&1
         """
