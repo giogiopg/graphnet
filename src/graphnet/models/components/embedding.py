@@ -247,3 +247,138 @@ class PositionalEncoding(nn.Module):
         # x.shape = [B, seq_len, dim]
         x = x + self.pos_emb[:, :x.shape[1], :]
         return x
+
+class CausalityMask(LightningModule):
+    """ Creates a mask to be passed to the attention weights based on the causality of the pulses."""
+
+    def __init__(
+        self,
+        seq_length: int = 32,
+        refractive_index: float = 1.33
+    ):
+        """Construct `CausalityMask`.
+
+        This module calculates an attention mask based on the causality between
+        each pair of pulses in the sequence.
+
+        Args:
+            seq_length: Number of pulses in the event.
+        """
+        super().__init__()
+        self.seq_length = seq_length
+        self.refractive_index = refractive_index
+        self.c = 299792458.0
+        self.v = self.c / self.refractive_index
+
+    def forward(
+        self,
+        x: Tensor,
+    ) -> Tensor:
+        """Forward pass."""
+        pos = x[:, :, :3]
+        time = x[:, :, 3]
+        spacetime_interval = (pos[:, :, None] - pos[:, None, :]).pow(2).sum(
+            -1
+        ) - ((time[:, :, None] - time[:, None, :]) * (self.v * 1e-9)).pow(2)
+        four_distance = torch.sign(spacetime_interval) * torch.sqrt(
+            torch.abs(spacetime_interval)
+        )
+        return four_distance.clip(-4, 4)
+    
+class EuclideanMask(LightningModule):
+    """ Creates a mask to be passed to the attention weights based on the distance of the pulses."""
+
+    def __init__(
+        self,
+        seq_length: int = 32,
+        max_distance: float = 50.0
+    ):
+        """Construct `EuclideanDistanceMask`.
+
+        This module calculates an attention mask based on the distance between
+        each pair of pulses in the sequence.
+
+        Args:
+            seq_length: Number of pulses in the event.
+            max_distance: The maximum distance (in meters) between pulses.
+        """
+        super().__init__()
+        self.seq_length = seq_length
+        self.max_distance = max_distance
+
+    def forward(
+        self,
+        x: Tensor,
+    ) -> Tensor:
+        """Forward pass."""
+        diff = x[:, :, None, :] - x[:, None, :, :]
+        euclidean_distance = torch.sqrt(torch.sum(diff**2, dim=-1))
+        return euclidean_distance.clip(0, self.max_distance)
+    
+class IdsMask(LightningModule):
+    """ Creates a mask to be passed to the attention weights based on the 
+        DU, DOM or PMT ids of the pulses."""
+
+    def __init__(
+        self,
+        seq_length: int = 32,
+    ):
+        """Construct `IdsMask`.
+
+        This module calculates an attention mask based on the DU, DOM, PMT
+        ids between each pair of pulses in the sequence.
+
+        Args:
+            seq_length: Dimensionality of the sinusoidal positional embeddings.
+        """
+        super().__init__()
+        self.seq_length = seq_length
+
+    def forward(
+        self,
+        x: Tensor,
+    ) -> Tensor:
+        """Forward pass."""
+        return (x.unsqueeze(2) == x.unsqueeze(1)).float()
+    
+class PairwiseProcessing(nn.Module):
+    """ Process pairwise features between pulses. """
+
+    def __init__(
+                    self,
+                    num_masks: int,
+                    dims: Union[List, int],
+                    num_heads: int,
+    ):
+        """ Pass all the features through a embedding block before feed them to the model.
+
+            Args:
+                in_dims: The number of concatenated pairwise features.
+                dims: Dimensionality of the consecutive linear layers.
+                num_heads: Number of heads in attention block.
+        """
+
+        super().__init__()
+
+        if isinstance(dims, int):
+            dims = [dims]
+
+        module_list = []
+        for dim in dims:
+            module_list.extend([
+                                    nn.Conv2d(in_channels = num_masks, out_channels = dim, kernel_size = 1),
+                                    nn.BatchNorm2d(dim),
+                                    nn.GELU()
+            ])
+            num_masks = dim
+            
+        module_list.extend([
+                                    nn.Conv2d(in_channels = dims[-1], out_channels = num_heads, kernel_size = 1),
+                                    nn.BatchNorm2d(num_heads),
+                                    nn.GELU()
+        ])
+        
+        self.emb = nn.Sequential(*module_list)
+
+    def forward(self, x):
+        return self.emb(x)
