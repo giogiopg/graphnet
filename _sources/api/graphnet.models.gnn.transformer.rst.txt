@@ -1,0 +1,7 @@
+graphnet.models.gnn.transformer module
+======================================
+
+.. automodule:: graphnet.models.gnn.transformer
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -375,6 +375,7 @@
     <span class="n">cross_entropy</span><span class="p">,</span>
     <span class="n">binary_cross_entropy</span><span class="p">,</span>
     <span class="n">softplus</span><span class="p">,</span>
+    <span class="n">gaussian_nll_loss</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">graphnet.models.model</span> <span class="kn">import</span> <span class="n">Model</span>
@@ -949,6 +950,100 @@
             <span class="n">loss_factors</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmfs_factor</span><span class="p">],</span>
             <span class="n">prediction_keys</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]],</span>
         <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GaussianNegativeLogLikelihood1D">
+<a class="viewcode-back" href="../../../api/graphnet.training.loss_functions.html#graphnet.training.loss_functions.GaussianNegativeLogLikelihood1D">[docs]</a>
+<span class="k">class</span> <span class="nc">GaussianNegativeLogLikelihood1D</span><span class="p">(</span><span class="n">LossFunction</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Gaussian Negative Log Likelihood loss function for mean and variance estimation in a single dimension."""</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">full</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-7</span><span class="p">,</span>
+        <span class="n">log10</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">full</span> <span class="o">=</span> <span class="n">full</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eps</span> <span class="o">=</span> <span class="n">eps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log10</span> <span class="o">=</span> <span class="n">log10</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prediction</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Calculate Gaussian Negative Log Likelihood loss for a given mean and variance estimation in a single dimension.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            prediction: Output of the model. Must have shape [N, 2] where 0th</span>
+<span class="sd">                column is a prediction of `mean` and 1st column is an estimate</span>
+<span class="sd">                of `variance`.</span>
+<span class="sd">            target: Target tensor, extracted from graph object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            loss: Elementwise Gaussian Negative Log Likelihood loss terms. Shape [N,]</span>
+<span class="sd">        """</span>
+        <span class="c1"># Check(s)</span>
+        <span class="k">assert</span> <span class="n">prediction</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">prediction</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span>
+        <span class="k">assert</span> <span class="n">target</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span>
+        <span class="k">assert</span> <span class="n">prediction</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Formatting target</span>
+        <span class="n">estimation_true</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        
+        <span class="c1"># Formatting prediction</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">log10</span><span class="p">:</span>
+            <span class="n">mean_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">prediction</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mean_pred</span> <span class="o">=</span> <span class="n">prediction</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">variance_pred</span> <span class="o">=</span> <span class="n">softplus</span><span class="p">(</span><span class="n">prediction</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="n">mean_pred</span><span class="p">,</span> <span class="n">estimation_true</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">gaussian_nll_loss</span><span class="p">(</span><span class="n">mean_pred</span><span class="p">,</span> <span class="n">estimation_true</span><span class="p">,</span> <span class="n">variance_pred</span><span class="p">,</span> <span class="n">full</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">full</span><span class="p">,</span> <span class="n">eps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span> <span class="n">reduction</span><span class="o">=</span><span class="s1">'none'</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="GaussianNegativeLogLikelihood3D">
+<a class="viewcode-back" href="../../../api/graphnet.training.loss_functions.html#graphnet.training.loss_functions.GaussianNegativeLogLikelihood3D">[docs]</a>
+<span class="k">class</span> <span class="nc">GaussianNegativeLogLikelihood3D</span><span class="p">(</span><span class="n">LossFunction</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Gaussian Negative Log Likelihood loss function for mean and variance estimation in three dimensions."""</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">full</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-7</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">full</span> <span class="o">=</span> <span class="n">full</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eps</span> <span class="o">=</span> <span class="n">eps</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prediction</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Calculate Gaussian Negative Log Likelihood loss for a given mean and variance estimation in three dimensions.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            prediction: Output of the model. Must have shape [N, 6] where the </span>
+<span class="sd">                first 3 columns are predictions of `mean` and second 3 columns</span>
+<span class="sd">                are estimations of `variance`.</span>
+<span class="sd">            target: Target tensor, extracted from graph object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            loss: Elementwise Gaussian Negative Log Likelihood loss terms. Shape [N,]</span>
+<span class="sd">        """</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="c1"># Check(s)</span>
+        <span class="k">assert</span> <span class="n">prediction</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">prediction</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">6</span>
+        <span class="k">assert</span> <span class="n">target</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">target</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span>
+        <span class="k">assert</span> <span class="n">prediction</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Formatting target</span>
+        <span class="n">estimation_true</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        
+        <span class="c1"># Formatting prediction</span>
+        <span class="n">mean_pred</span> <span class="o">=</span> <span class="n">prediction</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">variance_pred</span> <span class="o">=</span> <span class="n">softplus</span><span class="p">(</span><span class="n">prediction</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">:])</span>
+        
+        <span class="k">return</span> <span class="n">gaussian_nll_loss</span><span class="p">(</span><span class="n">mean_pred</span><span class="p">,</span> <span class="n">estimation_true</span><span class="p">,</span> <span class="n">variance_pred</span><span class="p">,</span> <span class="n">full</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">full</span><span class="p">,</span> <span class="n">eps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span> <span class="n">reduction</span><span class="o">=</span><span class="s1">'none'</span><span class="p">)</span></div>
 
 </pre></div>
 

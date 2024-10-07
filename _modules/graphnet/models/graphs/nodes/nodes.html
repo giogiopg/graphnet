@@ -833,6 +833,122 @@
 
         <span class="k">return</span> <span class="n">Data</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">graph</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="NodesAsHitsTimeSeries">
+<a class="viewcode-back" href="../../../../../api/graphnet.models.graphs.nodes.nodes.html#graphnet.models.graphs.nodes.nodes.NodesAsHitsTimeSeries">[docs]</a>
+<span class="k">class</span> <span class="nc">NodesAsHitsTimeSeries</span><span class="p">(</span><span class="n">NodeDefinition</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+
+<span class="sd">        Creates nodes for KM3NeT data as hit time series.</span>
+
+<span class="sd">        If desired, performs a random sampling for each event, e.g. keep the number of hits</span>
+<span class="sd">        below a maximum number of hits if n_hits is over the limit.</span>
+
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">input_feature_names</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">max_hits</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span>
+        <span class="n">trig_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"trig"</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Construct `NodesAsHitsTimeSeries`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            input_feature_names: Column names for input features.</span>
+<span class="sd">            max_hits: Maximum number of hits to keep in the event.</span>
+<span class="sd">            trig_name: Name of the trigger mask column ("trig").</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">input_feature_names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">input_feature_names</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="s2">"t"</span><span class="p">,</span>
+                <span class="s2">"pos_x"</span><span class="p">,</span>
+                <span class="s2">"pos_y"</span><span class="p">,</span>
+                <span class="s2">"pos_z"</span><span class="p">,</span>
+                <span class="s2">"dir_x"</span><span class="p">,</span>
+                <span class="s2">"dir_y"</span><span class="p">,</span>
+                <span class="s2">"dir_z"</span><span class="p">,</span>
+                <span class="s2">"tot"</span><span class="p">,</span>
+                <span class="s2">"trig"</span><span class="p">,</span>
+            <span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_features</span> <span class="o">=</span> <span class="n">input_feature_names</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">input_feature_names</span> <span class="o">=</span> <span class="n">input_feature_names</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">trig_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">input_feature_names</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"trig name '</span><span class="si">{</span><span class="n">trig_name</span><span class="si">}</span><span class="s2">' not found in input_feature_names"</span>
+                <span class="sa">f</span><span class="s2">"Assuming only trigger hits, if non-trigger hits included too, the subsampling will be random."</span>
+            <span class="p">)</span>
+            <span class="n">trig_name</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">feature_indexes</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">feat</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_features</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">feat</span><span class="p">)</span> <span class="k">for</span> <span class="n">feat</span> <span class="ow">in</span> <span class="n">input_feature_names</span>
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_feature_names</span> <span class="o">=</span> <span class="n">input_feature_names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_features</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_features</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_length</span> <span class="o">=</span> <span class="n">max_hits</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trig_name</span> <span class="o">=</span> <span class="n">trig_name</span>
+
+    <span class="k">def</span> <span class="nf">_define_output_feature_names</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">input_feature_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_features</span>
+
+    <span class="k">def</span> <span class="nf">_hits_sampler</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">event_length</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">event_length</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_length</span><span class="p">:</span>
+            <span class="n">ids</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">event_length</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ids</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randperm</span><span class="p">(</span><span class="n">event_length</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trig_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">trigger_hits_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span>
+                    <span class="n">x</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_indexes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">trig_name</span><span class="p">]]</span> <span class="o">!=</span> <span class="mi">0</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+                <span class="n">non_trigger_hits_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span>
+                    <span class="n">x</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_indexes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">trig_name</span><span class="p">]]</span> <span class="o">==</span> <span class="mi">0</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+                <span class="n">ids_trig</span> <span class="o">=</span> <span class="n">ids</span><span class="p">[</span><span class="n">trigger_hits_mask</span><span class="p">][</span>
+                    <span class="p">:</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_length</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">trigger_hits_mask</span><span class="p">))</span>
+                <span class="p">]</span>
+
+                <span class="n">ids_non_trig</span> <span class="o">=</span> <span class="n">ids</span><span class="p">[</span><span class="n">non_trigger_hits_mask</span><span class="p">][</span>
+                    <span class="p">:</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_length</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids_trig</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">non_trigger_hits_mask</span><span class="p">))</span>
+                <span class="p">]</span>
+
+                <span class="n">ids</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">ids_trig</span><span class="p">,</span> <span class="n">ids_non_trig</span><span class="p">])</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># No trig_name given, random sampling of hits (both trig and non-trig)</span>
+                <span class="n">ids</span> <span class="o">=</span> <span class="n">ids</span><span class="p">[:</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_length</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">ids</span>
+
+    <span class="k">def</span> <span class="nf">_construct_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Data</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+        <span class="n">event_length</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hits_sampler</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">event_length</span><span class="p">)</span>
+        <span class="n">event_length</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_length</span><span class="p">,</span> <span class="n">event_length</span><span class="p">)</span>
+
+        <span class="n">graph</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">event_length</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_features</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">feature</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_features</span><span class="p">):</span>
+            <span class="n">graph</span><span class="p">[:</span><span class="n">event_length</span><span class="p">,</span> <span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">ids</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_indexes</span><span class="p">[</span><span class="n">feature</span><span class="p">]]</span>
+
+            <span class="k">if</span> <span class="s1">'t'</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_features</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">feature</span> <span class="o">==</span> <span class="s1">'t'</span><span class="p">:</span>
+                    <span class="n">tmin</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_indexes</span><span class="p">[</span><span class="n">feature</span><span class="p">]])</span>
+                    <span class="n">graph</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">]</span> <span class="o">-=</span> <span class="n">tmin</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">pass</span>
+                <span class="c1">#self.warning(</span>
+                <span class="c1">#    f"Time was not used as a node feature."</span>
+                <span class="c1">#)</span>
+
+        <span class="k">return</span> <span class="n">Data</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">graph</span><span class="p">)</span></div>
+
 </pre></div>
 
           </article>

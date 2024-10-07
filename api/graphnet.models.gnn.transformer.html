@@ -61,7 +61,7 @@
 </script>
   
   
-    <title>graphnet.models.gnn.gnn module &#8212; graphnet  documentation</title>
+    <title>graphnet.models.gnn.transformer module &#8212; graphnet  documentation</title>
 
 <style>
   dt:target {
@@ -128,8 +128,8 @@
     <link rel="icon" href="../_static/favicon.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="graphnet.models.gnn.icemix module" href="graphnet.models.gnn.icemix.html" />
-    <link rel="prev" title="graphnet.models.gnn.dynedge_kaggle_tito module" href="graphnet.models.gnn.dynedge_kaggle_tito.html" />
+    <link rel="next" title="graphnet.models.graphs package" href="graphnet.models.graphs.html" />
+    <link rel="prev" title="graphnet.models.gnn.particlenet module" href="graphnet.models.gnn.particlenet.html" />
   
    
 
@@ -148,7 +148,7 @@
   <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
   <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
   <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
-  <a href="#api/graphnet.models.gnn.gnn" tabindex="1" class="md-skip"> Skip to content </a>
+  <a href="#api/graphnet.models.gnn.transformer" tabindex="1" class="md-skip"> Skip to content </a>
   <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid">
     <div class="md-flex navheader">
@@ -166,7 +166,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">GraphNeT</span>
-          <span class="md-header-nav__topic"> graphnet.models.gnn.gnn module </span>
+          <span class="md-header-nav__topic"> graphnet.models.gnn.transformer module </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -429,60 +429,8 @@
     <li class="md-nav__item">
     
     
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    <label class="md-nav__link md-nav__link--active" for="__toc"> graphnet.models.gnn.gnn module </label>
-    
-      <a href="#" class="md-nav__link md-nav__link--active">graphnet.models.gnn.gnn module</a>
+      <a href="graphnet.models.gnn.gnn.html" class="md-nav__link">graphnet.models.gnn.gnn module</a>
       
-        
-<nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
-  <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#api-graphnet-models-gnn-gnn--page-root" class="md-nav__link">graphnet.models.gnn.gnn module</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.models.gnn.gnn.GNN" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">GNN</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.models.gnn.gnn.GNN.nb_inputs" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">nb_inputs</span></code></a>
-        </li>
-        <li class="md-nav__item"><a href="#graphnet.models.gnn.gnn.GNN.nb_outputs" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">nb_outputs</span></code></a>
-        </li>
-        <li class="md-nav__item"><a href="#graphnet.models.gnn.gnn.GNN.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
-        </li></ul>
-            </nav>
-        </li></ul>
-            </nav>
-        </li>
-  </ul>
-</nav>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.models.gnn.gnn.GNN" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">GNN</span></code></a>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.models.gnn.gnn.GNN.nb_inputs" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">nb_inputs</span></code></a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.models.gnn.gnn.GNN.nb_outputs" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">nb_outputs</span></code></a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.models.gnn.gnn.GNN.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
-      
-    
-    </li></ul>
-    
-    </li></ul>
     
     </li>
     <li class="md-nav__item">
@@ -502,8 +450,80 @@
     <li class="md-nav__item">
     
     
-      <a href="graphnet.models.gnn.transformer.html" class="md-nav__link">graphnet.models.gnn.transformer module</a>
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <label class="md-nav__link md-nav__link--active" for="__toc"> graphnet.models.gnn.transformer module </label>
+    
+      <a href="#" class="md-nav__link md-nav__link--active">graphnet.models.gnn.transformer module</a>
       
+        
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">"Contents"</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#api-graphnet-models-gnn-transformer--page-root" class="md-nav__link">graphnet.models.gnn.transformer module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#graphnet.models.gnn.transformer.Transformer" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">Transformer</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#graphnet.models.gnn.transformer.Transformer.no_weight_decay" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">no_weight_decay()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#graphnet.models.gnn.transformer.Transformer.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#graphnet.models.gnn.transformer.NormFormer" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NormFormer</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#graphnet.models.gnn.transformer.NormFormer.no_weight_decay" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">no_weight_decay()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#graphnet.models.gnn.transformer.NormFormer.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+  </ul>
+</nav>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#graphnet.models.gnn.transformer.Transformer" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">Transformer</span></code></a>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#graphnet.models.gnn.transformer.Transformer.no_weight_decay" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">no_weight_decay()</span></code></a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#graphnet.models.gnn.transformer.Transformer.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
+      
+    
+    </li></ul>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#graphnet.models.gnn.transformer.NormFormer" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NormFormer</span></code></a>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#graphnet.models.gnn.transformer.NormFormer.no_weight_decay" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">no_weight_decay()</span></code></a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#graphnet.models.gnn.transformer.NormFormer.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
+      
+    
+    </li></ul>
+    
+    </li></ul>
     
     </li></ul>
     
@@ -586,15 +606,21 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#api-graphnet-models-gnn-gnn--page-root" class="md-nav__link">graphnet.models.gnn.gnn module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#api-graphnet-models-gnn-transformer--page-root" class="md-nav__link">graphnet.models.gnn.transformer module</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.models.gnn.gnn.GNN" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">GNN</span></code></a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#graphnet.models.gnn.transformer.Transformer" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">Transformer</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.models.gnn.gnn.GNN.nb_inputs" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">nb_inputs</span></code></a>
+        <li class="md-nav__item"><a href="#graphnet.models.gnn.transformer.Transformer.no_weight_decay" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">no_weight_decay()</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#graphnet.models.gnn.gnn.GNN.nb_outputs" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">nb_outputs</span></code></a>
+        <li class="md-nav__item"><a href="#graphnet.models.gnn.transformer.Transformer.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
+        </li></ul>
+            </nav>
         </li>
-        <li class="md-nav__item"><a href="#graphnet.models.gnn.gnn.GNN.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
+        <li class="md-nav__item"><a href="#graphnet.models.gnn.transformer.NormFormer" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NormFormer</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#graphnet.models.gnn.transformer.NormFormer.no_weight_decay" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">no_weight_decay()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#graphnet.models.gnn.transformer.NormFormer.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
         </li></ul>
             </nav>
         </li></ul>
@@ -609,18 +635,28 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section id="module-graphnet.models.gnn.gnn">
-<span id="graphnet-models-gnn-gnn-module"></span><h1 id="api-graphnet-models-gnn-gnn--page-root">graphnet.models.gnn.gnn module<a class="headerlink" href="#api-graphnet-models-gnn-gnn--page-root" title="Link to this heading">¶</a></h1>
-<p>Base GNN-specific <cite>Model</cite> class(es).</p>
+  <section id="module-graphnet.models.gnn.transformer">
+<span id="graphnet-models-gnn-transformer-module"></span><h1 id="api-graphnet-models-gnn-transformer--page-root">graphnet.models.gnn.transformer module<a class="headerlink" href="#api-graphnet-models-gnn-transformer--page-root" title="Link to this heading">¶</a></h1>
+<p>Vanilla transformer.</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="graphnet.models.gnn.gnn.GNN">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.models.gnn.gnn.</span></span><span class="sig-name descname"><span class="pre">GNN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/models/gnn/gnn.html#GNN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.models.gnn.gnn.GNN" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="graphnet.models.model.html#graphnet.models.model.Model" title="graphnet.models.model.Model"><code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></a></p>
-<p>Base class for all core GNN models in graphnet.</p>
-<p>Construct <cite>GNN</cite>.</p>
+<dt class="sig sig-object py" id="graphnet.models.gnn.transformer.Transformer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.models.gnn.transformer.</span></span><span class="sig-name descname"><span class="pre">Transformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/models/gnn/transformer.html#Transformer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.models.gnn.transformer.Transformer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="graphnet.models.gnn.gnn.html#graphnet.models.gnn.gnn.GNN" title="graphnet.models.gnn.gnn.GNN"><code class="xref py py-class docutils literal notranslate"><span class="pre">GNN</span></code></a></p>
+<p>Vanilla transformer model.</p>
+<p>Construct a Vanilla Transformer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>seq_lenght</strong> – The total length of the event.</p></li>
+<li><p><strong>n_features</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">8</span></code>) – The number of features in the input data.</p></li>
+<li><p><strong>position_encoder</strong> – Wether or not, include position Fourier encoding.</p></li>
+<li><p><strong>emb_dims</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – Embedding dimensions and/or dimension of the model.</p></li>
+<li><p><strong>num_heads</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">8</span></code>) – Number of heads in MHA.</p></li>
+<li><p><strong>dropout_attn</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">0.2</span></code>) – Dropout to be applied in MHA.</p></li>
+<li><p><strong>hidden_dim</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">256</span></code>) – Dimension of FFNN.</p></li>
+<li><p><strong>dropout_FFNN</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">0.2</span></code>) – Dropout to be applied in MHA.</p></li>
+<li><p><strong>no_hits_blocks</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">8</span></code>) – Number of Encoder blocks using only hit information.</p></li>
+<li><p><strong>no_evt_blocks</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">4</span></code>) – Number of Encoder blocks including cls token, i.e. considering global event information.</p></li>
 <li><p><strong>args</strong> (<em>Any</em>)</p></li>
 <li><p><strong>kwargs</strong> (<em>Any</em>)</p></li>
 </ul>
@@ -629,20 +665,71 @@
 <dd class="field-even"><p>object</p>
 </dd>
 </dl>
-<dl class="py property">
-<dt class="sig sig-object py" id="graphnet.models.gnn.gnn.GNN.nb_inputs">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nb_inputs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#graphnet.models.gnn.gnn.GNN.nb_inputs" title="Link to this definition">¶</a></dt>
-<dd><p>Return number of input features.</p>
-</dd></dl>
-<dl class="py property">
-<dt class="sig sig-object py" id="graphnet.models.gnn.gnn.GNN.nb_outputs">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nb_outputs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#graphnet.models.gnn.gnn.GNN.nb_outputs" title="Link to this definition">¶</a></dt>
-<dd><p>Return number of output features.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphnet.models.gnn.transformer.Transformer.no_weight_decay">
+<span class="sig-name descname"><span class="pre">no_weight_decay</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/models/gnn/transformer.html#Transformer.no_weight_decay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.models.gnn.transformer.Transformer.no_weight_decay" title="Link to this definition">¶</a></dt>
+<dd><p>cls_tocken should not be subject to weight decay during training.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code></span></p>
+</dd>
+</dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="graphnet.models.gnn.gnn.GNN.forward">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/models/gnn/gnn.html#GNN.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.models.gnn.gnn.GNN.forward" title="Link to this definition">¶</a></dt>
-<dd><p>Apply learnable forward pass in model.</p>
+<dt class="sig sig-object py" id="graphnet.models.gnn.transformer.Transformer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/models/gnn/transformer.html#Transformer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.models.gnn.transformer.Transformer.forward" title="Link to this definition">¶</a></dt>
+<dd><p>Apply learnable forward pass.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>data</strong> (<em>Data</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="graphnet.models.gnn.transformer.NormFormer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.models.gnn.transformer.</span></span><span class="sig-name descname"><span class="pre">NormFormer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/models/gnn/transformer.html#NormFormer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.models.gnn.transformer.NormFormer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="graphnet.models.gnn.gnn.html#graphnet.models.gnn.gnn.GNN" title="graphnet.models.gnn.gnn.GNN"><code class="xref py py-class docutils literal notranslate"><span class="pre">GNN</span></code></a></p>
+<p>Transformer model inspired by ParticleTransformer: <a class="reference external" href="https://arxiv.org/pdf/2202.03772">https://arxiv.org/pdf/2202.03772</a>.</p>
+<p>Construct a Transformer inspired by ParticleTransformer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seq_lenght</strong> – The total length of the event.</p></li>
+<li><p><strong>n_features</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">8</span></code>) – The number of features in the input data.</p></li>
+<li><p><strong>position_encoder</strong> – Wether or not, include position Fourier encoding.</p></li>
+<li><p><strong>emb_dims</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – Embedding dimensions and/or dimension of the model.</p></li>
+<li><p><strong>num_heads</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">8</span></code>) – Number of heads in MHA.</p></li>
+<li><p><strong>dropout_attn</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">0.1</span></code>) – Dropout to be applied in MHA.</p></li>
+<li><p><strong>dropout_attn_cls</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">0.0</span></code>) – Dropout to be applied in MHA when class token is included.</p></li>
+<li><p><strong>hidden_dim</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">256</span></code>) – Dimension of FFNN.</p></li>
+<li><p><strong>no_hits_blocks</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">8</span></code>) – Number of NormFormer blocks using only hit information.</p></li>
+<li><p><strong>no_evt_blocks</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">4</span></code>) – Number of NormFormer blocks including cls token, i.e. considering global event information.</p></li>
+<li><p><strong>args</strong> (<em>Any</em>)</p></li>
+<li><p><strong>kwargs</strong> (<em>Any</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>object</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphnet.models.gnn.transformer.NormFormer.no_weight_decay">
+<span class="sig-name descname"><span class="pre">no_weight_decay</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/models/gnn/transformer.html#NormFormer.no_weight_decay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.models.gnn.transformer.NormFormer.no_weight_decay" title="Link to this definition">¶</a></dt>
+<dd><p>cls_tocken should not be subject to weight decay during training.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphnet.models.gnn.transformer.NormFormer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/models/gnn/transformer.html#NormFormer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.models.gnn.transformer.NormFormer.forward" title="Link to this definition">¶</a></dt>
+<dd><p>Apply learnable forward pass.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></span></p>
@@ -665,7 +752,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="graphnet.models.gnn.dynedge_kaggle_tito.html" title="graphnet.models.gnn.dynedge_kaggle_tito module"
+            <a href="graphnet.models.gnn.particlenet.html" title="graphnet.models.gnn.particlenet module"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -674,17 +761,17 @@
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> "Previous" </span> graphnet.models.gnn.dynedge_kaggle_tito module </span>
+                      class="md-footer-nav__direction"> "Previous" </span> graphnet.models.gnn.particlenet module </span>
               </div>
             </a>
           
           
-            <a href="graphnet.models.gnn.icemix.html" title="graphnet.models.gnn.icemix module"
+            <a href="graphnet.models.graphs.html" title="graphnet.models.graphs package"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> "Next" </span> graphnet.models.gnn.icemix module </span>
+                class="md-footer-nav__direction"> "Next" </span> graphnet.models.graphs package </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

@@ -449,6 +449,8 @@
         <li class="md-nav__item"><a href="#graphnet.models.graphs.nodes.nodes.NodeAsDOMTimeSeries" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAsDOMTimeSeries</span></code></a>
         </li>
         <li class="md-nav__item"><a href="#graphnet.models.graphs.nodes.nodes.IceMixNodes" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">IceMixNodes</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#graphnet.models.graphs.nodes.nodes.NodesAsHitsTimeSeries" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodesAsHitsTimeSeries</span></code></a>
         </li></ul>
             </nav>
         </li>
@@ -515,6 +517,13 @@
     
     
       <a href="#graphnet.models.graphs.nodes.nodes.IceMixNodes" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">IceMixNodes</span></code></a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#graphnet.models.graphs.nodes.nodes.NodesAsHitsTimeSeries" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodesAsHitsTimeSeries</span></code></a>
       
     
     </li></ul>
@@ -625,6 +634,8 @@
         <li class="md-nav__item"><a href="#graphnet.models.graphs.nodes.nodes.NodeAsDOMTimeSeries" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAsDOMTimeSeries</span></code></a>
         </li>
         <li class="md-nav__item"><a href="#graphnet.models.graphs.nodes.nodes.IceMixNodes" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">IceMixNodes</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#graphnet.models.graphs.nodes.nodes.NodesAsHitsTimeSeries" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodesAsHitsTimeSeries</span></code></a>
         </li></ul>
             </nav>
         </li>
@@ -802,6 +813,29 @@ below a maximum number of pulses if n_pulses is over the limit.</p>
 <li><p><strong>coordinate.</strong> (<em>ice in IceCube are added to the feature set based on z</em>)</p></li>
 <li><p><strong>ice_args</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span>, default: <code class="docutils literal notranslate"><span class="pre">{'z_offset':</span> <span class="pre">None,</span> <span class="pre">'z_scaling':</span> <span class="pre">None}</span></code>) – Offset and scaling of the z coordinate in the Detector,</p></li>
 <li><p><strong>data.</strong> (<em>to be able to make similar conversion in the ice</em>)</p></li>
+<li><p><strong>args</strong> (<em>Any</em>)</p></li>
+<li><p><strong>kwargs</strong> (<em>Any</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="graphnet.models.graphs.nodes.nodes.NodesAsHitsTimeSeries">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.models.graphs.nodes.nodes.</span></span><span class="sig-name descname"><span class="pre">NodesAsHitsTimeSeries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/models/graphs/nodes/nodes.html#NodesAsHitsTimeSeries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.models.graphs.nodes.nodes.NodesAsHitsTimeSeries" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#graphnet.models.graphs.nodes.nodes.NodeDefinition" title="graphnet.models.graphs.nodes.nodes.NodeDefinition"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeDefinition</span></code></a></p>
+<p>Creates nodes for KM3NeT data as hit time series.</p>
+<p>If desired, performs a random sampling for each event, e.g. keep the number of hits
+below a maximum number of hits if n_hits is over the limit.</p>
+<p>Construct <cite>NodesAsHitsTimeSeries</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_feature_names</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Column names for input features.</p></li>
+<li><p><strong>max_hits</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">300</span></code>) – Maximum number of hits to keep in the event.</p></li>
+<li><p><strong>trig_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">'trig'</span></code>) – Name of the trigger mask column (“trig”).</p></li>
 <li><p><strong>args</strong> (<em>Any</em>)</p></li>
 <li><p><strong>kwargs</strong> (<em>Any</em>)</p></li>
 </ul>
