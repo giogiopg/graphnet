@@ -6,9 +6,12 @@ from typing import Union, List, OrderedDict, Any, Dict
 from graphnet.data.readers import GraphNeTFileReader
 from graphnet.data.extractors.km3net import KM3NeTROOTExtractor
 from graphnet.data.extractors.km3net import (
-    KM3NeTROOTTruthExtractor,
-    KM3NeTROOTPulseExtractor,
-    KM3NeTROOTTriggPulseExtractor,
+    KM3NeTROOTTruthExtractor_detector,
+    KM3NeTROOTTruthExtractorORCA,
+    KM3NeTROOTPulseExtractor_detector,
+    KM3NeTROOTPulseExtractorORCA,
+    KM3NeTROOTTriggPulseExtractor_detector,
+    KM3NeTROOTTriggPulseExtractorORCA,
     KM3NeTROOTPulseDBangExtractor,
     KM3NeTROOTTruthDBangExtractor,
 )
@@ -23,9 +26,12 @@ class KM3NeTROOTReader(GraphNeTFileReader):
 
     _accepted_file_extensions = [".root"]
     _accepted_extractors = [
-        KM3NeTROOTTruthExtractor,
-        KM3NeTROOTPulseExtractor,
-        KM3NeTROOTTriggPulseExtractor,
+        KM3NeTROOTTruthExtractor_detector,
+        KM3NeTROOTTruthExtractorORCA,
+        KM3NeTROOTPulseExtractor_detector,
+        KM3NeTROOTPulseExtractorORCA,
+        KM3NeTROOTTriggPulseExtractor_detector,
+        KM3NeTROOTTriggPulseExtractorORCA,
         KM3NeTROOTPulseDBangExtractor,
         KM3NeTROOTTruthDBangExtractor,
     ]
