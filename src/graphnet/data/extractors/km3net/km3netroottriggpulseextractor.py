@@ -69,11 +69,9 @@ class KM3NeTROOTTriggPulseExtractorORCA(KM3NeTROOTExtractor):
         primaries = file.mc_trks[:, 0]
         pdgid, Energy = np.array(primaries.pdgid), np.array(primaries.E)
             
-        run_id, frame_index, file_id, trigger_counter = (
+        run_id, frame_index = (
             np.array(file.run_id),
             np.array(file.frame_index),
-            np.array(file.id),
-            np.array(file.trigger_counter),
         )
         
         unique_id = create_unique_id_filetype( 
@@ -81,8 +79,6 @@ class KM3NeTROOTTriggPulseExtractorORCA(KM3NeTROOTExtractor):
                                                 energy = Energy, 
                                                 is_cc_flag = is_cc_flag,
                                                 run_id = run_id, 
-                                                frame_index = frame_index, 
-                                                evt_id = file_id
         )
         
         hits = file.hits
@@ -107,8 +103,6 @@ class KM3NeTROOTTriggPulseExtractorORCA(KM3NeTROOTExtractor):
             unique_extended.append(int(unique_id[index]))
         
         df["event_no"] = unique_extended
-        
-        df = remove_duplicated_event_no(df, col = 'event_no', keep = 'first')
 
         # keep only trigg pulses
         df = df[df["trig"] != 0]

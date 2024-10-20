@@ -147,8 +147,6 @@ class KM3NeTROOTTruthExtractorORCA(KM3NeTROOTExtractor):
                                                 energy = Energy, 
                                                 is_cc_flag = is_cc_flag,
                                                 run_id = run_id, 
-                                                frame_index = frame_index, 
-                                                evt_id = file_id
         )
         
         dict_truth = {
