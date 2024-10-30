@@ -9,6 +9,7 @@ from graphnet.data.extractors.km3net import (
     KM3NeTROOTTruthExtractor,
     KM3NeTROOTPulseExtractor,
     KM3NeTROOTTriggPulseExtractor,
+    KM3NeTROOTTruthExtractorHNL,
 )
 
 
@@ -24,6 +25,7 @@ class KM3NeTROOTReader(GraphNeTFileReader):
         KM3NeTROOTTruthExtractor,
         KM3NeTROOTPulseExtractor,
         KM3NeTROOTTriggPulseExtractor,
+        KM3NeTROOTTruthExtractorHNL,
     ]
 
     def __call__(

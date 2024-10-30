@@ -105,3 +105,39 @@ class Track(Label):
         is_numu = torch.abs(graph[self._pid_key]) == 14
         is_cc = graph[self._int_key] == 1
         return (is_numu & is_cc).type(torch.int)
+
+class Position(Label):
+    """Class for producing particle direction/pointing label."""
+
+    def __init__(
+        self,
+        key: str = "position",
+        vrx_x_key: str = "pos_x",
+        vrx_y_key: str = "pos_y",
+        vrx_z_key: str = "pos_z",
+    ):
+        """Construct `Position`.
+
+        Args:
+            key: The name of the field in `Data` where the label will be
+                stored. That is, `graph[key] = label`.
+            vrx_x_key: The name of the pre-existing key in `graph` that will
+                be used to access the interaction vertex x-position.
+            vrx_y_key: The name of the pre-existing key in `graph` that will
+                be used to access the interaction vertex y-position.
+            vrx_z_key: The name of the pre-existing key in `graph` that will
+                be used to access the interaction vertex z-position.
+        """
+        self._vrx_x_key = vrx_x_key
+        self._vrx_y_key = vrx_y_key
+        self._vrx_z_key = vrx_z_key
+
+        # Base class constructor
+        super().__init__(key=key)
+
+    def __call__(self, graph: Data) -> torch.tensor:
+        """Compute label for `graph`."""
+        x = graph[self._vrx_x_key].reshape(-1, 1)
+        y = graph[self._vrx_y_key].reshape(-1, 1)
+        z = graph[self._vrx_z_key].reshape(-1, 1)
+        return torch.cat((x, y, z), dim=1)

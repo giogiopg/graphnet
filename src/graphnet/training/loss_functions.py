@@ -580,7 +580,6 @@ class GaussianNegativeLogLikelihood1D(LossFunction):
             mean_pred = prediction[:, 0]
         variance_pred = softplus(prediction[:, 1])
         
-        print(mean_pred, estimation_true)
         
         return gaussian_nll_loss(mean_pred, estimation_true, variance_pred, full = self.full, eps = self.eps, reduction='none')
     
