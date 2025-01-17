@@ -1,21 +1,23 @@
-graphnet.data.extractors.km3net package
-=======================================
+
+km3net
+======
+
 
 .. automodule:: graphnet.data.extractors.km3net
    :members:
    :undoc-members:
    :show-inheritance:
 
-Subpackages
------------
+
+|start-h2| Subpackages |end-h2|
 
 .. toctree::
    :maxdepth: 2
 
    graphnet.data.extractors.km3net.utilities
 
-Submodules
-----------
+|start-h2| Submodules |end-h2|
+
 
 .. toctree::
    :maxdepth: 2
@@ -24,3 +26,21 @@ Submodules
    graphnet.data.extractors.km3net.km3netrootpulseextractor
    graphnet.data.extractors.km3net.km3netroottriggpulseextractor
    graphnet.data.extractors.km3net.km3netroottruthextractor
+
+
+
+.. |start-h2| raw:: html
+
+     <h2>
+
+.. |end-h2| raw:: html
+
+     </h2>
+
+.. |start-h3| raw:: html
+
+     <h3>
+
+.. |end-h3| raw:: html
+
+     </h3>

@@ -1,5 +1,6 @@
-graphnet.data.extractors.km3net.km3netrootpulseextractor module
-===============================================================
+
+km3netrootpulseextractor
+========================
 
 .. automodule:: graphnet.data.extractors.km3net.km3netrootpulseextractor
    :members:

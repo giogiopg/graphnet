@@ -1,5 +1,6 @@
-graphnet.models.detector.orca module
-====================================
+
+orca
+====
 
 .. automodule:: graphnet.models.detector.orca
    :members:

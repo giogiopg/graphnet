@@ -1,5 +1,6 @@
-graphnet.data.extractors.km3net.utilities.km3net\_utilities module
-==================================================================
+
+km3net\_utilities
+=================
 
 .. automodule:: graphnet.data.extractors.km3net.utilities.km3net_utilities
    :members:

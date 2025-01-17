@@ -1,5 +1,6 @@
-graphnet.data.readers.km3netrootreader module
-=============================================
+
+km3netrootreader
+================
 
 .. automodule:: graphnet.data.readers.km3netrootreader
    :members:

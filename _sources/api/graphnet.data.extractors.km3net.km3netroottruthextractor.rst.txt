@@ -1,5 +1,6 @@
-graphnet.data.extractors.km3net.km3netroottruthextractor module
-===============================================================
+
+km3netroottruthextractor
+========================
 
 .. automodule:: graphnet.data.extractors.km3net.km3netroottruthextractor
    :members:

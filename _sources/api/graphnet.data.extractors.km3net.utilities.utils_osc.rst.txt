@@ -1,5 +1,6 @@
-graphnet.data.extractors.km3net.utilities.utils\_osc module
-===========================================================
+
+utils\_osc
+==========
 
 .. automodule:: graphnet.data.extractors.km3net.utilities.utils_osc
    :members:

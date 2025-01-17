@@ -1,13 +1,16 @@
-graphnet.data.extractors.km3net.utilities package
-=================================================
+
+utilities
+=========
+
 
 .. automodule:: graphnet.data.extractors.km3net.utilities
    :members:
    :undoc-members:
    :show-inheritance:
 
-Submodules
-----------
+
+|start-h2| Submodules |end-h2|
+
 
 .. toctree::
    :maxdepth: 2
@@ -15,3 +18,21 @@ Submodules
    graphnet.data.extractors.km3net.utilities.km3net_utilities
    graphnet.data.extractors.km3net.utilities.utils_osc
    graphnet.data.extractors.km3net.utilities.weight_events_oscprob
+
+
+
+.. |start-h2| raw:: html
+
+     <h2>
+
+.. |end-h2| raw:: html
+
+     </h2>
+
+.. |start-h3| raw:: html
+
+     <h3>
+
+.. |end-h3| raw:: html
+
+     </h3>

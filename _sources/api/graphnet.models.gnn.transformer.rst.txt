@@ -1,5 +1,6 @@
-graphnet.models.gnn.transformer module
-======================================
+
+transformer
+===========
 
 .. automodule:: graphnet.models.gnn.transformer
    :members:

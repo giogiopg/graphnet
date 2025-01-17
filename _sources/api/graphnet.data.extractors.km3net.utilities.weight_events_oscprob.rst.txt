@@ -1,5 +1,6 @@
-graphnet.data.extractors.km3net.utilities.weight\_events\_oscprob module
-========================================================================
+
+weight\_events\_oscprob
+=======================
 
 .. automodule:: graphnet.data.extractors.km3net.utilities.weight_events_oscprob
    :members:
