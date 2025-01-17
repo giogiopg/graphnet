@@ -27,8 +27,7 @@ def main(
 
     warnings.simplefilter(action='ignore', category=FutureWarning)
     
-    #input_dir = [f"{TEST_DATA_DIR}/km3net"]
-    input_dir = "/lustre/ific.uv.es/prj/gl/vega/jprado/hnl_files/neutrino_fetch/iRods/review_debug"
+    input_dir = [f"{TEST_DATA_DIR}/km3net"]
     outdir = f"{EXAMPLE_OUTPUT_DIR}/{backend}"
     os.makedirs(outdir, exist_ok=True)
 
