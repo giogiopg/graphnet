@@ -412,35 +412,10 @@
       
         
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#api-graphnet-data-writers-sqlite-writer--page-root" class="md-nav__link">sqlite_writer</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.writers.sqlite_writer.SQLiteWriter" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">SQLiteWriter</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.writers.sqlite_writer.SQLiteWriter.merge_files" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">merge_files()</span></code></a>
-        </li></ul>
-            </nav>
-        </li></ul>
-            </nav>
-        </li>
   </ul>
 </nav>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.data.writers.sqlite_writer.SQLiteWriter" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">SQLiteWriter</span></code></a>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.data.writers.sqlite_writer.SQLiteWriter.merge_files" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">merge_files()</span></code></a>
       
-    
-    </li></ul>
-    
-    </li></ul>
     
     </li></ul>
     
@@ -552,18 +527,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#api-graphnet-data-writers-sqlite-writer--page-root" class="md-nav__link">sqlite_writer</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.writers.sqlite_writer.SQLiteWriter" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">SQLiteWriter</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.writers.sqlite_writer.SQLiteWriter.merge_files" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">merge_files()</span></code></a>
-        </li></ul>
-            </nav>
-        </li></ul>
-            </nav>
-        </li>
   </ul>
 </nav>
               </div>
@@ -573,61 +537,8 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section id="module-graphnet.data.writers.sqlite_writer">
-<span id="sqlite-writer"></span><h1 id="api-graphnet-data-writers-sqlite-writer--page-root">sqlite_writer<a class="headerlink" href="#api-graphnet-data-writers-sqlite-writer--page-root" title="Link to this heading">¶</a></h1>
-<p>Module containing <a href="#id1"><span class="problematic" id="id2">`</span></a>GraphNeTFileSaveMethod`(s).</p>
-<p>These modules are used to save the interim data format from <cite>DataConverter</cite> to
-a deep-learning friendly file format.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="graphnet.data.writers.sqlite_writer.SQLiteWriter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.data.writers.sqlite_writer.</span></span><span class="sig-name descname"><span class="pre">SQLiteWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">merged_database_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_table_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_column</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/data/writers/sqlite_writer.html#SQLiteWriter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.data.writers.sqlite_writer.SQLiteWriter" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="graphnet.data.writers.graphnet_writer.html#graphnet.data.writers.graphnet_writer.GraphNeTWriter" title="graphnet.data.writers.graphnet_writer.GraphNeTWriter"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphNeTWriter</span></code></a></p>
-<p>A method for saving GraphNeT’s interim dataformat to SQLite.</p>
-<p>Initialize <cite>SQLiteWriter</cite>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>merged_database_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">'merged.db'</span></code>) – name of the database, not path, that files
-will be merged into. Defaults to “merged.db”.</p></li>
-<li><p><strong>max_table_size</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – The maximum number of rows in any given table.
-If given, the merging proceedure splits the databases into
-partitions each with a maximum table size of max_table_size.
-Note that the size is approximate. This feature is useful if
-you have many events, as tables exceeding
-400 million rows tend to be noticably slower to query.
-Defaults to None (All events are put into a single database).</p></li>
-<li><p><strong>index_column</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">'event_no'</span></code>) – Name of column that contains event id.</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="graphnet.data.writers.sqlite_writer.SQLiteWriter.merge_files">
-<span class="sig-name descname"><span class="pre">merge_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primary_key_rescue</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/data/writers/sqlite_writer.html#SQLiteWriter.merge_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.data.writers.sqlite_writer.SQLiteWriter.merge_files" title="Link to this definition">¶</a></dt>
-<dd><p>SQLite-specific method for merging output files/databases.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>files</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – paths to SQLite databases that needs to be merged.</p></li>
-<li><p><strong>output_dir</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – path to store the merged database(s) in.</p></li>
-<li><p><strong>database_name</strong> – name, not path, of database. E.g. “my_database”.</p></li>
-<li><p><strong>max_table_size</strong> – The maximum number of rows in any given table.
-If given, the merging proceedure splits the databases into
-partitions each with a maximum table size of max_table_size.
-Note that the size is approximate. This feature is useful if
-you have many events, as tables exceeding
-400 million rows tend to be noticably slower to query.
-Defaults to None (All events are put into a single database.)</p></li>
-<li><p><strong>primary_key_rescue</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">'event_no'</span></code>) – The name of the columns on which the primary
-key is constructed. This will only be used if it is not
-possible to infer the primary key name.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
-</dd>
-</dl>
-</dd></dl>
-</dd></dl>
+  <section id="sqlite-writer">
+<h1 id="api-graphnet-data-writers-sqlite-writer--page-root">sqlite_writer<a class="headerlink" href="#api-graphnet-data-writers-sqlite-writer--page-root" title="Link to this heading">¶</a></h1>
 </section>
 
 

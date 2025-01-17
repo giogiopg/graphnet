@@ -368,42 +368,10 @@
       
         
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#api-graphnet-data-extractors-icecube-utilities-collections--page-root" class="md-nav__link">collections</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.icecube.utilities.collections.flatten_nested_dictionary" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">flatten_nested_dictionary()</span></code></a>
-        </li>
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.icecube.utilities.collections.serialise" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">serialise()</span></code></a>
-        </li>
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.icecube.utilities.collections.transpose_list_of_dicts" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">transpose_list_of_dicts()</span></code></a>
-        </li></ul>
-            </nav>
-        </li>
   </ul>
 </nav>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.data.extractors.icecube.utilities.collections.flatten_nested_dictionary" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">flatten_nested_dictionary()</span></code></a>
       
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.data.extractors.icecube.utilities.collections.serialise" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">serialise()</span></code></a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.data.extractors.icecube.utilities.collections.transpose_list_of_dicts" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">transpose_list_of_dicts()</span></code></a>
-      
-    
-    </li></ul>
     
     </li>
     <li class="md-nav__item">
@@ -708,18 +676,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#api-graphnet-data-extractors-icecube-utilities-collections--page-root" class="md-nav__link">collections</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.icecube.utilities.collections.flatten_nested_dictionary" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">flatten_nested_dictionary()</span></code></a>
-        </li>
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.icecube.utilities.collections.serialise" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">serialise()</span></code></a>
-        </li>
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.icecube.utilities.collections.transpose_list_of_dicts" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">transpose_list_of_dicts()</span></code></a>
-        </li></ul>
-            </nav>
-        </li>
   </ul>
 </nav>
               </div>
@@ -729,62 +686,8 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section id="module-graphnet.data.extractors.icecube.utilities.collections">
-<span id="collections"></span><h1 id="api-graphnet-data-extractors-icecube-utilities-collections--page-root">collections<a class="headerlink" href="#api-graphnet-data-extractors-icecube-utilities-collections--page-root" title="Link to this heading">¶</a></h1>
-<p>Utility methods for manipulating python-type collections of data.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="graphnet.data.extractors.icecube.utilities.collections.flatten_nested_dictionary">
-<span class="sig-prename descclassname"><span class="pre">graphnet.data.extractors.icecube.utilities.collections.</span></span><span class="sig-name descname"><span class="pre">flatten_nested_dictionary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/data/extractors/icecube/utilities/collections.html#flatten_nested_dictionary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.data.extractors.icecube.utilities.collections.flatten_nested_dictionary" title="Link to this definition">¶</a></dt>
-<dd><p>Flatten a nested dictionary to a dictionary with non-dict values.</p>
-<p class="rubric">Example</p>
-<p>d = {“a”: {“b”: 1}, “c”: 2}
-flatten_nested_dictionary(d)
-&gt;&gt;&gt; {“a__b”: 1, “c”: 2}</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>obj</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</span>) – The object that should be flattened, if applicable.</p></li>
-<li><p><strong>parent_key</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">''</span></code>) – The combined name of the parent key(s) containing <cite>obj</cite>.</p></li>
-<li><p><strong>separator</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">'__'</span></code>) – The string used to concatenate nester parent keys.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</span></p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="graphnet.data.extractors.icecube.utilities.collections.serialise">
-<span class="sig-prename descclassname"><span class="pre">graphnet.data.extractors.icecube.utilities.collections.</span></span><span class="sig-name descname"><span class="pre">serialise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/data/extractors/icecube/utilities/collections.html#serialise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.data.extractors.icecube.utilities.collections.serialise" title="Link to this definition">¶</a></dt>
-<dd><p>Serialise the necessary keys in <cite>obj</cite> to JSON for saving to file.</p>
-<p>It is typically not possible to save nested collections (lists, dicts) to
-file. Therefore, if <cite>obj</cite> is, e.g., a list of lists, we need to serialise
-each element in the outer list to JSON (i.e., convert it to a JSON-
-formatted string) in order to be able to save <cite>obj</cite> to file. It will then
-be possible to de-serialise corresponding elements when reading them from
-file.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</span></p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>obj</strong> (<em>Dict</em><em> | </em><em>Any</em>)</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="graphnet.data.extractors.icecube.utilities.collections.transpose_list_of_dicts">
-<span class="sig-prename descclassname"><span class="pre">graphnet.data.extractors.icecube.utilities.collections.</span></span><span class="sig-name descname"><span class="pre">transpose_list_of_dicts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/data/extractors/icecube/utilities/collections.html#transpose_list_of_dicts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.data.extractors.icecube.utilities.collections.transpose_list_of_dicts" title="Link to this definition">¶</a></dt>
-<dd><p>Transpose a list of dicts to a dict of lists.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]]</span></p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>array</strong> (<em>List</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>)</p>
-</dd>
-</dl>
-</dd></dl>
+  <section id="collections">
+<h1 id="api-graphnet-data-extractors-icecube-utilities-collections--page-root">collections<a class="headerlink" href="#api-graphnet-data-extractors-icecube-utilities-collections--page-root" title="Link to this heading">¶</a></h1>
 </section>
 
 

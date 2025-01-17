@@ -383,42 +383,10 @@
       
         
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#api-graphnet-data-extractors-liquido-h5-extractor--page-root" class="md-nav__link">h5_extractor</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.liquido.h5_extractor.H5Extractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">H5Extractor</span></code></a>
-        </li>
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.liquido.h5_extractor.H5HitExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">H5HitExtractor</span></code></a>
-        </li>
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.liquido.h5_extractor.H5TruthExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">H5TruthExtractor</span></code></a>
-        </li></ul>
-            </nav>
-        </li>
   </ul>
 </nav>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.data.extractors.liquido.h5_extractor.H5Extractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">H5Extractor</span></code></a>
       
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.data.extractors.liquido.h5_extractor.H5HitExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">H5HitExtractor</span></code></a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.data.extractors.liquido.h5_extractor.H5TruthExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">H5TruthExtractor</span></code></a>
-      
-    
-    </li></ul>
     
     </li></ul>
     
@@ -595,18 +563,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#api-graphnet-data-extractors-liquido-h5-extractor--page-root" class="md-nav__link">h5_extractor</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.liquido.h5_extractor.H5Extractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">H5Extractor</span></code></a>
-        </li>
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.liquido.h5_extractor.H5HitExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">H5HitExtractor</span></code></a>
-        </li>
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.liquido.h5_extractor.H5TruthExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">H5TruthExtractor</span></code></a>
-        </li></ul>
-            </nav>
-        </li>
   </ul>
 </nav>
               </div>
@@ -616,47 +573,8 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section id="module-graphnet.data.extractors.liquido.h5_extractor">
-<span id="h5-extractor"></span><h1 id="api-graphnet-data-extractors-liquido-h5-extractor--page-root">h5_extractor<a class="headerlink" href="#api-graphnet-data-extractors-liquido-h5-extractor--page-root" title="Link to this heading">¶</a></h1>
-<p>H5 Extractor for LiquidO data files.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="graphnet.data.extractors.liquido.h5_extractor.H5Extractor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.data.extractors.liquido.h5_extractor.</span></span><span class="sig-name descname"><span class="pre">H5Extractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extractor_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/data/extractors/liquido/h5_extractor.html#H5Extractor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.data.extractors.liquido.h5_extractor.H5Extractor" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="graphnet.data.extractors.extractor.html#graphnet.data.extractors.extractor.Extractor" title="graphnet.data.extractors.extractor.Extractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Extractor</span></code></a></p>
-<p>Class for extracting information from LiquidO h5 files.</p>
-<p>Construct H5Extractor.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>extractor_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Name of the <cite>ParquetExtractor</cite> instance.</p></li>
-<li><p><strong>data</strong> (<em>Used to keep track</em><em> of </em><em>the provenance</em><em> of </em><em>different</em>)</p></li>
-<li><p><strong>column_names</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>)</p></li>
-</ul>
-</dd>
-</dl>
-<p>:param :
-:param and to name tables to which this data is saved.:
-:type column_names: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>
-:param column_names: Name of the columns in <cite>extractor_name</cite>.</p>
-</dd></dl>
-<dl class="py class">
-<dt class="sig sig-object py" id="graphnet.data.extractors.liquido.h5_extractor.H5HitExtractor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.data.extractors.liquido.h5_extractor.</span></span><span class="sig-name descname"><span class="pre">H5HitExtractor</span></span><a class="reference internal" href="../_modules/graphnet/data/extractors/liquido/h5_extractor.html#H5HitExtractor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.data.extractors.liquido.h5_extractor.H5HitExtractor" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#graphnet.data.extractors.liquido.h5_extractor.H5Extractor" title="graphnet.data.extractors.liquido.h5_extractor.H5Extractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">H5Extractor</span></code></a></p>
-<p>Extractor for <cite>HitData</cite> in LiquidO H5 files.</p>
-<p>Extractor for <cite>HitData</cite> in LiquidO H5 files.</p>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
-<dl class="py class">
-<dt class="sig sig-object py" id="graphnet.data.extractors.liquido.h5_extractor.H5TruthExtractor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.data.extractors.liquido.h5_extractor.</span></span><span class="sig-name descname"><span class="pre">H5TruthExtractor</span></span><a class="reference internal" href="../_modules/graphnet/data/extractors/liquido/h5_extractor.html#H5TruthExtractor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.data.extractors.liquido.h5_extractor.H5TruthExtractor" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#graphnet.data.extractors.liquido.h5_extractor.H5Extractor" title="graphnet.data.extractors.liquido.h5_extractor.H5Extractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">H5Extractor</span></code></a></p>
-<p>Extractor for <cite>TruthData</cite> in LiquidO H5 files.</p>
-<p>Extractor for <cite>TruthData</cite> in LiquidO H5 files.</p>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
+  <section id="h5-extractor">
+<h1 id="api-graphnet-data-extractors-liquido-h5-extractor--page-root">h5_extractor<a class="headerlink" href="#api-graphnet-data-extractors-liquido-h5-extractor--page-root" title="Link to this heading">¶</a></h1>
 </section>
 
 

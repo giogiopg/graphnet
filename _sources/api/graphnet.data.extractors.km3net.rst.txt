@@ -22,10 +22,13 @@ km3net
 .. toctree::
    :maxdepth: 2
 
+   graphnet.data.extractors.km3net.km3netextractor
+   graphnet.data.extractors.km3net.km3netpulseextractor
    graphnet.data.extractors.km3net.km3netrootextractor
    graphnet.data.extractors.km3net.km3netrootpulseextractor
    graphnet.data.extractors.km3net.km3netroottriggpulseextractor
    graphnet.data.extractors.km3net.km3netroottruthextractor
+   graphnet.data.extractors.km3net.km3nettruthextractor
 
 
 

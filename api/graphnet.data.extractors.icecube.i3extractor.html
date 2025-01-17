@@ -369,35 +369,10 @@
       
         
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#api-graphnet-data-extractors-icecube-i3extractor--page-root" class="md-nav__link">i3extractor</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.icecube.i3extractor.I3Extractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">I3Extractor</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.icecube.i3extractor.I3Extractor.set_gcd" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">set_gcd()</span></code></a>
-        </li></ul>
-            </nav>
-        </li></ul>
-            </nav>
-        </li>
   </ul>
 </nav>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.data.extractors.icecube.i3extractor.I3Extractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">I3Extractor</span></code></a>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.data.extractors.icecube.i3extractor.I3Extractor.set_gcd" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">set_gcd()</span></code></a>
       
-    
-    </li></ul>
-    
-    </li></ul>
     
     </li>
     <li class="md-nav__item">
@@ -672,18 +647,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#api-graphnet-data-extractors-icecube-i3extractor--page-root" class="md-nav__link">i3extractor</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.icecube.i3extractor.I3Extractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">I3Extractor</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.icecube.i3extractor.I3Extractor.set_gcd" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">set_gcd()</span></code></a>
-        </li></ul>
-            </nav>
-        </li></ul>
-            </nav>
-        </li>
   </ul>
 </nav>
               </div>
@@ -693,50 +657,8 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section id="module-graphnet.data.extractors.icecube.i3extractor">
-<span id="i3extractor"></span><h1 id="api-graphnet-data-extractors-icecube-i3extractor--page-root">i3extractor<a class="headerlink" href="#api-graphnet-data-extractors-icecube-i3extractor--page-root" title="Link to this heading">¶</a></h1>
-<p>Base I3Extractor class(es).</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="graphnet.data.extractors.icecube.i3extractor.I3Extractor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.data.extractors.icecube.i3extractor.</span></span><span class="sig-name descname"><span class="pre">I3Extractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extractor_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/data/extractors/icecube/i3extractor.html#I3Extractor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.data.extractors.icecube.i3extractor.I3Extractor" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="graphnet.data.extractors.extractor.html#graphnet.data.extractors.extractor.Extractor" title="graphnet.data.extractors.extractor.Extractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Extractor</span></code></a></p>
-<p>Base class for extracting information from physics I3-frames.</p>
-<p>Contains functionality required to extract data from i3 files, used by
-the IceCube Neutrino Observatory.</p>
-<p>All classes inheriting from <cite>I3Extractor</cite> should implement the <cite>__call__</cite>
-method.</p>
-<p>Construct I3Extractor.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>extractor_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Name of the <cite>I3Extractor</cite> instance. Used to keep
-track of the provenance of different data, and to name tables
-to which this data is saved.</p>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="graphnet.data.extractors.icecube.i3extractor.I3Extractor.set_gcd">
-<span class="sig-name descname"><span class="pre">set_gcd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i3_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gcd_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/data/extractors/icecube/i3extractor.html#I3Extractor.set_gcd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.data.extractors.icecube.i3extractor.I3Extractor.set_gcd" title="Link to this definition">¶</a></dt>
-<dd><p>Extract GFrame and CFrame from i3/gcd-file pair.</p>
-<blockquote>
-<div><p>Information from these frames will be set as member variables of
-<cite>I3Extractor.</cite></p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>i3_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Path to i3 file that is being converted.</p></li>
-<li><p><strong>gcd_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Path to GCD file. Defaults to None. If no GCD file is
-given, the method will attempt to find C and G frames in
-the i3 file instead. If either one of those are not
-present, <cite>RuntimeErrors</cite> will be raised.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
-</dd>
-</dl>
-</dd></dl>
-</dd></dl>
+  <section id="i3extractor">
+<h1 id="api-graphnet-data-extractors-icecube-i3extractor--page-root">i3extractor<a class="headerlink" href="#api-graphnet-data-extractors-icecube-i3extractor--page-root" title="Link to this heading">¶</a></h1>
 </section>
 
 

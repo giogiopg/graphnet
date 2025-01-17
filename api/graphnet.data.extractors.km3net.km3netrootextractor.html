@@ -129,7 +129,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="km3netrootpulseextractor" href="graphnet.data.extractors.km3net.km3netrootpulseextractor.html" />
-    <link rel="prev" title="weight_events_oscprob" href="graphnet.data.extractors.km3net.utilities.weight_events_oscprob.html" />
+    <link rel="prev" title="km3netpulseextractor" href="graphnet.data.extractors.km3net.km3netpulseextractor.html" />
   
    
 
@@ -376,6 +376,20 @@
     <li class="md-nav__item">
     
     
+      <a href="graphnet.data.extractors.km3net.km3netextractor.html" class="md-nav__link">km3netextractor</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="graphnet.data.extractors.km3net.km3netpulseextractor.html" class="md-nav__link">km3netpulseextractor</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     <label class="md-nav__link md-nav__link--active" for="__toc"> km3netrootextractor </label>
     
@@ -383,24 +397,10 @@
       
         
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#api-graphnet-data-extractors-km3net-km3netrootextractor--page-root" class="md-nav__link">km3netrootextractor</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.km3net.km3netrootextractor.KM3NeTROOTExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">KM3NeTROOTExtractor</span></code></a>
-        </li></ul>
-            </nav>
-        </li>
   </ul>
 </nav>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.data.extractors.km3net.km3netrootextractor.KM3NeTROOTExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">KM3NeTROOTExtractor</span></code></a>
       
-    
-    </li></ul>
     
     </li>
     <li class="md-nav__item">
@@ -421,6 +421,13 @@
     
     
       <a href="graphnet.data.extractors.km3net.km3netroottruthextractor.html" class="md-nav__link">km3netroottruthextractor</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="graphnet.data.extractors.km3net.km3nettruthextractor.html" class="md-nav__link">km3nettruthextractor</a>
       
     
     </li></ul>
@@ -605,14 +612,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#api-graphnet-data-extractors-km3net-km3netrootextractor--page-root" class="md-nav__link">km3netrootextractor</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.km3net.km3netrootextractor.KM3NeTROOTExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">KM3NeTROOTExtractor</span></code></a>
-        </li></ul>
-            </nav>
-        </li>
   </ul>
 </nav>
               </div>
@@ -622,26 +622,8 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section id="module-graphnet.data.extractors.km3net.km3netrootextractor">
-<span id="km3netrootextractor"></span><h1 id="api-graphnet-data-extractors-km3net-km3netrootextractor--page-root">km3netrootextractor<a class="headerlink" href="#api-graphnet-data-extractors-km3net-km3netrootextractor--page-root" title="Link to this heading">¶</a></h1>
-<p>Base class for all KM3NeTROOT extractors.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="graphnet.data.extractors.km3net.km3netrootextractor.KM3NeTROOTExtractor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.data.extractors.km3net.km3netrootextractor.</span></span><span class="sig-name descname"><span class="pre">KM3NeTROOTExtractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extractor_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/data/extractors/km3net/km3netrootextractor.html#KM3NeTROOTExtractor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.data.extractors.km3net.km3netrootextractor.KM3NeTROOTExtractor" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="graphnet.data.extractors.extractor.html#graphnet.data.extractors.extractor.Extractor" title="graphnet.data.extractors.extractor.Extractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Extractor</span></code></a></p>
-<p>Base class for all KM3NeTROOT extractors.</p>
-<p>Initailize KM3NeTROOTExtractor.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>extractor_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Name of the <cite>KM3NeTROOTExtractor</cite> instance.</p></li>
-<li><p><strong>data</strong> (<em>Used to keep track</em><em> of </em><em>the provenance</em><em> of </em><em>different</em>)</p></li>
-</ul>
-</dd>
-</dl>
-<p>:param :
-:param and to name tables to which this data is saved.:</p>
-</dd></dl>
+  <section id="km3netrootextractor">
+<h1 id="api-graphnet-data-extractors-km3net-km3netrootextractor--page-root">km3netrootextractor<a class="headerlink" href="#api-graphnet-data-extractors-km3net-km3netrootextractor--page-root" title="Link to this heading">¶</a></h1>
 </section>
 
 
@@ -654,7 +636,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="graphnet.data.extractors.km3net.utilities.weight_events_oscprob.html" title="weight_events_oscprob"
+            <a href="graphnet.data.extractors.km3net.km3netpulseextractor.html" title="km3netpulseextractor"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -663,7 +645,7 @@
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> "Previous" </span> weight_events_oscprob </span>
+                      class="md-footer-nav__direction"> "Previous" </span> km3netpulseextractor </span>
               </div>
             </a>
           

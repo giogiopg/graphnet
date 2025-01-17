@@ -391,24 +391,10 @@
       
         
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#api-graphnet-data-extractors-combine-extractors--page-root" class="md-nav__link">combine_extractors</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.combine_extractors.CombinedExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">CombinedExtractor</span></code></a>
-        </li></ul>
-            </nav>
-        </li>
   </ul>
 </nav>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.data.extractors.combine_extractors.CombinedExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">CombinedExtractor</span></code></a>
       
-    
-    </li></ul>
     
     </li>
     <li class="md-nav__item">
@@ -569,14 +555,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#api-graphnet-data-extractors-combine-extractors--page-root" class="md-nav__link">combine_extractors</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.extractors.combine_extractors.CombinedExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">CombinedExtractor</span></code></a>
-        </li></ul>
-            </nav>
-        </li>
   </ul>
 </nav>
               </div>
@@ -586,35 +565,8 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section id="module-graphnet.data.extractors.combine_extractors">
-<span id="combine-extractors"></span><h1 id="api-graphnet-data-extractors-combine-extractors--page-root">combine_extractors<a class="headerlink" href="#api-graphnet-data-extractors-combine-extractors--page-root" title="Link to this heading">¶</a></h1>
-<p>Module for combining multiple extractors into a single extractor.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="graphnet.data.extractors.combine_extractors.CombinedExtractor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.data.extractors.combine_extractors.</span></span><span class="sig-name descname"><span class="pre">CombinedExtractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extractors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extractor_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/data/extractors/combine_extractors.html#CombinedExtractor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.data.extractors.combine_extractors.CombinedExtractor" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="graphnet.data.extractors.icecube.i3extractor.html#graphnet.data.extractors.icecube.i3extractor.I3Extractor" title="graphnet.data.extractors.icecube.i3extractor.I3Extractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">I3Extractor</span></code></a></p>
-<p>Class for combining multiple extractors.</p>
-<p>This class is used to combine multiple extractors into a single extractor
-with a new name.</p>
-<p>Construct CombinedExtractor.</p>
-<p>Args:
-extractors: List of extractors to combine.</p>
-<blockquote>
-<div><p>The extractors must all return data on the same level;
-e.g. all event-level data or pulse-level data.
-Mixing tables that contain event-level and
-pulse-level information will fail.</p>
-</div></blockquote>
-<p>extractor_name: Name of the new extractor.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>extractors</strong> (<em>List</em><em>[</em><a class="reference internal" href="graphnet.data.extractors.icecube.i3extractor.html#graphnet.data.extractors.icecube.i3extractor.I3Extractor" title="graphnet.data.extractors.icecube.i3extractor.I3Extractor"><em>I3Extractor</em></a><em>]</em>)</p></li>
-<li><p><strong>extractor_name</strong> (<em>str</em>)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
+  <section id="combine-extractors">
+<h1 id="api-graphnet-data-extractors-combine-extractors--page-root">combine_extractors<a class="headerlink" href="#api-graphnet-data-extractors-combine-extractors--page-root" title="Link to this heading">¶</a></h1>
 </section>
 
 

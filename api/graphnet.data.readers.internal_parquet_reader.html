@@ -128,7 +128,7 @@
     <link rel="icon" href="../_static/favicon.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="km3netrootreader" href="graphnet.data.readers.km3netrootreader.html" />
+    <link rel="next" title="km3netreader" href="graphnet.data.readers.km3netreader.html" />
     <link rel="prev" title="i3reader" href="graphnet.data.readers.i3reader.html" />
   
    
@@ -391,35 +391,17 @@
       
         
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#api-graphnet-data-readers-internal-parquet-reader--page-root" class="md-nav__link">internal_parquet_reader</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.readers.internal_parquet_reader.ParquetReader" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ParquetReader</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.readers.internal_parquet_reader.ParquetReader.find_files" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">find_files()</span></code></a>
-        </li></ul>
-            </nav>
-        </li></ul>
-            </nav>
-        </li>
   </ul>
 </nav>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.data.readers.internal_parquet_reader.ParquetReader" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ParquetReader</span></code></a>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.data.readers.internal_parquet_reader.ParquetReader.find_files" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">find_files()</span></code></a>
       
     
-    </li></ul>
+    </li>
+    <li class="md-nav__item">
     
-    </li></ul>
+    
+      <a href="graphnet.data.readers.km3netreader.html" class="md-nav__link">km3netreader</a>
+      
     
     </li>
     <li class="md-nav__item">
@@ -573,18 +555,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#api-graphnet-data-readers-internal-parquet-reader--page-root" class="md-nav__link">internal_parquet_reader</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.readers.internal_parquet_reader.ParquetReader" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ParquetReader</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.data.readers.internal_parquet_reader.ParquetReader.find_files" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">find_files()</span></code></a>
-        </li></ul>
-            </nav>
-        </li></ul>
-            </nav>
-        </li>
   </ul>
 </nav>
               </div>
@@ -594,43 +565,8 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section id="module-graphnet.data.readers.internal_parquet_reader">
-<span id="internal-parquet-reader"></span><h1 id="api-graphnet-data-readers-internal-parquet-reader--page-root">internal_parquet_reader<a class="headerlink" href="#api-graphnet-data-readers-internal-parquet-reader--page-root" title="Link to this heading">¶</a></h1>
-<p>Module containing different reader for GraphNeT internal parquet format.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="graphnet.data.readers.internal_parquet_reader.ParquetReader">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.data.readers.internal_parquet_reader.</span></span><span class="sig-name descname"><span class="pre">ParquetReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_folder</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/data/readers/internal_parquet_reader.html#ParquetReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.data.readers.internal_parquet_reader.ParquetReader" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="graphnet.data.readers.graphnet_file_reader.html#graphnet.data.readers.graphnet_file_reader.GraphNeTFileReader" title="graphnet.data.readers.graphnet_file_reader.GraphNeTFileReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphNeTFileReader</span></code></a></p>
-<p>A class for reading the internal GraphNeT parquet format.</p>
-<p>Construct <cite>Logger</cite>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
-<li><p><strong>class_name</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
-<li><p><strong>level</strong> (<em>int</em>)</p></li>
-<li><p><strong>log_folder</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
-<li><p><strong>kwargs</strong> (<em>Any</em>)</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="graphnet.data.readers.internal_parquet_reader.ParquetReader.find_files">
-<span class="sig-name descname"><span class="pre">find_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/data/readers/internal_parquet_reader.html#ParquetReader.find_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.data.readers.internal_parquet_reader.ParquetReader.find_files" title="Link to this definition">¶</a></dt>
-<dd><p>Search parquet folders for files.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>) – directory containing the parquet folders.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List of parquet files in the folders.</p>
-</dd>
-</dl>
-</dd></dl>
-</dd></dl>
+  <section id="internal-parquet-reader">
+<h1 id="api-graphnet-data-readers-internal-parquet-reader--page-root">internal_parquet_reader<a class="headerlink" href="#api-graphnet-data-readers-internal-parquet-reader--page-root" title="Link to this heading">¶</a></h1>
 </section>
 
 
@@ -657,12 +593,12 @@
             </a>
           
           
-            <a href="graphnet.data.readers.km3netrootreader.html" title="km3netrootreader"
+            <a href="graphnet.data.readers.km3netreader.html" title="km3netreader"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> "Next" </span> km3netrootreader </span>
+                class="md-footer-nav__direction"> "Next" </span> km3netreader </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

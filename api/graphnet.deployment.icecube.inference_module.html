@@ -384,24 +384,10 @@
       
         
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#api-graphnet-deployment-icecube-inference-module--page-root" class="md-nav__link">inference_module</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.deployment.icecube.inference_module.I3InferenceModule" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">I3InferenceModule</span></code></a>
-        </li></ul>
-            </nav>
-        </li>
   </ul>
 </nav>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.deployment.icecube.inference_module.I3InferenceModule" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">I3InferenceModule</span></code></a>
       
-    
-    </li></ul>
     
     </li></ul>
     
@@ -471,14 +457,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#api-graphnet-deployment-icecube-inference-module--page-root" class="md-nav__link">inference_module</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.deployment.icecube.inference_module.I3InferenceModule" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">I3InferenceModule</span></code></a>
-        </li></ul>
-            </nav>
-        </li>
   </ul>
 </nav>
               </div>
@@ -488,38 +467,8 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section id="module-graphnet.deployment.icecube.inference_module">
-<span id="inference-module"></span><h1 id="api-graphnet-deployment-icecube-inference-module--page-root">inference_module<a class="headerlink" href="#api-graphnet-deployment-icecube-inference-module--page-root" title="Link to this heading">¶</a></h1>
-<p>IceCube I3InferenceModule.</p>
-<p>Contains functionality for writing model predictions to i3 files.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="graphnet.deployment.icecube.inference_module.I3InferenceModule">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.deployment.icecube.inference_module.</span></span><span class="sig-name descname"><span class="pre">I3InferenceModule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pulsemap_extractor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gcd_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_columns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulsemap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/deployment/icecube/inference_module.html#I3InferenceModule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.deployment.icecube.inference_module.I3InferenceModule" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="graphnet.deployment.deployment_module.html#graphnet.deployment.deployment_module.DeploymentModule" title="graphnet.deployment.deployment_module.DeploymentModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeploymentModule</span></code></a></p>
-<p>General class for inference on i3 frames.</p>
-<p>General class for inference on I3Frames (physics).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>pulsemap_extractor</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="graphnet.data.extractors.icecube.i3featureextractor.html#graphnet.data.extractors.icecube.i3featureextractor.I3FeatureExtractor" title="graphnet.data.extractors.icecube.i3featureextractor.I3FeatureExtractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">I3FeatureExtractor</span></code></a>], <a class="reference internal" href="graphnet.data.extractors.icecube.i3featureextractor.html#graphnet.data.extractors.icecube.i3featureextractor.I3FeatureExtractor" title="graphnet.data.extractors.icecube.i3featureextractor.I3FeatureExtractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">I3FeatureExtractor</span></code></a>]</span>) – The extractor used to extract the pulsemap.</p></li>
-<li><p><strong>model_config</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="graphnet.utilities.config.model_config.html#graphnet.utilities.config.model_config.ModelConfig" title="graphnet.utilities.config.model_config.ModelConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelConfig</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – The ModelConfig (or path to it) that summarizes the
-model used for inference.</p></li>
-<li><p><strong>state_dict</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Path to state_dict containing the learned weights.</p></li>
-<li><p><strong>model_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name used for the model. Will help define the
-named entry in the I3Frame. E.g. “dynedge”.</p></li>
-<li><p><strong>gcd_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – path to associated gcd file.</p></li>
-<li><p><strong>features</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – the features of the pulsemap that the model is expecting.</p></li>
-<li><p><strong>prediction_columns</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <p>column names for the predictions of the model.
-Will help define the named entry in the I3Frame.</p>
-<blockquote>
-<div><p>E.g. [‘energy_reco’]. Optional.</p>
-</div></blockquote>
-</p></li>
-<li><p><strong>pulsemap</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – the pulsmap that the model is expecting as input.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
+  <section id="inference-module">
+<h1 id="api-graphnet-deployment-icecube-inference-module--page-root">inference_module<a class="headerlink" href="#api-graphnet-deployment-icecube-inference-module--page-root" title="Link to this heading">¶</a></h1>
 </section>
 
 
