@@ -62,6 +62,8 @@ class TRUTH:
         "interaction_type",
         "interaction_time",  # Added for vertex reconstruction
         "inelasticity",
+        "visible_inelasticity",
+        "visible_energy",
         "stopped_muon",
     ]
     DEEPCORE = ICECUBE86

@@ -9,7 +9,7 @@ from torch_geometric.data import Data
 from graphnet.utilities.decorators import final
 from graphnet.models import Model
 from graphnet.models.graphs.utils import (
-    cluster_summarize_with_percentiles,
+    cluster_and_pad,
     identify_indices,
     lex_sort,
     ice_transparency,
@@ -169,9 +169,7 @@ class PercentileClusters(NodeDefinition):
             cluster_idx,
             summ_idx,
             new_feature_names,
-        ) = self._get_indices_and_feature_names(
-            input_feature_names, self._add_counts
-        )
+        ) = self._get_indices_and_feature_names(input_feature_names)
         self._cluster_indices = cluster_idx
         self._summarization_indices = summ_idx
         return new_feature_names
@@ -179,7 +177,6 @@ class PercentileClusters(NodeDefinition):
     def _get_indices_and_feature_names(
         self,
         feature_names: List[str],
-        add_counts: bool,
     ) -> Tuple[List[int], List[int], List[str]]:
         cluster_idx, summ_idx, summ_names = identify_indices(
             feature_names, self._cluster_on
@@ -188,7 +185,7 @@ class PercentileClusters(NodeDefinition):
         for feature in summ_names:
             for pct in self._percentiles:
                 new_feature_names.append(f"{feature}_pct{pct}")
-        if add_counts:
+        if self._add_counts:
             # add "counts" as the last feature
             new_feature_names.append("counts")
         return cluster_idx, summ_idx, new_feature_names
@@ -198,13 +195,16 @@ class PercentileClusters(NodeDefinition):
         x = x.numpy()
         # Construct clusters with percentile-summarized features
         if hasattr(self, "_summarization_indices"):
-            array = cluster_summarize_with_percentiles(
-                x=x,
-                summarization_indices=self._summarization_indices,
-                cluster_indices=self._cluster_indices,
-                percentiles=self._percentiles,
-                add_counts=self._add_counts,
+            cluster_class = cluster_and_pad(
+                x=x, cluster_columns=self._cluster_indices
             )
+            cluster_class.add_percentile_summary(
+                summarization_indices=self._summarization_indices,
+                percentiles=self._percentiles,
+            )
+            if self._add_counts:
+                cluster_class.add_counts()
+            array = cluster_class.clustered_x
         else:
             self.error(
                 f"""{self.__class__.__name__} was not instatiated with
@@ -241,7 +241,8 @@ class NodeAsDOMTimeSeries(NodeDefinition):
             id_columns: List of columns that uniquely identify a DOM.
             time_column: Name of time column.
             charge_column: Name of charge column.
-            max_activations: Maximum number of activations to include in the time series.
+            max_activations: Maximum number of activations to include in
+                the time series.
         """
         self._keys = keys
         super().__init__(input_feature_names=self._keys)
@@ -251,9 +252,8 @@ class NodeAsDOMTimeSeries(NodeDefinition):
             self._charge_index: Optional[int] = self._keys.index(charge_column)
         except ValueError:
             self.warning(
-                "Charge column with name {} not found. Running without.".format(
-                    charge_column
-                )
+                "Charge column with name {charge_column} not found. "
+                "Running without."
             )
 
             self._charge_index = None
@@ -271,7 +271,8 @@ class NodeAsDOMTimeSeries(NodeDefinition):
         x = x.numpy()
         if x.shape[0] == 0:
             return Data(x=torch.tensor(np.column_stack([x, []])))
-        # if there is no charge column add a dummy column of zeros with the same shape as the time column
+        # if there is no charge column add a dummy column
+        # of zeros with the same shape as the time column
         if self._charge_index is None:
             charge_index: int = len(self._keys)
             x = np.insert(x, charge_index, np.zeros(x.shape[0]), axis=1)
@@ -325,6 +326,7 @@ class IceMixNodes(NodeDefinition):
             "z_offset": None,
             "z_scaling": None,
         },
+        sample_pulses: bool = True,
     ) -> None:
         """Construct `IceMixNodes`.
 
@@ -338,6 +340,9 @@ class IceMixNodes(NodeDefinition):
             ice in IceCube are added to the feature set based on z coordinate.
             ice_args: Offset and scaling of the z coordinate in the Detector,
             to be able to make similar conversion in the ice data.
+            sample_pulses: Enable sampling random pulses. If True and the
+            event is longer than the max_length, they will be sampled. If
+            False, then only the first max_length pulses will be selected.
         """
         if input_feature_names is None:
             input_feature_names = [
@@ -383,6 +388,7 @@ class IceMixNodes(NodeDefinition):
         self.z_name = z_name
         self.hlc_name = hlc_name
         self.add_ice_properties = add_ice_properties
+        self.sampling_enabled = sample_pulses
 
     def _define_output_feature_names(
         self, input_feature_names: List[str]
@@ -436,7 +442,14 @@ class IceMixNodes(NodeDefinition):
             x[:, self.feature_indexes[self.hlc_name]] = torch.logical_not(
                 x[:, self.feature_indexes[self.hlc_name]]
             )  # hlc in kaggle was flipped
-        ids = self._pulse_sampler(x, event_length)
+        if self.sampling_enabled:
+            ids = self._pulse_sampler(x, event_length)
+        else:
+            if event_length < self.max_length:
+                ids = torch.arange(event_length)
+            else:
+                ids = torch.arange(self.max_length)
+
         event_length = min(self.max_length, event_length)
 
         graph = torch.zeros([event_length, self.n_features])
