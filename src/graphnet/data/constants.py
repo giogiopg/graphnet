@@ -31,18 +31,8 @@ class FEATURES:
     ]
     KAGGLE = ["x", "y", "z", "time", "charge", "auxiliary"]
     LIQUIDO = ["sipm_x", "sipm_y", "sipm_z", "t"]
-    ORCA115 = [
-        "t",
-        "pos_x",
-        "pos_y",
-        "pos_z",
-        "dir_x",
-        "dir_y",
-        "dir_z",
-        "tot",
-        "trig",
-    ]
-    ORCA6 = ORCA115
+    KM3NET = ["t", "pos_x", "pos_y", "pos_z", "dir_x", "dir_y", "dir_z", "tot", "trig"]
+    KM3NET_HNL = KM3NET
 
 
 class TRUTH:
@@ -62,8 +52,6 @@ class TRUTH:
         "interaction_type",
         "interaction_time",  # Added for vertex reconstruction
         "inelasticity",
-        "visible_inelasticity",
-        "visible_energy",
         "stopped_muon",
     ]
     DEEPCORE = ICECUBE86
@@ -107,43 +95,51 @@ class TRUTH:
         "energy",
         "pid",
     ]
-    ORCA115 = [
-        "pdgid",
-        "vrx_x",
-        "vrx_y",
-        "vrx_z",
-        "zenith",
-        "azimuth",
-        "part_dir_x",
-        "part_dir_y",
-        "part_dir_z",
-        "Energy",
-        "Bj_x",
-        "Bj_y",
-        "i_chan",
-        "is_cc_flag",
-        "jshower_E",
-        "jshower_pos_x",
-        "jshower_pos_y",
-        "jshower_pos_z",
-        "jshower_zenith",
-        "jshower_azimuth",
-        "jmuon_E",
-        "jmuon_pos_x",
-        "jmuon_pos_y",
-        "jmuon_pos_z",
-        "jmuon_zenith",
-        "jmuon_azimuth",
-        "n_hits",
-        "w2_gseagen_ps",
-        "livetime",
-        "n_gen",
+    KM3NET = [
+        "true_pdgid",
+        "true_E",
+        "true_pos_x",
+        "true_pos_y",
+        "true_pos_z",
+        "true_dir_x",
+        "true_dir_y",
+        "true_dir_z",
+        "true_zenith",
+        "true_azimuth",
         "run_id",
+        "evt_id",
         "frame_index",
         "trigger_counter",
+        "n_hits",
         "event_no",
-        "is_track",
-        "is_muon",
+        "is_cc_flag",
+        "tau_topology",
+        "weight",
     ]
-
-    ORCA6 = ORCA115
+    KM3NET_HNL = [
+        "true_pdgid",
+        "true_E",
+        "true_pos_x",
+        "true_pos_y",
+        "true_pos_z",
+        "true_dir_x",
+        "true_dir_y",
+        "true_dir_z",
+        "true_zenith",
+        "run_id",
+        "evt_id",
+        "frame_index",
+        "trigger_counter",
+        "n_hits",
+        "event_no",
+        "is_cc_flag",
+        "tau_topology",
+        "weight",
+        "zenith_hnl",
+        "azimuth_hnl",
+        "angle_between_showers",
+        "Energy_hnl",
+        "Energy_second_shower",
+        "Energy_imbalance",
+        "distance",
+    ]

@@ -1,4 +1,5 @@
-"""Module containing data-specific extractor modules."""
+"""Extractors for extracting pure-python data from KM3NeT-Offline files."""
 
-from .extractor import Extractor
-from .combine_extractors import CombinedExtractor
+from .km3netextractor import KM3NeTExtractor
+from .km3netpulseextractor import KM3NeTTriggPulseExtractor, KM3NeTFullPulseExtractor 
+from .km3nettruthextractor import KM3NeTTruthExtractor, KM3NeTHNLTruthExtractor, KM3NeTRegularRecoExtractor, KM3NeTHNLRecoExtractor

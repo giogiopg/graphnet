@@ -3,7 +3,7 @@ from typing import List, Tuple, Any, Union, Literal
 
 import numpy as np
 import pandas as pd
-import math
+import hashlib
 
 
 def create_unique_id_filetype(
@@ -11,135 +11,100 @@ def create_unique_id_filetype(
     energy: List[float],
     is_cc_flag: List[int],
     run_id: List[int],
-    frame_index: List[int],
     evt_id: List[int],
+    file_type: str,
+    model_hnl: str,
 ) -> List[str]:
-    """Creating a code for each type of flavor and energy range."""
+    """
+    Create a unique ID for each event based on particle type, energy, and other parameters.
+
+    Parameters:
+    pdg_id (List[int]): List of particle ID codes.
+    energy (List[float]): List of particle energies.
+    is_cc_flag (List[int]): List of flags indicating if the interaction is charged current (1) or neutral current (0).
+    run_id (List[int]): List of run IDs.
+    evt_id (List[int]): List of event IDs.
+    file_type (str): Type of the file ('neutrino', 'muon', 'noise', 'data', 'hnl').
+    model_hnl (str): Model name for HNL files. Should be none and don't be used for other file types.
+
+    Returns:
+    List[str]: List of unique IDs for each event.
+    """
     code_dict = {'elec_1_100': 0, #TODO check if the enery ranges are suitable for ARCA
-                    'elec_100_500': 1,
-                    'elec_500_10000': 2,
-                    'muon_1_100': 3,
-                    'muon_100_500': 4,
-                    'muon_500_10000': 5,
-                    'tau_1_100': 6,
-                    'tau_100_500': 7,
-                    'tau_500_10000': 8,
-                    'anti_elec_1_100': 9,
-                    'anti_elec_100_500': 10,
-                    'anti_elec_500_10000': 11,
-                    'anti_muon_1_100': 12,
-                    'anti_muon_100_500': 13,
-                    'anti_muon_500_10000': 14,
-                    'anti_tau_1_100': 15,
-                    'anti_tau_100_500': 16,
-                    'anti_tau_500_10000': 17,
-                    'NC_1_100': 18,
-                    'NC_100_500': 19,
-                    'NC_500_10000': 20,
-                    'anti_NC_1_100': 21,
-                    'anti_NC_100_500': 22,
-                    'anti_NC_500_10000': 23,
-                    'atm_muon': 24,
-                    'noise': 25,
-                    'data': 26
-                    }
+                'elec_100_500': 1,
+                'elec_500_10000': 2,
+                'muon_1_100': 3,
+                'muon_100_500': 4,
+                'muon_500_10000': 5,
+                'tau_1_100': 6,
+                'tau_100_500': 7,
+                'tau_500_10000': 8,
+                'anti_elec_1_100': 9,
+                'anti_elec_100_500': 10,
+                'anti_elec_500_10000': 11,
+                'anti_muon_1_100': 12,
+                'anti_muon_100_500': 13,
+                'anti_muon_500_10000': 14,
+                'anti_tau_1_100': 15,
+                'anti_tau_100_500': 16,
+                'anti_tau_500_10000': 17,
+                'NC_1_100': 18,
+                'NC_100_500': 19,
+                'NC_500_10000': 20,
+                'anti_NC_1_100': 21,
+                'anti_NC_100_500': 22,
+                'anti_NC_500_10000': 23,
+                'atm_muon': 24,
+                'noise': 25,
+                'data': 26,
+                }
     
     unique_id = []
     for i in range(len(pdg_id)):
-        #compute the file_id
-        #for electrons
-        if pdg_id[i] == 12:
-            if energy[i] < 100:
-                file_id = code_dict['elec_1_100']
-            elif (energy[i] >= 100) & (energy[i] < 500):
-                file_id = code_dict['elec_100_500']
-            else:
-                file_id = code_dict['elec_500_10000']
-        #for muons
-        if pdg_id[i] == 14:
-            if energy[i] < 100:
+        if file_type == 'neutrino':
+            if pdg_id[i] in [12, -12, 14, -14, 16, -16]:
                 if is_cc_flag[i] == 1:
-                    file_id = code_dict['muon_1_100']
+                    particle = 'elec_' if abs(pdg_id[i]) == 12 else 'muon_' if abs(pdg_id[i]) == 14 else 'tau_'
+                elif is_cc_flag[i] == 0:
+                    particle = ''
                 else:
-                    file_id = code_dict['NC_1_100']
-            elif (energy[i] >= 100) & (energy[i] < 500):
-                if is_cc_flag[i] == 1:
-                    file_id = code_dict['muon_100_500']
+                    raise ValueError("The is_cc_flag is not 0 or 1.")
+                anti = 'anti_' if pdg_id[i] < 0 else ''
+                nc = 'NC_' if is_cc_flag[i] == 0 and abs(pdg_id[i]) == 14 else ''
+                if energy[i] <= 100:
+                    energy_range = '1_100'
+                elif (energy[i] > 100) and (energy[i] <= 500):
+                    energy_range = '100_500'
+                elif (energy[i] > 500) and (energy[i] <= 10000):
+                    energy_range = '500_10000'
                 else:
-                    file_id = code_dict['NC_100_500']
-            else:
-                if is_cc_flag[i] == 1:
-                    file_id = code_dict['muon_500_10000']
-                else:
-                    file_id = code_dict['NC_500_10000']
-        #for taus
-        if pdg_id[i] == 16:
-            if energy[i] < 100:
-                file_id = code_dict['tau_1_100']
-            elif (energy[i] >= 100) & (energy[i] < 500):
-                file_id = code_dict['tau_100_500']
-            else:
-                file_id = code_dict['tau_500_10000']
-        #for anti-electrons
-        if pdg_id[i] == -12:
-            if energy[i] < 100:
-                file_id = code_dict['anti_elec_1_100']
-            elif (energy[i] >= 100) & (energy[i] < 500):
-                file_id = code_dict['anti_elec_100_500']
-            else:
-                file_id = code_dict['anti_elec_500_10000']
-        #for anti-muons
-        if pdg_id[i] == -14:
-            if energy[i] < 100:
-                if is_cc_flag[i] == 1:
-                    file_id = code_dict['anti_muon_1_100']
-                else:
-                    file_id = code_dict['anti_NC_1_100']
-            elif (energy[i] >= 100) & (energy[i] < 500):
-                if is_cc_flag[i] == 1:
-                    file_id = code_dict['anti_muon_100_500']
-                else:
-                    file_id = code_dict['anti_NC_100_500']
-            else:
-                if is_cc_flag[i] == 1:
-                    file_id = code_dict['anti_muon_500_10000']
-                else:
-                    file_id = code_dict['anti_NC_500_10000']
-        #for anti-taus
-        if pdg_id[i] == -16:
-            if energy[i] < 100:
-                file_id = code_dict['anti_tau_1_100']
-            elif (energy[i] >= 100) & (energy[i] < 500):
-                file_id = code_dict['anti_tau_100_500']
-            else:
-                file_id = code_dict['anti_tau_500_10000']
-        #for atmospheric muons
-        if pdg_id[i] not in [12, 14, 16, -12, -14, -16, 0, 99]:
+                    raise ValueError("The energy is not in the expected range [1, 10000].")
+                file_id = code_dict[f'{anti}{nc}{particle}{energy_range}']
+        elif file_type == 'muon':
             file_id = code_dict['atm_muon']
-        #for noise
-        if pdg_id[i] == 0:
+        elif file_type == 'noise':
             file_id = code_dict['noise']
-        #for data
-        if pdg_id[i] == 99:
+        elif file_type == 'data':
             file_id = code_dict['data']
+        elif file_type == 'hnl':
+            file_id = str(abs(hash(model_hnl)) % (10 ** 3))
+        else:
+            raise ValueError("The file type is not recognized")
+            
 
-        #compute the unique_id as evt_id + run_id + file_id + frame_index
         unique_id.append(str(evt_id[i]) + '000' + str(run_id[i]) + '0' + str(file_id))
-
 
     return unique_id
 
-
 def filter_None_NaN(
-    value: Union[float, None, Literal[math.nan]],
+    values: Union[List[float], np.ndarray],
     padding_value: float,
-) -> float:
-    """Removes None or Nan values and transforms it to padding float value."""
-    if value is None or math.isnan(value):
-        return padding_value
-    else:
-        return value
-
+) -> np.ndarray:
+    """Removes None or NaN values and transforms them to padding float value."""
+    values = [padding_value if v is None else v for v in values]
+    values = np.array(values, dtype=float)
+    values[np.isnan(values)] = padding_value
+    return values
 
 def xyz_dir_to_zen_az(
     dir_x: List[float],
@@ -150,7 +115,8 @@ def xyz_dir_to_zen_az(
 ) -> Tuple[List[float], List[float]]:
     """Convert direction vector to zenith and azimuth angles."""
     # Compute zenith angle (elevation angle)
-    zenith = np.arccos(dir_z)  # zenith angle in radians
+    with np.errstate(invalid='ignore'):
+        zenith = np.arccos(dir_z)  # zenith angle in radians
 
     # Compute azimuth angle
     azimuth = np.arctan2(dir_y, dir_x)  # azimuth angle in radians
@@ -164,43 +130,6 @@ def xyz_dir_to_zen_az(
 
     return zenith, az_centered
 
-
-def classifier_column_creator(
-    pdgid: np.ndarray,
-    is_cc_flag: List[int],
-) -> Tuple[List[int], List[int]]:
-    """Create helpful columns for the classifier."""
-    is_muon = np.zeros(len(pdgid), dtype=int)
-    is_track = np.zeros(len(pdgid), dtype=int)
-    is_noise = np.zeros(len(pdgid), dtype=int)
-    is_data = np.zeros(len(pdgid), dtype=int)
-    
-    #TODO add tau topology
-    """
-    primaries = f.mc_trks[:,0]
-    secondaries = f.mc_trks
-    
-    print("%"*20)
-    tau=abs(primaries.pdgid)==16
-    tau_track=np.any(np.abs(secondaries.pdgid)==13,axis=1)
-    result=np.logical_and(tau,tau_track)
-    print(secondaries.pdgid[result])
-    for i in secondaries.pdgid[result]: # this will get all track like taus, we could add a new column as 'tau_topology'
-        print(i)
-
-    """
-
-    is_muon[abs(pdgid) == 13] = 1
-    is_muon[pdgid == 81] = 1
-    is_track[abs(pdgid) == 13] = 1
-    is_track[pdgid == 81] = 1
-    is_track[(abs(pdgid) == 14) & (is_cc_flag == 1)] = 1
-    is_noise[pdgid == 0] = 1
-    is_data[pdgid == 99] = 1
-
-    return is_muon, is_track, is_noise, is_data
-
-
 def creating_time_zero(df: pd.DataFrame) -> pd.DataFrame:
     """Shift the event time so that the first hit has zero in time."""
     df = df.sort_values(by=["event_no", "t"])
@@ -210,7 +139,6 @@ def creating_time_zero(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
-
 def assert_no_uint_values(df: pd.DataFrame) -> pd.DataFrame:
     """Assert no format no supported by sqlite is in the data."""
     for column in df.columns:
@@ -218,5 +146,7 @@ def assert_no_uint_values(df: pd.DataFrame) -> pd.DataFrame:
             df[column] = df[column].astype("int32")
         elif df[column].dtype == "uint64":
             df[column] = df[column].astype("int64")
+        else:
+            pass
     return df
 

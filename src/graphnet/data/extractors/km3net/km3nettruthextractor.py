@@ -1,0 +1,294 @@
+"""Code to extract the truth event information from the KM3NeT ROOT file."""
+
+from typing import Any, Dict
+import numpy as np
+import pandas as pd
+import km3io as ki
+
+from graphnet.data.extractors import Extractor
+from .km3netextractor import KM3NeTExtractor
+from graphnet.data.extractors.km3net.utilities.km3net_utilities import (
+    create_unique_id_filetype,
+    xyz_dir_to_zen_az,
+    assert_no_uint_values,
+    filter_None_NaN,
+
+)
+#from graphnet.data.extractors.km3net.utilities.weight_events_oscprob import compute_evt_weight
+
+
+
+class KM3NeTTruthExtractor(KM3NeTExtractor):
+    """Class for extracting the truth information from a file."""
+
+    def __init__(self, name: str, add_hnl_info: bool = False, add_reco_info: bool = False):
+        """Initialize the class to extract the truth information."""
+        super().__init__(name)
+        self.add_hnl_info = add_hnl_info
+        self.add_reco_info = add_reco_info
+
+    def __call__(self, file: Any) -> Dict[str, Any]:
+        """Extract truth event information as a dataframe."""
+        truth_df = self._extract_truth_dataframe(file)
+        truth_df = assert_no_uint_values(truth_df)  # asserts the data format
+
+        return truth_df
+    
+    
+    def _extract_particle_attributes(self, particle, attributes, padding_value, prefix, file_type) -> Dict[str, Any]:
+        if (file_type != "data") or (file_type != "noise"):
+            dict_particle = {}
+            for attr in attributes:
+                dict_particle[prefix+'_'+attr] = filter_None_NaN(getattr(particle, attr), padding_value)
+
+            #also add the zenith and the azimuth computed from the direction
+            if "dir_x" in attributes and "dir_y" in attributes and "dir_z" in attributes:
+                zen, az = xyz_dir_to_zen_az(
+                    filter_None_NaN(getattr(particle, "dir_x"), padding_value),
+                    filter_None_NaN(getattr(particle, "dir_y"), padding_value),
+                    filter_None_NaN(getattr(particle, "dir_z"), padding_value),
+                    padding_value,
+                )
+                dict_particle[prefix+"_zenith"] = zen
+                dict_particle[prefix+"_azimuth"] = az
+        elif (file_type != "hnl") or (file_type != "neutrino") or (file_type != "muon"):
+            dict_particle = {}
+            for attr in attributes:
+                dict_particle[prefix+'_'+attr] = padding_value * np.ones(len(particle.pos_x))
+
+            #also add the zenith and the azimuth computed from the direction
+            if "dir_x" in attributes and "dir_y" in attributes and "dir_z" in attributes:
+                dict_particle[prefix+"_zenith"] = padding_value * np.ones(len(particle.pos_x))
+                dict_particle[prefix+"_azimuth"] = padding_value * np.ones(len(particle.pos_x))
+        else:
+            raise ValueError("File type not recognized")
+
+        return dict_particle
+    
+    def _extract_event_attributes(self, file, primaries, primaries_jshower, padding_value, file_type) -> Dict[str, Any]:
+        '''
+        Return dictionary with the event_id, the run_id, the frame_index, the trigger_counter,
+        the number of hits, is_cc_flag, tau_topology, weights and the unique_id for the database
+        '''
+
+        evt_id, run_id, frame_index, trigger_counter = (
+            np.array(file.id),
+            np.array(file.run_id),
+            np.array(file.frame_index),
+            np.array(file.trigger_counter),
+        )
+
+        n_hits = np.array(file.n_hits)
+
+        if file_type == "data":
+            is_cc_flag = padding_value * np.ones(len(primaries_jshower.E))
+            tau_topologies = padding_value * np.ones(len(primaries_jshower.E))
+
+            daq = float(file.header.DAQ.livetime)
+            livetime= float(file.header.K40)
+            weight = np.ones(len(primaries_jshower.pos_x))
+        elif file_type == "noise":
+            is_cc_flag = padding_value * np.ones(len(primaries_jshower.E))
+            tau_topologies = padding_value * np.ones(len(primaries_jshower.E))
+
+            daq = float(file.header.DAQ.livetime)
+            livetime= float(file.header.K40)
+            weight = (daq/livetime) * np.ones(len(primaries_jshower.pos_x))
+        elif file_type == "hnl":
+            is_cc_flag = np.ones(len(primaries.pos_x))
+            tau_topologies = padding_value * np.ones(len(primaries.pos_x))
+            livetime = file.header.DAQ.livetime
+            try:
+                    #file.header.genvol.numberOfEvents 
+                    n_gen = file.header.genvol.numberOfEvents #single header
+            except:
+                n_gen = 1/file.w[:,3] #multiheader
+            weight = livetime * file.w[:, 1] / n_gen
+        elif file_type == "neutrino":
+            is_cc_flag = np.array(file.w2list[:, 10] == 2)
+            tau_topologies = [2 if 16 in np.abs(primaries.pdgid) and 13 in np.abs(file.mc_trks.pdgid[i]) else 1 if 16 in np.abs(primaries.pdgid) else 3 for i in range(len(primaries.pdgid))]
+            #give as weight here the quantity livetime * file.w[:, 1] / n_gen
+            livetime = file.header.DAQ.livetime
+            try:
+                n_gen = file.header.genvol.numberOfEvents #single header
+            except:
+                n_gen = 1/file.w[:,3] #multiheader
+
+            weight = livetime * file.w[:, 1] / n_gen
+        elif file_type == "muon":
+            is_cc_flag = padding_value * np.ones(len(primaries.pos_x))
+            tau_topologies = padding_value * np.ones(len(primaries.pos_x))
+
+            livetime = float(file.header.DAQ.livetime)
+            daq = float(file.header.DAQ.livetime)
+            weight = (daq / livetime) * np.ones(len(primaries.pos_x))
+
+        if file_type == "hnl":
+            model_hnl = file.header.model.interaction
+        elif (file_type == "neutrino") or (file_type == "muon") or (file_type == "data") or (file_type == "noise"):
+            model_hnl = 'none'
+        else:
+            raise ValueError("File type not recognized")
+
+        unique_id = create_unique_id_filetype(
+            pdg_id=np.array(primaries.pdgid),
+            energy=np.array(primaries.E),
+            is_cc_flag=is_cc_flag,
+            run_id=np.array(file.run_id),
+            evt_id=np.array(file.id),
+            file_type=file_type,
+            model_hnl=model_hnl
+        )
+        
+        return { "run_id": run_id, "evt_id": evt_id, "frame_index": frame_index, "trigger_counter": trigger_counter, "n_hits": n_hits, "event_no": np.array(unique_id).astype(int), "is_cc_flag": is_cc_flag, "tau_topology": tau_topologies, "weight": weight}
+            
+    def _extract_hnl_attributes(self, file, primaries, primaries_jshower, padding_value, file_type) -> Dict[str, Any]:
+        '''
+        Return dictionary with the zenith_hnl, azimuth_hnl, angle_between_showers, Energy_hnl, Energy_second_shower, Energy_imbalance, distance
+        '''
+        if (file_type=='data') or (file_type=='noise'):
+            return { "zenith_hnl": padding_value * np.ones(len(primaries_jshower.E)), "azimuth_hnl": padding_value * np.ones(len(primaries_jshower.E)), "angle_between_showers": padding_value * np.ones(len(primaries_jshower.E)), "Energy_hnl": padding_value * np.ones(len(primaries_jshower.E)), "Energy_second_shower": padding_value * np.ones(len(primaries_jshower.E)), "Energy_imbalance": padding_value * np.ones(len(primaries_jshower.E)), "distance": padding_value * np.ones(len(primaries_jshower.E)), "is_hnl": padding_value * np.ones(len(primaries_jshower.E))}
+        elif file_type=='hnl':
+            hnl = file.mc_trks[:, 1]
+            first_shower = file.mc_trks[:, 2]
+            second_shower = file.mc_trks[:, 4]
+
+            energy_imbalance = (np.array(first_shower.E) - np.array(second_shower.E)) / (np.array(first_shower.E) + np.array(second_shower.E))
+            distance = np.sqrt((np.array(primaries.pos_x) - np.array(second_shower.pos_x))**2 + (np.array(primaries.pos_y) - np.array(second_shower.pos_y))**2 + (np.array(primaries.pos_z) - np.array(second_shower.pos_z))**2)
+            
+            #compute the angle between the two showers
+            angle = np.arccos(np.array(first_shower.dir_x)*np.array(second_shower.dir_x) + np.array(first_shower.dir_y)*np.array(second_shower.dir_y) + np.array(first_shower.dir_z)*np.array(second_shower.dir_z))
+
+            # the zenith and azimuth of the heavy neutrino
+            zen_hnl, az_hnl = xyz_dir_to_zen_az(
+                np.array(hnl.dir_x),
+                np.array(hnl.dir_y),
+                np.array(hnl.dir_z),
+                padding_value,
+            )
+
+            return { "zenith_hnl": zen_hnl, "azimuth_hnl": az_hnl, "angle_between_showers": angle, "Energy_hnl": np.array(hnl.E), "Energy_second_shower": np.array(second_shower.E), "Energy_imbalance": energy_imbalance, "distance": distance, "is_hnl": np.ones(len(primaries.pos_x))}
+        elif (file_type=='neutrino') or (file_type=='muon'):
+            return { "zenith_hnl": padding_value * np.ones(len(primaries.pos_x)), "azimuth_hnl": padding_value * np.ones(len(primaries.pos_x)), "angle_between_showers": np.zeros(len(primaries.pos_x)), "Energy_hnl": padding_value * np.ones(len(primaries.pos_x)), "Energy_second_shower": padding_value * np.ones(len(primaries.pos_x)), "Energy_imbalance": padding_value * np.ones(len(primaries.pos_x)), "distance": np.zeros(len(primaries.pos_x)), "is_hnl": np.zeros(len(primaries.pos_x))}
+
+    def _construct_truth_dictionary(self, primaries, primaries_jshower, primaries_jmuon, file, padding_value, file_type) -> Dict[str, Any]:
+        true_attrs = ["pdgid", "E", "pos_x", "pos_y", "pos_z", "dir_x", "dir_y", "dir_z"]
+        dict_truth = self._extract_particle_attributes(primaries, true_attrs, padding_value, prefix="true", file_type=file_type)
+
+        primaries_jshower, primaries_jmuon = ki.tools.best_jshower(file.trks), ki.tools.best_jmuon(file.trks)
+        jshower_attrs = ["E", "pos_x", "pos_y", "pos_z", "dir_x", "dir_y", "dir_z"]
+        jmuon_attrs = ["E", "pos_x", "pos_y", "pos_z", "dir_x", "dir_y", "dir_z"]
+        if self.add_reco_info:
+            jshower_data = self._extract_particle_attributes(primaries_jshower, jshower_attrs, padding_value, prefix="jshower", file_type=file_type)
+            jmuon_data = self._extract_particle_attributes(primaries_jmuon, jmuon_attrs, padding_value, prefix="jmuon", file_type=file_type)
+            dict_truth.update(jshower_data)
+            dict_truth.update(jmuon_data)
+
+        evt_data = self._extract_event_attributes(file, primaries, primaries_jshower, padding_value, file_type=file_type)
+        dict_truth.update(evt_data)
+
+        if self.add_hnl_info:
+            hnl_data = self._extract_hnl_attributes(file, primaries, primaries_jshower, padding_value, file_type=file_type)
+            dict_truth.update(hnl_data)
+
+        return dict_truth
+
+
+
+
+    def _extract_truth_dataframe(self, file: Any) -> Any:
+        """Extract truth information from a file and returns a dataframe.
+
+        Args:
+            file (Any): The file from which to extract truth information.
+
+        Returns:
+            pd.DataFrame: A dataframe containing truth information.
+        """
+        nus_flavor = [12, 14, 16]
+        padding_value = 99999999.0
+        if len(file.mc_trks.E[0]>0):
+            primaries = file.mc_trks[:, 0]
+            ##############################################################
+            #MUON-FILE####################################################
+            ##############################################################
+            if abs(np.array(primaries.pdgid)[0]) not in nus_flavor:
+                primaries_jshower = ki.tools.best_jshower(file.trks)
+                primaries_jmuon = ki.tools.best_jmuon(file.trks)
+                dict_truth = self._construct_truth_dictionary(primaries, primaries_jshower, primaries_jmuon, file, padding_value, file_type="muon")
+
+            ###############################################################
+            #HNL-FILE######################################################
+            ###############################################################
+            elif 5914 in file.mc_trks.pdgid[0]:
+                primaries_jshower = ki.tools.best_jshower(file.trks)
+                primaries_jmuon = ki.tools.best_jmuon(file.trks)
+                dict_truth = self._construct_truth_dictionary(primaries, primaries_jshower, primaries_jmuon, file, padding_value, file_type="hnl")
+
+            elif (abs(np.array(primaries.pdgid)[0]) in nus_flavor) and (5914 not in file.mc_trks.pdgid[0]):
+                ####################################################
+                #NEUTRINO-FILE######################################
+                ####################################################
+                primaries_jshower = ki.tools.best_jshower(file.trks)
+                primaries_jmuon = ki.tools.best_jmuon(file.trks)
+                dict_truth = self._construct_truth_dictionary(primaries, primaries_jshower, primaries_jmuon, file, padding_value, file_type="neutrino")
+            else:
+                ValueError("The file is not recognized as a neutrino, muon, hnl, noise or data file. I might be corrupted.")
+        elif len(file.mc_trks.E[0]==0):
+            if file.header['calibration']=="dynamical":
+                ####################################################
+                #DATA-FILE##########################################
+                ####################################################
+                primaries_jshower = ki.tools.best_jshower(file.trks)
+                primaries_jmuon = ki.tools.best_jmuon(file.trks)
+                dict_truth = self._construct_truth_dictionary(primaries_jshower, primaries_jshower, primaries_jmuon, file, padding_value, file_type="data")
+
+            elif file.header['calibration']=="statical":
+                ####################################################
+                #NOISE-FILE##########################################
+                ####################################################
+                primaries_jshower = ki.tools.best_jshower(file.trks)
+                primaries_jmuon = ki.tools.best_jmuon(file.trks)
+                dict_truth = self._construct_truth_dictionary(primaries_jshower, primaries_jshower, primaries_jmuon, file, padding_value, file_type="noise")
+            else:
+                ValueError("The file is not recognized as a neutrino, muon, hnl, noise or data file. I might be corrupted.")
+        else:
+            ValueError("The file is not recognized as a neutrino, muon, hnl, noise or data file. I might be corrupted.")
+                
+        # Ensure all arrays in dict_truth are 1-dimensional
+        for key, value in dict_truth.items():
+            if isinstance(value, np.ndarray) and value.ndim > 1:
+                print(key)
+                dict_truth[key] = value.flatten()
+        truth_df = pd.DataFrame(dict_truth)
+            
+        return truth_df
+    
+
+class KM3NeTRegularTruthExtractor(KM3NeTTruthExtractor):
+    """Class for extracting the truth regular true information from file."""
+
+    def __init__(self, name: str = "truth"):
+        """Initialize the class to extract the truth regular information."""
+        super().__init__(name, add_hnl_info=False)
+
+class KM3NeTHNLTruthExtractor(KM3NeTTruthExtractor):
+    """Class for extracting the truth hnl true information from file."""
+
+    def __init__(self, name: str = "truth_hnl"):
+        """Initialize the class to extract the truth hnl information."""
+        super().__init__(name, add_hnl_info=True)
+
+class KM3NeTRegularRecoExtractor(KM3NeTTruthExtractor):
+    """Class for extracting the truth regular reco information from file."""
+
+    def __init__(self, name: str = "reco"):
+        """Initialize the class to extract the truth regular reco information."""
+        super().__init__(name, add_hnl_info=False, add_reco_info=True)
+
+class KM3NeTHNLRecoExtractor(KM3NeTTruthExtractor):
+    """Class for extracting the truth hnl reco information from file."""
+
+    def __init__(self, name: str = "reco_hnl"):
+        """Initialize the class to extract the truth hnl reco information."""
+        super().__init__(name, add_hnl_info=True, add_reco_info=True)
