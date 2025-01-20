@@ -398,18 +398,6 @@
         <li class="md-nav__item"><a href="#graphnet.models.components.embedding.SpacetimeEncoder.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
         </li></ul>
             </nav>
-        </li>
-        <li class="md-nav__item"><a href="#graphnet.models.components.embedding.FeaturesProcessing" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">FeaturesProcessing</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.models.components.embedding.FeaturesProcessing.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
-        </li></ul>
-            </nav>
-        </li>
-        <li class="md-nav__item"><a href="#graphnet.models.components.embedding.PositionalEncoding" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">PositionalEncoding</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.models.components.embedding.PositionalEncoding.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
-        </li></ul>
-            </nav>
         </li></ul>
             </nav>
         </li>
@@ -453,34 +441,6 @@
     
     
       <a href="#graphnet.models.components.embedding.SpacetimeEncoder.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
-      
-    
-    </li></ul>
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.models.components.embedding.FeaturesProcessing" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">FeaturesProcessing</span></code></a>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.models.components.embedding.FeaturesProcessing.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
-      
-    
-    </li></ul>
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.models.components.embedding.PositionalEncoding" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">PositionalEncoding</span></code></a>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.models.components.embedding.PositionalEncoding.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
       
     
     </li></ul>
@@ -653,18 +613,6 @@
         <li class="md-nav__item"><a href="#graphnet.models.components.embedding.SpacetimeEncoder.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
         </li></ul>
             </nav>
-        </li>
-        <li class="md-nav__item"><a href="#graphnet.models.components.embedding.FeaturesProcessing" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">FeaturesProcessing</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.models.components.embedding.FeaturesProcessing.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
-        </li></ul>
-            </nav>
-        </li>
-        <li class="md-nav__item"><a href="#graphnet.models.components.embedding.PositionalEncoding" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">PositionalEncoding</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.models.components.embedding.PositionalEncoding.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
-        </li></ul>
-            </nav>
         </li></ul>
             </nav>
         </li>
@@ -782,62 +730,6 @@ sequences.</p>
 <dd class="field-even"><p><strong>x</strong> (<em>Tensor</em>)</p>
 </dd>
 </dl>
-</dd></dl>
-</dd></dl>
-<dl class="py class">
-<dt class="sig sig-object py" id="graphnet.models.components.embedding.FeaturesProcessing">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.models.components.embedding.</span></span><span class="sig-name descname"><span class="pre">FeaturesProcessing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">emb_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_features</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/models/components/embedding.html#FeaturesProcessing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.models.components.embedding.FeaturesProcessing" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
-<p>Process the hits features by passing them through a embedding block.</p>
-<p>Pass all the features through a embedding block before feed them to the model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>n_features</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">6</span></code>) – The number of features in the input data.</p></li>
-<li><p><strong>emb_dims</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – Dimensionality of the consecutive linear layers.</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="graphnet.models.components.embedding.FeaturesProcessing.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/models/components/embedding.html#FeaturesProcessing.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.models.components.embedding.FeaturesProcessing.forward" title="Link to this definition">¶</a></dt>
-<dd><p>Define the computation performed at every call.</p>
-<p>Should be overridden by all subclasses.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Although the recipe for forward pass needs to be defined within
-this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
-instead of this since the former takes care of running the
-registered hooks while the latter silently ignores them.</p>
-</div>
-</dd></dl>
-</dd></dl>
-<dl class="py class">
-<dt class="sig sig-object py" id="graphnet.models.components.embedding.PositionalEncoding">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.models.components.embedding.</span></span><span class="sig-name descname"><span class="pre">PositionalEncoding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_length</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/models/components/embedding.html#PositionalEncoding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.models.components.embedding.PositionalEncoding" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
-<p>Sinusodial Position Embedding for continuous variables.</p>
-<p>Associate an unique representation to each position in a sequence using Sinusoidal Fourier position encoding.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dim</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">128</span></code>) – Dimension of the model</p></li>
-<li><p><strong>seq_length</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">300</span></code>) – Maximun length of the sequence.</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="graphnet.models.components.embedding.PositionalEncoding.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/models/components/embedding.html#PositionalEncoding.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.models.components.embedding.PositionalEncoding.forward" title="Link to this definition">¶</a></dt>
-<dd><p>Define the computation performed at every call.</p>
-<p>Should be overridden by all subclasses.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Although the recipe for forward pass needs to be defined within
-this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
-instead of this since the former takes care of running the
-registered hooks while the latter silently ignores them.</p>
-</div>
 </dd></dl>
 </dd></dl>
 </section>

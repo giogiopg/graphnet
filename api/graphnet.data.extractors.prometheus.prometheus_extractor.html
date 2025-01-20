@@ -390,10 +390,42 @@
       
         
 <nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#api-graphnet-data-extractors-prometheus-prometheus-extractor--page-root" class="md-nav__link">prometheus_extractor</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#graphnet.data.extractors.prometheus.prometheus_extractor.PrometheusExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">PrometheusExtractor</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#graphnet.data.extractors.prometheus.prometheus_extractor.PrometheusTruthExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">PrometheusTruthExtractor</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#graphnet.data.extractors.prometheus.prometheus_extractor.PrometheusFeatureExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">PrometheusFeatureExtractor</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
   </ul>
 </nav>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#graphnet.data.extractors.prometheus.prometheus_extractor.PrometheusExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">PrometheusExtractor</span></code></a>
       
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#graphnet.data.extractors.prometheus.prometheus_extractor.PrometheusTruthExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">PrometheusTruthExtractor</span></code></a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#graphnet.data.extractors.prometheus.prometheus_extractor.PrometheusFeatureExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">PrometheusFeatureExtractor</span></code></a>
+      
+    
+    </li></ul>
     
     </li></ul>
     
@@ -563,7 +595,18 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#api-graphnet-data-extractors-prometheus-prometheus-extractor--page-root" class="md-nav__link">prometheus_extractor</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#graphnet.data.extractors.prometheus.prometheus_extractor.PrometheusExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">PrometheusExtractor</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#graphnet.data.extractors.prometheus.prometheus_extractor.PrometheusTruthExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">PrometheusTruthExtractor</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#graphnet.data.extractors.prometheus.prometheus_extractor.PrometheusFeatureExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">PrometheusFeatureExtractor</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
   </ul>
 </nav>
               </div>
@@ -573,8 +616,58 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section id="prometheus-extractor">
-<h1 id="api-graphnet-data-extractors-prometheus-prometheus-extractor--page-root">prometheus_extractor<a class="headerlink" href="#api-graphnet-data-extractors-prometheus-prometheus-extractor--page-root" title="Link to this heading">¶</a></h1>
+  <section id="module-graphnet.data.extractors.prometheus.prometheus_extractor">
+<span id="prometheus-extractor"></span><h1 id="api-graphnet-data-extractors-prometheus-prometheus-extractor--page-root">prometheus_extractor<a class="headerlink" href="#api-graphnet-data-extractors-prometheus-prometheus-extractor--page-root" title="Link to this heading">¶</a></h1>
+<p>Parquet Extractor for conversion of simulation files from PROMETHEUS.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="graphnet.data.extractors.prometheus.prometheus_extractor.PrometheusExtractor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.data.extractors.prometheus.prometheus_extractor.</span></span><span class="sig-name descname"><span class="pre">PrometheusExtractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extractor_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/data/extractors/prometheus/prometheus_extractor.html#PrometheusExtractor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.data.extractors.prometheus.prometheus_extractor.PrometheusExtractor" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="graphnet.data.extractors.extractor.html#graphnet.data.extractors.extractor.Extractor" title="graphnet.data.extractors.extractor.Extractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Extractor</span></code></a></p>
+<p>Class for extracting information from PROMETHEUS parquet files.</p>
+<p>Contains functionality required to extract data from PROMETHEUS parquet
+files.</p>
+<p>Construct PrometheusExtractor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extractor_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Name of the <cite>PrometheusExtractor</cite> instance.</p></li>
+<li><p><strong>data</strong> (<em>Used to keep track</em><em> of </em><em>the provenance</em><em> of </em><em>different</em>)</p></li>
+<li><p><strong>columns</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<p>:param :
+:param and to name tables to which this data is saved.:
+:type columns: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>
+:param columns: List of column names to extract from the table.</p>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="graphnet.data.extractors.prometheus.prometheus_extractor.PrometheusTruthExtractor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.data.extractors.prometheus.prometheus_extractor.</span></span><span class="sig-name descname"><span class="pre">PrometheusTruthExtractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/data/extractors/prometheus/prometheus_extractor.html#PrometheusTruthExtractor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.data.extractors.prometheus.prometheus_extractor.PrometheusTruthExtractor" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#graphnet.data.extractors.prometheus.prometheus_extractor.PrometheusExtractor" title="graphnet.data.extractors.prometheus.prometheus_extractor.PrometheusExtractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrometheusExtractor</span></code></a></p>
+<p>Class for extracting event level truth from Prometheus parquet files.</p>
+<p>This Extractor will “initial_state” i.e. neutrino truth.</p>
+<p>Construct PrometheusTruthExtractor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">'mc_truth'</span></code>) – Name of the table in the parquet files that contain
+event-level truth. Defaults to “mc_truth”.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="graphnet.data.extractors.prometheus.prometheus_extractor.PrometheusFeatureExtractor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.data.extractors.prometheus.prometheus_extractor.</span></span><span class="sig-name descname"><span class="pre">PrometheusFeatureExtractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/data/extractors/prometheus/prometheus_extractor.html#PrometheusFeatureExtractor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.data.extractors.prometheus.prometheus_extractor.PrometheusFeatureExtractor" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#graphnet.data.extractors.prometheus.prometheus_extractor.PrometheusExtractor" title="graphnet.data.extractors.prometheus.prometheus_extractor.PrometheusExtractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrometheusExtractor</span></code></a></p>
+<p>Class for extracting pulses/photons from Prometheus parquet files.</p>
+<p>Construct PrometheusFeatureExtractor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">'photons'</span></code>) – Name of table in parquet files that contain the
+photons/pulses. Defaults to “photons”.</p>
+</dd>
+</dl>
+</dd></dl>
 </section>
 
 

@@ -369,10 +369,24 @@
       
         
 <nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#api-graphnet-data-extractors-internal-parquet-extractor--page-root" class="md-nav__link">parquet_extractor</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#graphnet.data.extractors.internal.parquet_extractor.ParquetExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ParquetExtractor</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
   </ul>
 </nav>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#graphnet.data.extractors.internal.parquet_extractor.ParquetExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ParquetExtractor</span></code></a>
       
+    
+    </li></ul>
     
     </li></ul>
     
@@ -563,7 +577,14 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#api-graphnet-data-extractors-internal-parquet-extractor--page-root" class="md-nav__link">parquet_extractor</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#graphnet.data.extractors.internal.parquet_extractor.ParquetExtractor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ParquetExtractor</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
   </ul>
 </nav>
               </div>
@@ -573,8 +594,29 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section id="parquet-extractor">
-<h1 id="api-graphnet-data-extractors-internal-parquet-extractor--page-root">parquet_extractor<a class="headerlink" href="#api-graphnet-data-extractors-internal-parquet-extractor--page-root" title="Link to this heading">¶</a></h1>
+  <section id="module-graphnet.data.extractors.internal.parquet_extractor">
+<span id="parquet-extractor"></span><h1 id="api-graphnet-data-extractors-internal-parquet-extractor--page-root">parquet_extractor<a class="headerlink" href="#api-graphnet-data-extractors-internal-parquet-extractor--page-root" title="Link to this heading">¶</a></h1>
+<p>Parquet Extractor for conversion from internal parquet format.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="graphnet.data.extractors.internal.parquet_extractor.ParquetExtractor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.data.extractors.internal.parquet_extractor.</span></span><span class="sig-name descname"><span class="pre">ParquetExtractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extractor_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/data/extractors/internal/parquet_extractor.html#ParquetExtractor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.data.extractors.internal.parquet_extractor.ParquetExtractor" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="graphnet.data.extractors.extractor.html#graphnet.data.extractors.extractor.Extractor" title="graphnet.data.extractors.extractor.Extractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Extractor</span></code></a></p>
+<p>Class for extracting information from internal GraphNeT parquet files.</p>
+<p>Contains functionality required to extract data from internal parquet
+files, i.e files saved using the ParquetWriter. This allows for conversion
+between internal data formats.</p>
+<p>Construct ParquetExtractor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extractor_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Name of the <cite>ParquetExtractor</cite> instance.</p></li>
+<li><p><strong>data</strong> (<em>Used to keep track</em><em> of </em><em>the provenance</em><em> of </em><em>different</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<p>:param :
+:param and to name tables to which this data is saved.:</p>
+</dd></dl>
 </section>
 
 

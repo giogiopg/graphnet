@@ -370,10 +370,24 @@
       
         
 <nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#api-graphnet-deployment-icecube-cleaning-module--page-root" class="md-nav__link">cleaning_module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#graphnet.deployment.icecube.cleaning_module.I3PulseCleanerModule" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">I3PulseCleanerModule</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
   </ul>
 </nav>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#graphnet.deployment.icecube.cleaning_module.I3PulseCleanerModule" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">I3PulseCleanerModule</span></code></a>
       
+    
+    </li></ul>
     
     </li>
     <li class="md-nav__item">
@@ -457,7 +471,14 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#api-graphnet-deployment-icecube-cleaning-module--page-root" class="md-nav__link">cleaning_module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#graphnet.deployment.icecube.cleaning_module.I3PulseCleanerModule" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">I3PulseCleanerModule</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
   </ul>
 </nav>
               </div>
@@ -467,8 +488,42 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section id="cleaning-module">
-<h1 id="api-graphnet-deployment-icecube-cleaning-module--page-root">cleaning_module<a class="headerlink" href="#api-graphnet-deployment-icecube-cleaning-module--page-root" title="Link to this heading">¶</a></h1>
+  <section id="module-graphnet.deployment.icecube.cleaning_module">
+<span id="cleaning-module"></span><h1 id="api-graphnet-deployment-icecube-cleaning-module--page-root">cleaning_module<a class="headerlink" href="#api-graphnet-deployment-icecube-cleaning-module--page-root" title="Link to this heading">¶</a></h1>
+<p>IceCube I3InferenceModule.</p>
+<p>Contains functionality for writing model predictions to i3 files.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="graphnet.deployment.icecube.cleaning_module.I3PulseCleanerModule">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.deployment.icecube.cleaning_module.</span></span><span class="sig-name descname"><span class="pre">I3PulseCleanerModule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pulsemap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulsemap_extractor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gcd_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discard_empty_events</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/deployment/icecube/cleaning_module.html#I3PulseCleanerModule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.deployment.icecube.cleaning_module.I3PulseCleanerModule" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="graphnet.deployment.icecube.inference_module.html#graphnet.deployment.icecube.inference_module.I3InferenceModule" title="graphnet.deployment.icecube.inference_module.I3InferenceModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">I3InferenceModule</span></code></a></p>
+<p>A specialized module for pulse cleaning.</p>
+<p>It is assumed that the model provided has been trained for this.</p>
+<p>General class for inference on I3Frames (physics).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pulsemap</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the pulsmap that the model is expecting as input
+(the one that is being cleaned).</p></li>
+<li><p><strong>features</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – the features of the pulsemap that the model is expecting.</p></li>
+<li><p><strong>pulsemap_extractor</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="graphnet.data.extractors.icecube.i3featureextractor.html#graphnet.data.extractors.icecube.i3featureextractor.I3FeatureExtractor" title="graphnet.data.extractors.icecube.i3featureextractor.I3FeatureExtractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">I3FeatureExtractor</span></code></a>], <a class="reference internal" href="graphnet.data.extractors.icecube.i3featureextractor.html#graphnet.data.extractors.icecube.i3featureextractor.I3FeatureExtractor" title="graphnet.data.extractors.icecube.i3featureextractor.I3FeatureExtractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">I3FeatureExtractor</span></code></a>]</span>) – The extractor used to extract the pulsemap.</p></li>
+<li><p><strong>model_config</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="graphnet.utilities.config.model_config.html#graphnet.utilities.config.model_config.ModelConfig" title="graphnet.utilities.config.model_config.ModelConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelConfig</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – The ModelConfig (or path to it) that summarizes the
+model used for inference.</p></li>
+<li><p><strong>state_dict</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Path to state_dict containing the learned weights.</p></li>
+<li><p><strong>model_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name used for the model. Will help define the named
+entry in the I3Frame. E.g. “dynedge”.</p></li>
+<li><p><strong>gcd_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – path to associated gcd file.</p></li>
+<li><p><strong>threshold</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">0.7</span></code>) – the threshold for being considered a positive case.
+E.g., predictions &gt;= threshold will be considered
+to be signal, all else noise.</p></li>
+<li><p><strong>discard_empty_events</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – When true, this flag will eliminate events
+whose cleaned pulse series are empty. Can be used
+to speed up processing especially for noise
+simulation, since it will not do any writing or
+further calculations.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 </section>
 
 

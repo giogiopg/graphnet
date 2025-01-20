@@ -355,8 +355,7 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">torch.functional</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tensor</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">pytorch_lightning</span><span class="w"> </span><span class="kn">import</span> <span class="n">LightningModule</span>
 
@@ -540,90 +539,6 @@
         <span class="n">sin_emb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sin_emb</span><span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="n">four_distance</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
         <span class="n">rel_attn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projection</span><span class="p">(</span><span class="n">sin_emb</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">rel_attn</span></div>
-</div>
-
-
-<div class="viewcode-block" id="FeaturesProcessing">
-<a class="viewcode-back" href="../../../../api/graphnet.models.components.embedding.html#graphnet.models.components.embedding.FeaturesProcessing">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">FeaturesProcessing</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">""" Process the hits features by passing them through a embedding block. """</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="p">,</span>
-                    <span class="n">emb_dims</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
-                    <span class="n">n_features</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
-    <span class="p">):</span>
-<span class="w">        </span><span class="sd">""" Pass all the features through a embedding block before feed them to the model.</span>
-
-<span class="sd">            Args:</span>
-<span class="sd">                n_features: The number of features in the input data.</span>
-<span class="sd">                emb_dims: Dimensionality of the consecutive linear layers.</span>
-<span class="sd">        """</span>
-
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">emb_dims</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">emb_dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">emb_dims</span><span class="p">]</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">model_dim</span> <span class="o">=</span> <span class="n">emb_dims</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-        <span class="n">module_list</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">emb_dim</span> <span class="ow">in</span> <span class="n">emb_dims</span><span class="p">:</span>
-            <span class="n">module_list</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
-                                    <span class="n">nn</span><span class="o">.</span><span class="n">LayerNorm</span><span class="p">(</span><span class="n">n_features</span><span class="p">),</span>
-                                    <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">n_features</span><span class="p">,</span> <span class="n">emb_dim</span><span class="p">),</span>
-                                    <span class="n">nn</span><span class="o">.</span><span class="n">GELU</span><span class="p">()</span>
-            <span class="p">])</span>
-            <span class="n">n_features</span> <span class="o">=</span> <span class="n">emb_dim</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">emb</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">module_list</span><span class="p">)</span>
-
-
-<div class="viewcode-block" id="FeaturesProcessing.forward">
-<a class="viewcode-back" href="../../../../api/graphnet.models.components.embedding.html#graphnet.models.components.embedding.FeaturesProcessing.forward">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">emb</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_dim</span><span class="p">)</span></div>
-</div>
-
-
-<div class="viewcode-block" id="PositionalEncoding">
-<a class="viewcode-back" href="../../../../api/graphnet.models.components.embedding.html#graphnet.models.components.embedding.PositionalEncoding">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">PositionalEncoding</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">""" Sinusodial Position Embedding for continuous variables."""</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="p">,</span>
-                    <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span>
-                    <span class="n">seq_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span>
-    <span class="p">):</span>
-<span class="w">        </span><span class="sd">""" Associate an unique representation to each position in a sequence using Sinusoidal Fourier position encoding.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            dim: Dimension of the model</span>
-<span class="sd">            seq_length: Maximun length of the sequence.</span>
-
-<span class="sd">    """</span>
-
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-
-        <span class="n">pos_emb</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">seq_length</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
-        <span class="n">positions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">seq_length</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
-        <span class="n">div_term</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">*</span> <span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">10000.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">dim</span>  <span class="p">)</span>
-
-        <span class="n">pos_emb</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">positions</span> <span class="o">*</span> <span class="n">div_term</span><span class="p">)</span>
-        <span class="n">pos_emb</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">positions</span> <span class="o">*</span> <span class="n">div_term</span><span class="p">)</span>
-
-        <span class="n">pos_emb</span> <span class="o">=</span> <span class="n">pos_emb</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1">#pos_emb.hape: [1, seq, dim]</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s1">'pos_emb'</span><span class="p">,</span> <span class="n">pos_emb</span><span class="p">)</span>
-
-<div class="viewcode-block" id="PositionalEncoding.forward">
-<a class="viewcode-back" href="../../../../api/graphnet.models.components.embedding.html#graphnet.models.components.embedding.PositionalEncoding.forward">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="c1"># x.shape = [B, seq_len, dim]</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_emb</span><span class="p">[:,</span> <span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">:]</span>
-        <span class="k">return</span> <span class="n">x</span></div>
 </div>
 
 </pre></div>

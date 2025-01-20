@@ -644,8 +644,252 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section id="weight-events-oscprob">
-<h1 id="api-graphnet-data-extractors-km3net-utilities-weight-events-oscprob--page-root">weight_events_oscprob<a class="headerlink" href="#api-graphnet-data-extractors-km3net-utilities-weight-events-oscprob--page-root" title="Link to this heading">¶</a></h1>
+  <section id="module-graphnet.data.extractors.km3net.utilities.weight_events_oscprob">
+<span id="weight-events-oscprob"></span><h1 id="api-graphnet-data-extractors-km3net-utilities-weight-events-oscprob--page-root">weight_events_oscprob<a class="headerlink" href="#api-graphnet-data-extractors-km3net-utilities-weight-events-oscprob--page-root" title="Link to this heading">¶</a></h1>
+<p>import ROOT
+import numpy as np
+import km3flux
+from .utils_osc import _zipequalize, _pdgid2flavor
+import argparse</p>
+<p>OscProbDir = “/pbs/throng/km3net/software/oscprob/1.3”
+osc_prob_lib = OscProbDir + “/libOscProb.so”
+ROOT.gSystem.Load(osc_prob_lib)
+op = ROOT.OscProb</p>
+<dl>
+<dt>def _osc_prob(pmns, prem, flav_in, flav_out, energies, cos_zenith):</dt><dd><p>“””Execution of OscProb</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>pmns (pmns object): PMNS object from OscProb containing the oscillation parameters
+prem (prem object): PREM object from OscProb containing the earth model
+flav_in (array): Initial neutrino flavor
+flav_out (array): Final neutrino flavor
+energies (array): Neutrino energies
+cos_zenith (array): Cosine of the zenith angle</p>
+</dd>
+<dt>Returns:</dt><dd><p>array: The oscillation probabilites for each event.</p>
+</dd>
+</dl>
+<p>“””
+params = _zipequalize(flav_in, flav_out, energies, cos_zenith)</p>
+<p># use a PremModel to make the paths through the earth
+# with the class PremModel
+# chose an angle for the neutrino and fill the paths with cosTheta,
+# e.g. cosTheta = -1 (vertical up-going)
+P = []
+for fl_in, fl_out, E, cosZ in zip(<a href="#id1"><span class="problematic" id="id2">*</span></a>params):</p>
+<blockquote>
+<div><dl class="simple">
+<dt>if fl_in &lt; 0:</dt><dd><p>pmns.SetIsNuBar(True)</p>
+</dd>
+<dt>else:</dt><dd><p>pmns.SetIsNuBar(False)</p>
+</dd>
+</dl>
+<p>prem.FillPath(cosZ)
+pmns.SetPath(prem.GetNuPath())
+P.append(pmns.Prob(_pdgid2flavor(fl_in), _pdgid2flavor(fl_out), E))</p>
+</div></blockquote>
+<p>return P</p>
+</dd>
+<dt>def use_oscprob(flavour_in, flavour_out, energies, cos_zeniths, nu_params=None):</dt><dd><p>“””
+Interface to the oscprob library. Initialization of oscillation parameters and calculation of oscillation probabilities.</p>
+<dl class="simple">
+<dt>flavour_in<span class="classifier">array</span></dt><dd><p>Initial neutrino flavour</p>
+</dd>
+<dt>flavour_out<span class="classifier">array</span></dt><dd><p>Final neutrino flavour</p>
+</dd>
+<dt>energies<span class="classifier">array</span></dt><dd><p>Neutrino energies</p>
+</dd>
+<dt>cos_zeniths<span class="classifier">array</span></dt><dd><p>Cosine of the zenith angle</p>
+</dd>
+<dt>nu_params<span class="classifier">dict</span></dt><dd><p>A dict to give specific oscillation parameters. Default are the current best nufit values.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>p<span class="classifier">array</span></dt><dd><p>The oscillation probabilities for each event.</p>
+</dd>
+</dl>
+<p>“””</p>
+<p># oscprob config
+pmns = op.PMNS_Fast()
+prem = op.PremModel()</p>
+<p>ORCA_DEPTH_KM = 2.4  # km
+prem.SetDetPos(6371.0 - ORCA_DEPTH_KM)  # values from Zineb</p>
+<p># nufit parameters with SK atmospheric data. values from Nufit2022 in <a class="reference external" href="http://www.nu-fit.org/?q=node/256">http://www.nu-fit.org/?q=node/256</a>
+if nu_params is None:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>nu_params = {</dt><dd><p>“dm_21”: 7.41e-5,
+“dm_31”: 2.507e-3,  # if not inv_hierarchy else dm_21 - 2.465e-3
+“theta_12”: 33.41 * np.pi / 180,
+“theta_23”: 42.2 * np.pi / 180,  # if inverted ordering 49.0 * np.pi/180
+“theta_13”: 8.58 * np.pi / 180,  # if inverted ordering 8.57 * np.pi/180
+“dcp”: 232 * np.pi / 180,  # if inverted ordering 276 * np.pi / 180</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>pmns.SetDm(2, nu_params[“dm_21”])  # set delta_m21 in eV^2
+pmns.SetDm(3, nu_params[“dm_31”])  # set delta_m31 in eV^2
+pmns.SetAngle(1, 2, nu_params[“theta_12”])  # set Theta12 in radians
+pmns.SetAngle(1, 3, nu_params[“theta_13”])  # set Theta13 in radians
+pmns.SetAngle(2, 3, nu_params[“theta_23”])  # set Theta23 in radians
+pmns.SetDelta(1, 3, nu_params[“dcp”])  # set Delta13 in radians</p>
+<dl class="simple">
+<dt>p = _osc_prob(</dt><dd><p>pmns,
+prem,
+flavour_in,
+flavour_out,
+energies,
+cos_zeniths,</p>
+</dd>
+</dl>
+<p>)</p>
+<p>return p</p>
+</dd>
+<dt>def compute_osc_weight(nu_type, energy, dir_z, is_cc, oscillation=True, nu_params=None):</dt><dd><p>“””
+Computes oscillation weight based on event properties</p>
+<dl class="simple">
+<dt>nu_type<span class="classifier">array</span></dt><dd><p>The flavors (pdgid) of the particles for which to get the weights.</p>
+</dd>
+<dt>energy<span class="classifier">array</span></dt><dd><p>The energies of the interactions.</p>
+</dd>
+<dt>dir_z<span class="classifier">array</span></dt><dd><p>The z-dir, cos(theta), of the interaction.</p>
+</dd>
+<dt>is_cc<span class="classifier">array</span></dt><dd><p>The description of the current of the interaction: 2 is cc, 3 is nc.</p>
+</dd>
+<dt>oscillation<span class="classifier">bool</span></dt><dd><p>True for consider oscillations, false for not</p>
+</dd>
+<dt>nu_params<span class="classifier">dict</span></dt><dd><p>A dict to give specific oscillation parameters. Default are the current best nufit values.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>weight<span class="classifier">array</span></dt><dd><p>The oscillation weights for each event.</p>
+</dd>
+</dl>
+<p>“””
+honda = km3flux.flux.Honda()</p>
+<p># make sure these are all arrays (there were problems with data frames)
+nu_type = np.array(nu_type)
+energy = np.array(energy)
+dir_z = np.array(dir_z)
+is_cc = np.array(is_cc)</p>
+<dl class="simple">
+<dt>nu_dict = {</dt><dd><p>12: honda.flux(2014, “Frejus”, solar=”min”, averaged=”azimuth”)[“nue”],
+14: honda.flux(2014, “Frejus”, solar=”min”, averaged=”azimuth”)[“numu”],
+-12: honda.flux(2014, “Frejus”, solar=”min”, averaged=”azimuth”)[“anue”],
+-14: honda.flux(2014, “Frejus”, solar=”min”, averaged=”azimuth”)[“anumu”],</p>
+</dd>
+</dl>
+<p>}</p>
+<p># nufit parameters with SK atmospheric data. values from Nufit2022 in <a class="reference external" href="http://www.nu-fit.org/?q=node/256">http://www.nu-fit.org/?q=node/256</a>
+if nu_params is None:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>nu_params = {</dt><dd><p>“dm_21”: 7.42e-5,
+“dm_31”: 2.510e-3,
+“theta_12”: 33.45 * np.pi / 180,
+“theta_23”: 42.1 * np.pi / 180,
+“theta_13”: 8.62 * np.pi / 180,
+“dcp”: 230 * np.pi / 180,</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>weight = np.zeros(len(nu_type))</p>
+<p># make sure the correct is_cc convention is used
+cc_mask = (</p>
+<blockquote>
+<div><p>is_cc == 1</p>
+</div></blockquote>
+<p>)  # careful definition of is_cc
+nc_mask = np.invert(cc_mask)</p>
+<p>for flav in [12, 14]:</p>
+<blockquote>
+<div><p># get oscillation probs for CC events
+if oscillation:</p>
+<blockquote>
+<div><p># convention: use - dir_z for this
+# flavour_in,flavour_out,…</p>
+<dl class="simple">
+<dt>osc_prob_cc = use_oscprob(</dt><dd><p>flav * np.sign(nu_type[cc_mask]),
+nu_type[cc_mask],
+energy[cc_mask],
+-dir_z[cc_mask],
+nu_params,</p>
+</dd>
+</dl>
+<p>)</p>
+</div></blockquote>
+<dl>
+<dt>else:</dt><dd><p>osc_prob_cc = np.zeros(np.count_nonzero(cc_mask))
+flavor_out_is_same_as_flavor_in_mask = (</p>
+<blockquote>
+<div><p>flav * np.sign(nu_type[cc_mask]) == nu_type[cc_mask]</p>
+</div></blockquote>
+<p>)
+osc_prob_cc[flavor_out_is_same_as_flavor_in_mask] = np.ones(</p>
+<blockquote>
+<div><p>np.count_nonzero(flavor_out_is_same_as_flavor_in_mask)</p>
+</div></blockquote>
+<p>)</p>
+</dd>
+</dl>
+<p># get flux in a loop as it only takes single numbers (as of yet)
+flux = []
+names = np.vectorize(nu_dict.get)(flav * np.sign(nu_type))
+flux = [</p>
+<blockquote>
+<div><p>nu_dict[flav * np.sign(nu_type[i])](energy[i], dir_z[i])
+for i in range(len(nu_type))</p>
+</div></blockquote>
+<p>]</p>
+<p>flux = np.asarray(flux)</p>
+<p># set all the CC weights: osc_prob times flux
+weight[cc_mask] += osc_prob_cc * flux[cc_mask]</p>
+<p># set all NC weights; total flux, consists of e &amp; mu, no oscillations
+weight[nc_mask] += flux[nc_mask]</p>
+</div></blockquote>
+<p>return weight</p>
+</dd>
+<dt>def compute_evt_weight(</dt><dd><p>nu_type, energy, dir_z, is_cc, w2, livetime, ngen, oscillation=True, nu_params=None</p>
+</dd>
+<dt>):</dt><dd><p>“””
+Computes event weight with oscillations</p>
+<dl class="simple">
+<dt>nu_type<span class="classifier">array</span></dt><dd><p>The flavors (pdgid) of the particles for which to get the weights.</p>
+</dd>
+<dt>energy<span class="classifier">array</span></dt><dd><p>The energies of the interactions.</p>
+</dd>
+<dt>dir_z<span class="classifier">array</span></dt><dd><p>The z-dir, cos(theta), of the interaction.</p>
+</dd>
+<dt>is_cc<span class="classifier">array</span></dt><dd><p>The description of the current of the interaction: 2 is cc, 3 is nc.</p>
+</dd>
+<dt>oscillation<span class="classifier">bool</span></dt><dd><p>True for consider oscillations, false for not</p>
+</dd>
+<dt>nu_params<span class="classifier">dict</span></dt><dd><p>A dict to give specific oscillation parameters. Default are the current best nufit values.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>weight<span class="classifier">array</span></dt><dd><p>The weights for each event including the oscillations.</p>
+</dd>
+</dl>
+<p>“””</p>
+<p># make sure these are all arrays (there were problems with data frames)
+nu_type = np.array(nu_type)
+energy = np.array(energy)
+dir_z = np.array(dir_z)
+is_cc = np.array(is_cc)
+w2 = np.array(w2)
+livetime = np.array(livetime)
+ngen = np.array(ngen)</p>
+<dl class="simple">
+<dt>oscilation_w = compute_osc_weight(</dt><dd><p>nu_type, energy, dir_z, is_cc, oscillation, nu_params</p>
+</dd>
+</dl>
+<p>)
+weight = livetime * w2 / ngen * oscilation_w</p>
+<p>return weight</p>
+</dd>
+</dl>
 </section>
 
 

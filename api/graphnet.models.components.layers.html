@@ -441,18 +441,6 @@
         <li class="md-nav__item"><a href="#graphnet.models.components.layers.Block.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
         </li></ul>
             </nav>
-        </li>
-        <li class="md-nav__item"><a href="#graphnet.models.components.layers.Encoder_block" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">Encoder_block</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.models.components.layers.Encoder_block.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
-        </li></ul>
-            </nav>
-        </li>
-        <li class="md-nav__item"><a href="#graphnet.models.components.layers.NormFormer_block" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NormFormer_block</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.models.components.layers.NormFormer_block.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
-        </li></ul>
-            </nav>
         </li></ul>
             </nav>
         </li>
@@ -587,34 +575,6 @@
     
     
       <a href="#graphnet.models.components.layers.Block.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
-      
-    
-    </li></ul>
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.models.components.layers.Encoder_block" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">Encoder_block</span></code></a>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.models.components.layers.Encoder_block.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
-      
-    
-    </li></ul>
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.models.components.layers.NormFormer_block" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NormFormer_block</span></code></a>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#graphnet.models.components.layers.NormFormer_block.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
       
     
     </li></ul>
@@ -814,18 +774,6 @@
         <li class="md-nav__item"><a href="#graphnet.models.components.layers.Block" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">Block</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#graphnet.models.components.layers.Block.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
-        </li></ul>
-            </nav>
-        </li>
-        <li class="md-nav__item"><a href="#graphnet.models.components.layers.Encoder_block" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">Encoder_block</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.models.components.layers.Encoder_block.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
-        </li></ul>
-            </nav>
-        </li>
-        <li class="md-nav__item"><a href="#graphnet.models.components.layers.NormFormer_block" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NormFormer_block</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#graphnet.models.components.layers.NormFormer_block.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">forward()</span></code></a>
         </li></ul>
             </nav>
         </li></ul>
@@ -1185,67 +1133,6 @@ parameters if not <cite>None</cite>.</p></li>
 </ul>
 </dd>
 </dl>
-</dd></dl>
-</dd></dl>
-<dl class="py class">
-<dt class="sig sig-object py" id="graphnet.models.components.layers.Encoder_block">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.models.components.layers.</span></span><span class="sig-name descname"><span class="pre">Encoder_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_heads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout_attn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout_FFNN</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/models/components/layers.html#Encoder_block"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.models.components.layers.Encoder_block" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
-<p>Encoder block for Transformer model.</p>
-<p>Input data goes through encoder block with MHA and a FFNN with GELU activation function.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dim</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">128</span></code>) – Dimension of the model.</p></li>
-<li><p><strong>num_heads</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">8</span></code>) – Number of heads in MHA.</p></li>
-<li><p><strong>dropout_attn</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">0.2</span></code>) – Dropout to be applied in MHA.</p></li>
-<li><p><strong>hidden_dim</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">256</span></code>) – Dimension of FFNN.</p></li>
-<li><p><strong>dropout_FFNN</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">0.2</span></code>) – Dropout to be applied in MHA.</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="graphnet.models.components.layers.Encoder_block.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attn_mask</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/models/components/layers.html#Encoder_block.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.models.components.layers.Encoder_block.forward" title="Link to this definition">¶</a></dt>
-<dd><p>Define the computation performed at every call.</p>
-<p>Should be overridden by all subclasses.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Although the recipe for forward pass needs to be defined within
-this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
-instead of this since the former takes care of running the
-registered hooks while the latter silently ignores them.</p>
-</div>
-</dd></dl>
-</dd></dl>
-<dl class="py class">
-<dt class="sig sig-object py" id="graphnet.models.components.layers.NormFormer_block">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphnet.models.components.layers.</span></span><span class="sig-name descname"><span class="pre">NormFormer_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_heads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout_attn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/models/components/layers.html#NormFormer_block"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.models.components.layers.NormFormer_block" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
-<p>NormFormer block for Transformer model.</p>
-<p>Input data goes through encoder block with MHA and a FFNN with GELU activation function.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dim</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">128</span></code>) – Dimension of the model.</p></li>
-<li><p><strong>num_heads</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">8</span></code>) – Number of heads in MHA.</p></li>
-<li><p><strong>dropout_attn</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">0.2</span></code>) – Dropout to be applied in MHA.</p></li>
-<li><p><strong>hidden_dim</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">256</span></code>) – Dimension of FFNN.</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="graphnet.models.components.layers.NormFormer_block.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls_token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attn_mask</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/graphnet/models/components/layers.html#NormFormer_block.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#graphnet.models.components.layers.NormFormer_block.forward" title="Link to this definition">¶</a></dt>
-<dd><p>Define the computation performed at every call.</p>
-<p>Should be overridden by all subclasses.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Although the recipe for forward pass needs to be defined within
-this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
-instead of this since the former takes care of running the
-registered hooks while the latter silently ignores them.</p>
-</div>
 </dd></dl>
 </dd></dl>
 </section>
