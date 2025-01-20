@@ -4,7 +4,6 @@ from typing import Union, List, Any, Dict
 
 
 from graphnet.data.readers import GraphNeTFileReader
-from graphnet.data.extractors.km3net import KM3NeTExtractor
 from graphnet.data.extractors.km3net import (
     KM3NeTTruthExtractor,
     KM3NeTFullPulseExtractor,
@@ -28,7 +27,7 @@ class KM3NeTReader(GraphNeTFileReader):
         KM3NeTFullPulseExtractor,
         KM3NeTTriggPulseExtractor,
         KM3NeTHNLTruthExtractor,
-        KM3NeTRegularRecoExtractor, 
+        KM3NeTRegularRecoExtractor,
         KM3NeTHNLRecoExtractor,
     ]
 
@@ -68,5 +67,3 @@ class KM3NeTReader(GraphNeTFileReader):
             A list of file paths.
         """
         return super().find_files(path)
-
-    

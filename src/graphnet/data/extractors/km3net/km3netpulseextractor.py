@@ -1,8 +1,9 @@
+"""Module for extracting pulse information from a KM3NeT file."""
+
 from typing import Any, Dict
 import numpy as np
 import pandas as pd
 
-from graphnet.data.extractors import Extractor
 from .km3netextractor import KM3NeTExtractor
 from graphnet.data.extractors.km3net.utilities.km3net_utilities import (
     create_unique_id_filetype,
@@ -61,7 +62,9 @@ class KM3NeTPulseExtractor(KM3NeTExtractor):
         df = pandas_df.reset_index()
 
         # Add unique event ID
-        unique_extended = [int(unique_id[index]) for index in df["entry"].values]
+        unique_extended = [
+            int(unique_id[index]) for index in df["entry"].values
+        ]
         df["event_no"] = unique_extended
 
         # Optionally filter triggered pulses
@@ -141,6 +144,7 @@ class KM3NeTTriggPulseExtractor(KM3NeTPulseExtractor):
     """Extractor for triggered pulses."""
 
     def __init__(self, name: str = "trigg_pulse_map"):
+        """Initialize the extractor."""
         super().__init__(name, filter_triggered_pulses=True)
 
 
@@ -148,4 +152,5 @@ class KM3NeTFullPulseExtractor(KM3NeTPulseExtractor):
     """Extractor for all pulses (no filtering)."""
 
     def __init__(self, name: str = "full_pulse_map"):
+        """Initialize the extractor."""
         super().__init__(name, filter_triggered_pulses=False)

@@ -46,27 +46,6 @@ class AzimuthReconstruction(AzimuthReconstructionWithKappa):
         return angle
 
 
-class DirectionReconstructionWithUncertainty(StandardLearnedTask):
-    """Reconstructs direction and associated uncertainty (log(var))."""
-
-    # Requires three features: untransformed points in (x,y,z)-space.
-    default_target_labels = ["direction"]  # contains dir_x, dir_y, dir_z
-    # see Direction label in /src/graphnet/training/labels.py
-    default_prediction_labels = [
-        "dir_x_pred",
-        "dir_y_pred",
-        "dir_z_pred",
-        "dir_x_sigma",
-        "dir_y_sigma",
-        "dir_z_sigma",
-    ]
-    nb_inputs = 6
-
-    def _forward(self, x: Tensor) -> Tensor:
-        # Transform outputs to angle and prepare prediction
-        return x
-
-
 class DirectionReconstructionWithKappa(StandardLearnedTask):
     """Reconstructs direction with kappa from the 3D-vMF distribution."""
 
@@ -216,30 +195,6 @@ class PositionReconstruction(StandardLearnedTask):
         "position_z_pred",
     ]
     nb_inputs = 3
-
-    def _forward(self, x: Tensor) -> Tensor:
-        # Scale to roughly the right order of magnitude
-        x[:, 0] = x[:, 0] * 1e2
-        x[:, 1] = x[:, 1] * 1e2
-        x[:, 2] = x[:, 2] * 1e2
-
-        return x
-
-
-class PositionReconstructionWithUncertainty(EnergyReconstruction):
-    """Reconstructs vertex position and associated uncertainty (log(var))."""
-
-    # Requires one feature in addition to `EnergyReconstruction`: log-variance (uncertainty).
-    default_target_labels = ["position"]
-    default_prediction_labels = [
-        "position_x_pred", 
-        "position_y_pred", 
-        "position_z_pred", 
-        "position_x_sigma", 
-        "position_y_sigma", 
-        "position_z_sigma",
-    ]
-    nb_inputs = 6
 
     def _forward(self, x: Tensor) -> Tensor:
         # Scale to roughly the right order of magnitude

@@ -7,7 +7,7 @@ from numpy.random import Generator
 from .graph_definition import GraphDefinition
 from graphnet.models.detector import Detector
 from graphnet.models.graphs.edges import KNNEdges
-from graphnet.models.graphs.nodes import NodeDefinition, NodesAsPulses, NodesAsHitsTimeSeries
+from graphnet.models.graphs.nodes import NodeDefinition, NodesAsPulses
 
 
 class KNNGraph(GraphDefinition):
@@ -99,40 +99,4 @@ class EdgelessGraph(GraphDefinition):
             perturbation_dict=perturbation_dict,
             seed=seed,
             **kwargs,
-        )
-
-class HitsSequence(GraphDefinition):
-    """A Graph representation without edges, i.e. a sequence of hits."""
-
-    def __init__(
-        self,
-        detector: Detector,
-        node_definition: NodeDefinition = None,
-        input_feature_names: Optional[List[str]] = None,
-        dtype: Optional[torch.dtype] = torch.float,
-        perturbation_dict: Optional[Dict[str, float]] = None,
-        seed: Optional[Union[int, Generator]] = None,
-    ) -> None:
-        """Construct sequential graph representation.
-
-        Args:
-            detector: Detector that represents your data.
-            node_definition: Definition of nodes in the graph.
-            input_feature_names: Name of input feature columns.
-            dtype: data type for node features.
-            perturbation_dict: Dictionary mapping a feature name to a standard
-                               deviation according to which the values for this
-                               feature should be randomly perturbed. Defaults
-                               to None.
-            seed: seed or Generator used to randomly sample perturbations.
-                  Defaults to None.
-        """
-        # Base class constructor
-        super().__init__(
-            detector=detector,
-            node_definition = node_definition or NodesAsHitsTimeSeries(),
-            dtype=dtype,
-            input_feature_names=input_feature_names,
-            perturbation_dict=perturbation_dict,
-            seed=seed,
         )

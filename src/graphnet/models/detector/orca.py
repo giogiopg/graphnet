@@ -8,7 +8,6 @@ from graphnet.models.detector.detector import Detector
 from graphnet.constants import ICECUBE_GEOMETRY_TABLE_DIR
 
 
-
 class ORCA115(Detector):
     """`Detector` class for ORCA-115."""
 
@@ -94,7 +93,6 @@ class ORCA6(Detector):
         return (x + 0.23) * 12.9
 
 
-
 class IVANORCA115(Detector):
     """`Detector` class for ORCA-115."""
 
@@ -108,14 +106,14 @@ class IVANORCA115(Detector):
     def feature_map(self) -> Dict[str, Callable]:
         """Map standardization functions to each dimension of input data."""
         feature_map = {
-            "t": self._identity, #self._dom_time,
-            "pos_x": self._identity, #self._dom_xy,
-            "pos_y": self._identity, #self._dom_xy,
-            "pos_z": self._identity, #self._dom_z,
-            "dir_x": self._identity, #self._dir_xy,
-            "dir_y": self._identity, #self._dir_xy,
-            "dir_z": self._identity, #self._dir_z,
-            "tot": self._identity, #self._tot,
+            "t": self._identity,  # self._dom_time,
+            "pos_x": self._identity,  # self._dom_xy,
+            "pos_y": self._identity,  # self._dom_xy,
+            "pos_z": self._identity,  # self._dom_z,
+            "dir_x": self._identity,  # self._dir_xy,
+            "dir_y": self._identity,  # self._dir_xy,
+            "dir_z": self._identity,  # self._dir_z,
+            "tot": self._identity,  # self._tot,
         }
         return feature_map
 

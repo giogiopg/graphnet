@@ -48,8 +48,18 @@ def main(backend: str) -> None:
     wait_time = 0.00  # sec.
 
     # Define graph representation
-    graph_definition = KNNGraph(detector=IceCubeDeepCore(), 
-                                input_feature_names = ['dom_x', 'dom_y', 'dom_z', 'dom_time', 'charge', 'rde', 'pmt_area'])
+    graph_definition = KNNGraph(
+        detector=IceCubeDeepCore(),
+        input_feature_names=[
+            "dom_x",
+            "dom_y",
+            "dom_z",
+            "dom_time",
+            "charge",
+            "rde",
+            "pmt_area",
+        ],
+    )
 
     for table in [pulsemap, truth_table]:
         # Get column names from backend

@@ -31,7 +31,17 @@ class FEATURES:
     ]
     KAGGLE = ["x", "y", "z", "time", "charge", "auxiliary"]
     LIQUIDO = ["sipm_x", "sipm_y", "sipm_z", "t"]
-    KM3NET = ["t", "pos_x", "pos_y", "pos_z", "dir_x", "dir_y", "dir_z", "tot", "trig"]
+    KM3NET = [
+        "t",
+        "pos_x",
+        "pos_y",
+        "pos_z",
+        "dir_x",
+        "dir_y",
+        "dir_z",
+        "tot",
+        "trig",
+    ]
     KM3NET_HNL = KM3NET
 
 

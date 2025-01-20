@@ -11,5 +11,4 @@ from .nodes import (
     PercentileClusters,
     NodeAsDOMTimeSeries,
     IceMixNodes,
-    NodesAsHitsTimeSeries,
 )
