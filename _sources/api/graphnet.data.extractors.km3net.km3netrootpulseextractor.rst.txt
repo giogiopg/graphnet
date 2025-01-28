@@ -1,8 +1,0 @@
-
-km3netrootpulseextractor
-========================
-
-.. automodule:: graphnet.data.extractors.km3net.km3netrootpulseextractor
-   :members:
-   :undoc-members:
-   :show-inheritance:

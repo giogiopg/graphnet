@@ -1,8 +1,0 @@
-
-km3netrootreader
-================
-
-.. automodule:: graphnet.data.readers.km3netrootreader
-   :members:
-   :undoc-members:
-   :show-inheritance:

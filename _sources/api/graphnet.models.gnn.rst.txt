@@ -23,7 +23,6 @@ gnn
    graphnet.models.gnn.gnn
    graphnet.models.gnn.icemix
    graphnet.models.gnn.particlenet
-   graphnet.models.gnn.transformer
 
 
 
