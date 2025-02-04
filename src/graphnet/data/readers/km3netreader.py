@@ -1,9 +1,10 @@
 """Module for reading KM3NeT files."""
 
-from typing import Union, List, Any, Dict
+from typing import TYPE_CHECKING, Union, List, Any, Dict
 
 
 from graphnet.data.readers import GraphNeTFileReader
+from graphnet.utilities.imports import has_km3net_package
 from graphnet.data.extractors.km3net import (
     KM3NeTTruthExtractor,
     KM3NeTFullPulseExtractor,
@@ -15,7 +16,8 @@ from graphnet.data.extractors.km3net import (
 
 
 # km3net specific imports
-import km3io as ki
+if has_icecube_package() or TYPE_CHECKING:
+    import km3io as ki # pyright: reportMissingImports=false
 
 
 class KM3NeTReader(GraphNeTFileReader):
