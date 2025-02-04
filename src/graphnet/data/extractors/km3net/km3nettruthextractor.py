@@ -12,7 +12,7 @@ from graphnet.data.extractors.km3net.utilities.km3net_utilities import (
     assert_no_uint_values,
     filter_None_NaN,
 )
-if has_icecube_package() or TYPE_CHECKING:
+if has_km3net_package() or TYPE_CHECKING:
     import km3io as ki
 
 class KM3NeTTruthExtractor(KM3NeTExtractor):

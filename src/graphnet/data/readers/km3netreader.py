@@ -16,7 +16,7 @@ from graphnet.data.extractors.km3net import (
 
 
 # km3net specific imports
-if has_icecube_package() or TYPE_CHECKING:
+if has_km3net_package() or TYPE_CHECKING:
     import km3io as ki # pyright: reportMissingImports=false
 
 
