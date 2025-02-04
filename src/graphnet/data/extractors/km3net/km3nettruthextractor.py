@@ -3,7 +3,7 @@
 from typing import Any, Dict
 import numpy as np
 import pandas as pd
-import km3io as ki
+from graphnet.utilities.imports import has_km3net_package
 
 from .km3netextractor import KM3NeTExtractor
 from graphnet.data.extractors.km3net.utilities.km3net_utilities import (
@@ -12,7 +12,8 @@ from graphnet.data.extractors.km3net.utilities.km3net_utilities import (
     assert_no_uint_values,
     filter_None_NaN,
 )
-
+if has_icecube_package() or TYPE_CHECKING:
+    import km3io as ki
 
 class KM3NeTTruthExtractor(KM3NeTExtractor):
     """Class for extracting the truth information from a file."""
