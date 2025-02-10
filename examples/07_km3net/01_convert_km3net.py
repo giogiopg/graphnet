@@ -19,11 +19,13 @@ from graphnet.data.extractors.km3net import (
 from graphnet.utilities.argparse import ArgumentParser
 
 
-def main(backend: str, triggered: str, HNL: str) -> None:
+def main(backend: str, triggered: str, HNL: str, OUTPUT_DIR: str) -> None:
     """Convert ROOT files from KM3NeT to `backend` format."""
     warnings.simplefilter(action="ignore", category=FutureWarning)
 
     input_dir = [f"{TEST_DATA_DIR}/km3net"]
+    if OUTPUT_DIR is not "None":
+        outdir = f"{OUTPUT_DIR}/{backend}"
     outdir = f"{EXAMPLE_OUTPUT_DIR}/{backend}"
     os.makedirs(outdir, exist_ok=True)
     print(60*'*')
@@ -89,8 +91,13 @@ if __name__ == "__main__":
         choices=["km3net-vars", "hnl-vars"],
         help="Km3net truth or adding Heavy Neutral Lepton info",
     )
+    parser.add_argument(
+        "OUTPUT_DIR",
+        default="None",
+        help="Output directory (optional)",
+    )
 
     args, unknown = parser.parse_known_args()
 
     # Run example script
-    main(args.backend, args.triggered, args.HNL)
+    main(args.backend, args.triggered, args.HNL, args.OUTPUT_DIR)
